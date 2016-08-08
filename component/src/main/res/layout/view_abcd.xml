@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp">
+
+    <!--###########################<First>##############################-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:text="Local" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="aActivity"
+        android:id="@+id/aActivity" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="bActivity"
+        android:id="@+id/bActivity" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="cActivity"
+        android:id="@+id/cActivity" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="dActivity"
+        android:id="@+id/dActivity" />
+
+    <!--###########################<Second>##############################-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:text="Second" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="secaActivity"
+        android:id="@+id/secaActivity" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="secbActivity"
+        android:id="@+id/secbActivity" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="seccActivity"
+        android:id="@+id/seccActivity" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="secdActivity"
+        android:id="@+id/secdActivity" />
+
+    <!--#########################################################-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:text="Second" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="mainActivity"
+        android:id="@+id/mainActivity" />
+
+</LinearLayout>

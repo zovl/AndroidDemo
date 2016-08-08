@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <!--###########################<Build>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="Build" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Build"
+            android:id="@+id/build" />
+
+        <!--###########################<System>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="System" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="System"
+            android:id="@+id/system" />
+
+        <!--###########################<Runtime>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="Runtime" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Runtime"
+            android:id="@+id/memory" />
+
+        <!--###########################<ActivityManager>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="ActivityManager" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="ActivityManager"
+            android:id="@+id/activityManager" />
+
+        <!--###########################<PackageManager>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="PackageManager" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="PackageManager"
+            android:id="@+id/packageManager" />
+
+        <!--###########################<Context>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="Context" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Context"
+            android:id="@+id/context" />
+
+        <!--###########################<Debug>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="Debug" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Debug"
+            android:id="@+id/debug" />
+
+        <!--###########################<Screen>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="Screen" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Screen"
+            android:id="@+id/screen" />
+
+        <!--###########################<Battery/Power>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="Battery/Power" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="battery"
+            android:id="@+id/intent" />
+
+    </LinearLayout>
+</ScrollView>

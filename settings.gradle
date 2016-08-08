@@ -1,0 +1,12 @@
+include ':app',
+        ':system',
+
+        ':media',
+
+        ':thread',
+
+        ':component',
+        ':lib-framework',
+
+        ':GLRecorderDemo',
+        ':GLRecorderLib'

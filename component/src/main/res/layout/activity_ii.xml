@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <!--###########################<Finish>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:text="Finish" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="isFinishing"
+            android:id="@+id/isFinishing" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="finish"
+            android:id="@+id/finish" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="finishAfterTransition"
+            android:id="@+id/finishAfterTransition" />
+
+        <!--###########################<FinishAndRemove>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:text="FinishAndRemove" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="finishAndRemoveTask"
+            android:id="@+id/finishAndRemoveTask" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="finishAffinity"
+            android:id="@+id/finishAffinity" />
+
+        <!--###########################<Background>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:text="Background" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="moveTaskToBack"
+            android:id="@+id/moveTaskToBack" />
+
+        <!--###########################<LockTask>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:text="LockTask" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="startLockTask"
+            android:id="@+id/startLockTask" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="stopLockTask"
+            android:id="@+id/stopLockTask" />
+
+        <!--显示-->
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@null"
+            android:scaleType="fitXY"
+            android:id="@+id/image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text=""
+            android:id="@+id/text" />
+
+    </LinearLayout>
+</ScrollView>

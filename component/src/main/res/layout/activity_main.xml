@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <!--###########################<Activity>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="Activity" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="iActivity"
+            android:id="@+id/iActivity" />
+
+        <!--###########################<first>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="first" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="aActivity"
+            android:id="@+id/aActivity" />
+
+        <!--###########################<second>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="second" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="secaActivity"
+            android:id="@+id/secaActivity" />
+
+        <!--###########################<system>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="system" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="appstartActivity"
+            android:id="@+id/appstartActivity" />
+
+    </LinearLayout>
+</ScrollView>

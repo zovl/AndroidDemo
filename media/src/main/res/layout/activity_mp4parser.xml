@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <!--视频剪辑-->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="剪辑视频路径"
+            android:text=""
+            android:id="@+id/trimPath"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="开始时间（毫秒）"
+            android:text="25000"
+            android:id="@+id/insertStartTime"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="结束时间（毫秒）"
+            android:text="265000"
+            android:id="@+id/insertEndTime"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="trim"
+            android:id="@+id/trim" />
+
+        <!--提取视频-->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="提取视频路径"
+            android:text=""
+            android:id="@+id/extractVideoPath"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="extractVideo"
+            android:id="@+id/extractVideo" />
+
+        <!--提取音频-->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="提取音频路径"
+            android:text=""
+            android:id="@+id/extractAudioPath"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="extractAudio"
+            android:id="@+id/extractAudio" />
+
+        <!--音频视频合成-->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="视频合成路径"
+            android:text=""
+            android:id="@+id/muxVideoPath"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="音频合成路径"
+            android:text=""
+            android:id="@+id/muxAudioPath"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="mux"
+            android:id="@+id/mux" />
+
+        <!--视频合成-->
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="mutilMux"
+            android:id="@+id/mutilMux" />
+
+        <!--显示-->
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@null"
+            android:scaleType="fitXY"
+            android:id="@+id/image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text=""
+            android:id="@+id/text" />
+
+    </LinearLayout>
+</ScrollView>

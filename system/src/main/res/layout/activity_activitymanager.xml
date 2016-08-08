@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <!--###########################<Progress/Task>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="Progress/Task" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="runningAppProcesses"
+            android:id="@+id/runningAppProcesses" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="runningServices"
+            android:id="@+id/runningServices" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="appTasks"
+            android:id="@+id/appTasks" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="runningTasks@deprecated"
+            android:id="@+id/runningTasks" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="recentTasks@deprecated"
+            android:id="@+id/recentTasks" />
+
+        <!--###########################<Memory>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="Memory" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getMemoryInfo"
+            android:id="@+id/getMemoryInfo" />
+
+        <!--显示-->
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@null"
+            android:scaleType="fitXY"
+            android:id="@+id/image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text=""
+            android:id="@+id/text" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <!--###########################<PackageInfo>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="PackageInfo" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getInstalledPackages"
+            android:id="@+id/getInstalledPackages" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getPackageInfo"
+            android:id="@+id/getPackageInfo" />
+
+        <EditText
+            android:id="@+id/getPackageArchiveInfo_edit"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="center_horizontal"
+            android:text="/mnt/sdcard/app.apk"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getPackageArchiveInfo"
+            android:id="@+id/getPackageArchiveInfo" />
+
+        <!--###########################<ApplicationInfo>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="ApplicationInfo" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getInstalledApplications"
+            android:id="@+id/getInstalledApplications" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getApplicationInfo"
+            android:id="@+id/getApplicationInfo" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getActivityInfo"
+            android:id="@+id/getActivityInfo" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getReceiverInfo"
+            android:id="@+id/getReceiverInfo" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getServiceInfo"
+            android:id="@+id/getServiceInfo" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getProviderInfo"
+            android:id="@+id/getProviderInfo" />
+
+        <!--###########################<Intent>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="Intent" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getLaunchIntentForPackage"
+            android:id="@+id/getLaunchIntentForPackage" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getLeanbackLaunchIntentForPackage"
+            android:id="@+id/getLeanbackLaunchIntentForPackage" />
+
+        <!--显示-->
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@null"
+            android:scaleType="fitXY"
+            android:id="@+id/image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text=""
+            android:id="@+id/text" />
+
+    </LinearLayout>
+</ScrollView>
