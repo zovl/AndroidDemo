@@ -7,14 +7,14 @@ import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.thread.demo.R;
 
-public class AppstartActivity extends TBaseActivity {
+public class MainActivity extends TBaseActivity {
 
     @Bind(R.id.root)
     View root;
 
     @Override
     public int getContentView() {
-        return R.layout.activity_appstart;
+        return R.layout.activity_main;
     }
 
     @OnClick({R.id.build})
