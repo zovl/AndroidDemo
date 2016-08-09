@@ -17,7 +17,7 @@ import com.googlecode.mp4parser.authoring.builder.DefaultMp4Builder;
 import com.googlecode.mp4parser.authoring.container.mp4.MovieCreator;
 import com.googlecode.mp4parser.authoring.tracks.AACTrackImpl;
 import com.googlecode.mp4parser.authoring.tracks.CroppedTrack;
-import com.googlecode.mp4parser.authoring.tracks.H264TrackImpl;
+import com.googlecode.mp4parser.authoring.tracks.h264.H264TrackImpl;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -102,7 +102,7 @@ public class MP4parserActivity extends TBaseActivity {
         muxAudioPath.setText(videoPath);
     }
 
-    private String videoPath, audioPath;
+    private File dstVideoPath, dstAudioPath;
 
     @OnClick({R.id.trim,
             R.id.extractVideo,
@@ -110,7 +110,9 @@ public class MP4parserActivity extends TBaseActivity {
             R.id.mux,
             R.id.mutilMux})
     public void onClick(View view) {
+
         switch (view.getId()) {
+
             case R.id.trim:
                 new Thread(new Runnable() {
                     @Override
@@ -129,44 +131,47 @@ public class MP4parserActivity extends TBaseActivity {
                     }
                 }).start();
                 break;
+
             case R.id.extractAudio:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         final String src = extractAudioPath.getText().toString();
-                        final File dst = StorageUtil.getRootFile("_mp4parser_audio.mp4");
-                        boolean flag = MP4parserHelper.extractAudio(src, dst.getPath());
+                        dstAudioPath = StorageUtil.getRootFile("_mp4parser_audio.mp4");
+                        boolean flag = MP4parserHelper.extractAudio(src, dstAudioPath.getPath());
                         if (flag)
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    toastShort(dst.getAbsolutePath());
-                                    audioPath = dst.getAbsolutePath();
-                                    setText(dst.getAbsolutePath() + "\n");
+                                    toastShort(dstAudioPath.getAbsolutePath());
+                                    setText(dstAudioPath.getAbsolutePath() + "\n");
+                                    muxAudioPath.setText(dstAudioPath.getPath());
                                 }
                             });
                     }
                 }).start();
                 break;
+
             case R.id.extractVideo:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         final String src = extractVideoPath.getText().toString();
-                        final File dst = StorageUtil.getRootFile("_mp4parser_video.mp4");
-                        boolean flag = MP4parserHelper.extractVideo(src, dst.getPath());
+                        dstVideoPath = StorageUtil.getRootFile("_mp4parser_video.mp4");
+                        boolean flag = MP4parserHelper.extractVideo(src, dstVideoPath.getPath());
                         if (flag)
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    toastShort(dst.getAbsolutePath());
-                                    videoPath = dst.getAbsolutePath();
-                                    setText(dst.getAbsolutePath() + "\n");
+                                    toastShort(dstVideoPath.getAbsolutePath());
+                                    setText(dstVideoPath.getAbsolutePath() + "\n");
+                                    muxVideoPath.setText(dstVideoPath.getPath());
                                 }
                             });
                     }
                 }).start();
                 break;
+
             case R.id.mux:
                 new Thread(new Runnable() {
                     @Override
@@ -186,13 +191,17 @@ public class MP4parserActivity extends TBaseActivity {
                     }
                 }).start();
                 break;
+
             case R.id.mutilMux:
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         final String path = StorageUtil.getRootExitPath("video.mp4");
                         final File dst = StorageUtil.getRootFile("_mp4parser_mutilMux.mp4");
-                        boolean flag = MP4parserHelper.muxMedia(new String[]{ new String(path), new String(path), new String(path) }, dst.getPath());
+                        boolean flag = MP4parserHelper.muxMedia(new String[]{ new String(path),
+                                new String(path),
+                                new String(path) },
+                                dst.getPath());
                         if (flag)
                             handler.post(new Runnable() {
                                 @Override
@@ -705,7 +714,9 @@ public class MP4parserActivity extends TBaseActivity {
         Log.d(TAG, "printTrack: track=" + track);
         Log.d(TAG, "printTrack: hanlder=" + track.getHandler());
         Log.d(TAG, "printTrack: duration=" + track.getDuration());
-        printBox(track.getMediaHeaderBox());/*
+        printBox(track.getSampleDescriptionBox());
+        printBox(track.getSubsampleInformationBox());
+        /*
         for (Sample sample : track.getSamples()) {
             printSample(sample);
         }*/

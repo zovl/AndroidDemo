@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:padding="12dp">
 
-        <!--###########################<Build>##############################-->
+        <!--###########################<info>##############################-->
 
         <TextView
             android:layout_width="match_parent"
@@ -19,13 +19,30 @@
             android:paddingLeft="12dp"
             android:textColor="#ff0000"
             android:textSize="16sp"
-            android:text="Build" />
+            android:text="info" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Build"
-            android:id="@+id/build" />
+            android:text="info"
+            android:id="@+id/info" />
+
+        <!--###########################<base>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="base" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="base"
+            android:id="@+id/base" />
 
     </LinearLayout>
 </ScrollView>

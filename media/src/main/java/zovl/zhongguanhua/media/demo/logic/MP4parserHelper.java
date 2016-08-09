@@ -13,7 +13,7 @@ import com.googlecode.mp4parser.authoring.container.mp4.MovieCreator;
 import com.googlecode.mp4parser.authoring.tracks.AACTrackImpl;
 import com.googlecode.mp4parser.authoring.tracks.AppendTrack;
 import com.googlecode.mp4parser.authoring.tracks.CroppedTrack;
-import com.googlecode.mp4parser.authoring.tracks.H264TrackImpl;
+import com.googlecode.mp4parser.authoring.tracks.h264.H264TrackImpl;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -150,7 +150,7 @@ public class MP4parserHelper {
         Log.d(TAG, "muxMedia: dstPath=" + dstPath);
         try {
             Movie newMovie = muxMedia_1(srcPaths, dstPath);
-            writeMovie(new File(dstPath), newMovie);
+            writeMovie_1(new File(dstPath), newMovie);
             Log.d(TAG, "muxMedia: true");
             return true;
         } catch (IOException e) {
@@ -183,15 +183,12 @@ public class MP4parserHelper {
                 }
             }
         }
-        AppendTrack appendTrack;
         Movie newMovie = new Movie();
         if (audioTracks.size() > 0) {
-            appendTrack = new AppendTrack(audioTracks.toArray(new Track[audioTracks.size()]));
-            newMovie.addTrack(appendTrack);
+            newMovie.addTrack(new AppendTrack(audioTracks.toArray(new Track[audioTracks.size()])));
         }
         if (videoTracks.size() > 0) {
-            appendTrack = new AppendTrack(videoTracks.toArray(new Track[videoTracks.size()]));
-            newMovie.addTrack(appendTrack);
+            newMovie.addTrack(new AppendTrack(videoTracks.toArray(new Track[videoTracks.size()])));
         }
         return newMovie;
     }
@@ -212,8 +209,14 @@ public class MP4parserHelper {
         Log.d(TAG, "muxVideoAndAudio: audioPath=" + audioPath);
         Log.d(TAG, "muxVideoAndAudio: dstPath=" + dstPath);
         try {
-            Movie newMovie = muxVideoAndAudio_2(new File(videoPath), new File(audioPath), new File(dstPath));
-            writeMovie(new File(dstPath), newMovie);
+            // 有效
+            // Movie newMovie = muxVideoAndAudio_2(new File(videoPath), new File(audioPath), new File(dstPath));
+            // writeMovie_1(new File(dstPath), newMovie);
+
+            // 有效
+            Movie newMovie = muxVideoAndAudio_3(new File(videoPath), new File(audioPath), new File(dstPath));
+            writeMovie_1(new File(dstPath), newMovie);
+
             Log.d(TAG, "muxVideoAndAudio: true");
             return true;
         } catch (IOException e) {
@@ -225,10 +228,10 @@ public class MP4parserHelper {
     /**
      * 视频音频合成
      */
-    private static Movie muxVideoAndAudio(File videoFile, File audioFile, File dstFile) throws IOException {
+    private static Movie muxVideoAndAudio_1(File videoFile, File audioFile, File dstFile) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        Movie videoMovie = MovieCreator.build(videoFile.getAbsolutePath());
-        Movie audioMovie = MovieCreator.build(audioFile.getAbsolutePath());
+        Movie videoMovie = MovieCreator.build(videoFile.getPath());
+        Movie audioMovie = MovieCreator.build(audioFile.getPath());
         Movie newMovie = new Movie();
 
         Track audioTrack = audioMovie.getTracks().get(0);
@@ -253,8 +256,8 @@ public class MP4parserHelper {
      */
     private static Movie muxVideoAndAudio_2(File videoFile, File audioFile, File dstFile) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        Movie videoMovie = MovieCreator.build(videoFile.getAbsolutePath());
-        Movie audioMovie = MovieCreator.build(audioFile.getAbsolutePath());
+        Movie videoMovie = MovieCreator.build(videoFile.getPath());
+        Movie audioMovie = MovieCreator.build(audioFile.getPath());
         Movie newMovie = new Movie();
 
         List<Track> videoTracks = new LinkedList<>();
@@ -314,7 +317,26 @@ public class MP4parserHelper {
     /**
      * 视频音频合成
      */
-    private static Movie muxVideoAndAudio_3(File h264File, File aacFile, File dstFile) throws IOException {
+    private static Movie muxVideoAndAudio_3(File videoFile, File audioFile, File dstFile) throws IOException {
+        Log.d(TAG, "--------------------------------------------------------------------");
+        Movie videoMovie = MovieCreator.build(videoFile.getPath());
+        Movie audioMovie = MovieCreator.build(audioFile.getPath());
+        Movie newMovie = new Movie();
+
+        Track audioTrack = audioMovie.getTracks().get(0);
+        newMovie.addTrack(audioTrack);
+
+        Track zeroTrack = videoMovie.getTracks().get(0);
+        newMovie.addTrack(new CroppedTrack(zeroTrack, 0, zeroTrack.getSamples().size()));
+        // newMovie.addTrack(new AppendTrack(new ClippedTrack(zeroTrack, 0, zeroTrack.getSamples().size()), new ClippedTrack(zeroTrack, 0, zeroTrack.getSamples().size())));
+
+        return newMovie;
+    }
+
+    /**
+     * 视频音频合成
+     */
+    private static Movie muxVideoAndAudio_9(File h264File, File aacFile, File dstFile) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
         H264TrackImpl h264Track = new H264TrackImpl(new FileDataSourceImpl(h264File.getPath()));
         AACTrackImpl aacTrack = new AACTrackImpl(new FileDataSourceImpl(aacFile.getPath()));
@@ -338,8 +360,8 @@ public class MP4parserHelper {
         Log.d(TAG, "extractVideo: srcPath=" + srcPath);
         Log.d(TAG, "extractVideo: dstPath=" + dstPath);
         try {
-            Movie newMoview = extractVideo(new File(srcPath), new File(dstPath));
-            writeMovie(new File(dstPath), newMoview);
+            Movie newMoview = extractVideo_1(new File(srcPath), new File(dstPath));
+            writeMovie_1(new File(dstPath), newMoview);
             Log.d(TAG, "extractVideo: true");
             return true;
         } catch (IOException e) {
@@ -351,9 +373,9 @@ public class MP4parserHelper {
     /**
      * 提取视频
      */
-    private static Movie extractVideo(File scrFile, File dstFile) throws IOException {
+    private static Movie extractVideo_1(File scrFile, File dstFile) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        Movie srcMovie = MovieCreator.build(scrFile.getAbsolutePath());
+        Movie srcMovie = MovieCreator.build(scrFile.getPath());
         Movie dstMovie = new Movie();
 
         //---------------------------------
@@ -413,8 +435,8 @@ public class MP4parserHelper {
         Log.d(TAG, "extractAudio: srcPath=" + srcPath);
         Log.d(TAG, "extractAudio: dstPath=" + dstPath);
         try {
-            Movie newMoview = extractAudio(new File(srcPath), new File(dstPath));
-            writeMovie(new File(dstPath), newMoview);
+            Movie newMoview = extractAudio_1(new File(srcPath), new File(dstPath));
+            writeMovie_1(new File(dstPath), newMoview);
             Log.d(TAG, "extractAudio: true");
             return true;
         } catch (IOException e) {
@@ -426,9 +448,9 @@ public class MP4parserHelper {
     /**
      * 提取音轨
      */
-    private static Movie extractAudio(File scrFile, File dstFile) throws IOException {
+    private static Movie extractAudio_1(File scrFile, File dstFile) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        Movie srcMovie = MovieCreator.build(scrFile.getAbsolutePath());
+        Movie srcMovie = MovieCreator.build(scrFile.getPath());
         Movie dstMovie = new Movie();
 
         //---------------------------------
@@ -470,7 +492,7 @@ public class MP4parserHelper {
      * @param file 保存的路径
      * @param movie 保存的视频
      */
-    private static void writeMovie(File file, Movie movie) throws IOException {
+    private static void writeMovie_1(File file, Movie movie) throws IOException {
         Container container = new DefaultMp4Builder().build(movie);
         FileOutputStream fos = new FileOutputStream(file);
         FileChannel fc = fos.getChannel();
@@ -502,8 +524,10 @@ public class MP4parserHelper {
         Log.d(TAG, "printTrack: track=" + track);
         Log.d(TAG, "printTrack: hanlder=" + track.getHandler());
         Log.d(TAG, "printTrack: duration=" + track.getDuration());
-        printBox(track.getMediaHeaderBox());
-/*
+        // printBox(track.getMediaHeaderBox());
+        printBox(track.getSampleDescriptionBox());
+        printBox(track.getSubsampleInformationBox());
+        /*
         for (Sample sample : track.getSamples()) {
             printSample(sample);
         }*/

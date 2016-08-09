@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:padding="12dp">
 
-        <!--###########################<info>##############################-->
+        <!--###########################<base>##############################-->
 
         <TextView
             android:layout_width="match_parent"
@@ -18,48 +18,57 @@
             android:paddingLeft="12dp"
             android:textColor="#0000ff"
             android:textSize="16sp"
-            android:text="info" />
+            android:text="base" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="printThread"
-            android:id="@+id/printThread" />
+            android:text="initialization"
+            android:id="@+id/initialization" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="哪个线程"
+            android:text=""
+            android:id="@+id/index"
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="printGroup"
-            android:id="@+id/printGroup" />
+            android:text="start"
+            android:id="@+id/start" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="getRoot"
-            android:id="@+id/getRoot" />
-
-        <!--###########################<all>##############################-->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="12dp"
-            android:textColor="#0000ff"
-            android:textSize="16sp"
-            android:text="all" />
+            android:text="isAlive"
+            android:id="@+id/isAlive" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="getAllGroups"
-            android:id="@+id/getAllGroups" />
+            android:text="startAll"
+            android:id="@+id/startAll" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="getAllThreads"
-            android:id="@+id/getAllThreads" />
+            android:text="stopAll"
+            android:id="@+id/stopAll" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="isAliveAll"
+            android:id="@+id/isAliveAll" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="interrupt"
+            android:id="@+id/interrupt" />
 
         <!--显示-->
 

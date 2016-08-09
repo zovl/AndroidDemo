@@ -112,14 +112,22 @@ public abstract class TBaseActivity extends BaseActivity {
 
     protected void log(String msg) {
         Log.d(tag, msg);
-        sb.append(msg + "\n");
-        Log.d(tag, "thread:" + Thread.currentThread());
+        sb.insert(0, msg + "\n");
+        // Log.d(tag, "thread:" + Thread.currentThread());
     }
 
     // ------------------------------------------------------------------------------------------------
 
     protected TextView getText() {
         return null;
+    }
+
+    protected String getTextString() {
+        if (getText() != null &&
+                getText().getText() != null) {
+            return getText().getText().toString();
+        }
+        return "";
     }
 
     protected void setText() {
@@ -138,7 +146,7 @@ public abstract class TBaseActivity extends BaseActivity {
             @Override
             public void run() {
                 if (getText() != null && text != null) {
-                    getText().setText(text);
+                    getText().setText(text + "\n" + getTextString());
                 }
             }
         });

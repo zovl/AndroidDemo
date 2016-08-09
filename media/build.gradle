@@ -33,15 +33,15 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
 
-
-
-    compile files('libs/isoviewer-1.0-RC-35.jar')
     compile project(':lib-framework')
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v13:23.4.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:support-v4:23.4.0'
+
+    compile 'com.jakewharton:butterknife:7.0.1'
+
+    compile 'com.googlecode.mp4parser:isoparser:1.1.21'
 }
 
 

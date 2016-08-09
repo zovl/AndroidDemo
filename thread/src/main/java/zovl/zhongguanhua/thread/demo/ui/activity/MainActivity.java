@@ -17,15 +17,20 @@ public class MainActivity extends TBaseActivity {
         return R.layout.activity_main;
     }
 
-    @OnClick({R.id.build})
+    @OnClick({R.id.info,
+            R.id.base})
     public void onClick(View view) {
 
         setTitle(getTitle() + "#");
 
         switch (view.getId()) {
 
-            case R.id.build:
+            case R.id.info:
                 startActivity(InfoActivity.class);
+                break;
+
+            case R.id.base:
+                startActivity(BaseActivity.class);
                 break;
         }
     }
