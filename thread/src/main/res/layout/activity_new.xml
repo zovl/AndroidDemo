@@ -23,8 +23,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="initialization"
-            android:id="@+id/initialization" />
+            android:text="new"
+            android:id="@+id/init" />
 
         <EditText
             android:layout_width="match_parent"
@@ -43,32 +43,68 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="isAlive"
-            android:id="@+id/isAlive" />
+            android:text="interrupt"
+            android:id="@+id/interrupt" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="startAll"
+            android:text="isAlive"
+            android:id="@+id/isAlive" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#0000ff"
+            android:textSize="16sp"
+            android:text="all" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="start--All"
             android:id="@+id/startAll" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="stopAll"
-            android:id="@+id/stopAll" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="isAliveAll"
+            android:text="isAlive--All"
             android:id="@+id/isAliveAll" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="interrupt"
-            android:id="@+id/interrupt" />
+            android:text="interrupt--All"
+            android:id="@+id/interruptAll" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#0000ff"
+            android:textSize="16sp"
+            android:text="all-deprecated" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="stop--All"
+            android:id="@+id/stopAll" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="suspend--All"
+            android:id="@+id/suspendAll" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="resume--All"
+            android:id="@+id/resumeAll" />
 
         <!--显示-->
 

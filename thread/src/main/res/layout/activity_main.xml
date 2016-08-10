@@ -44,5 +44,22 @@
             android:text="base"
             android:id="@+id/base" />
 
+        <!--###########################<yield>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="join" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="join"
+            android:id="@+id/join" />
+
     </LinearLayout>
 </ScrollView>
