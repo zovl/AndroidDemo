@@ -52,7 +52,7 @@ public class MainActivity extends TBaseActivity {
                 break;
 
             case R.id.retriever:
-                startActivity(RetrieverActivity.class);
+                startActivity(MP4parserActivity.RetrieverActivity.class);
                 break;
 
             case R.id.codec:
