@@ -18,55 +18,74 @@ public class BatteryHelper {
 	// ---------------------------------------------------------------------------------
 
 	@TargetApi(21)
-	public static void property(Context context) {
-		Log.d(TAG, "property: // ----------------------------------------------");
-		BatteryManager manager = (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);
-		Log.d(TAG, "property: manager=" + manager);
+	public static String property(Context context) {
+		Log.d(TAG, "----------------[property]------------------");
 
-		int health = manager.getIntProperty(1);
-		int voltage = manager.getIntProperty(2);
+		if (context != null) {
+			BatteryManager manager = (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);
 
-		Log.d(TAG, "onReceive: 1=" + health);
-		Log.d(TAG, "onReceive: 2=" + voltage);
+			String toString = manager.toString();
+			int _1 = manager.getIntProperty(1);
+			int _2 = manager.getIntProperty(2);
+
+			StringBuffer buffer = new StringBuffer();
+			buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+			buffer.append("toString=" + toString + "\n");
+			buffer.append("1=" + _1 + "\n");
+			buffer.append("2=" + _2 + "\n");
+
+			Log.d(TAG, "property: " + buffer.toString() + "\n");
+
+			return buffer.toString();
+		}
+		return "context is null";
 	}
 	
 	/**
 	 * 获取电量
 	 */
 	public static Intent intent(Context context) {
-		//通过粘性广播读取电量
-		// 注意，粘性广播不需要广播接收器
 		IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
 		Intent intent = context.registerReceiver(null, intentFilter);
-		printIntent(intent);
 		return intent;
 	}
 
-	public static void printIntent(Intent intent) {
-		Log.d(TAG, "printIntent: // ----------------------------------------------");
-		Log.d(TAG, "printIntent: intent=" + intent);
+	public static String printIntent(Intent intent) {
+		Log.d(TAG, "----------------[printIntent]------------------");
 
-		int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
-		int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
+		if (intent != null) {
+			String toString = intent.toString();
 
-		int iconSmall = intent.getIntExtra(BatteryManager.EXTRA_ICON_SMALL, -1);
-		int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-		int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-		boolean present = intent.getBooleanExtra(BatteryManager.EXTRA_PRESENT, false);
-		int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-		int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-		String technology = intent.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY);
-		int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
+			int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);
+			int voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, -1);
 
-		Log.d(TAG, "onReceive: health=" + health);
-		Log.d(TAG, "onReceive: voltage=" + voltage);
-		Log.d(TAG, "onReceive: iconSmall=" + iconSmall);
-		Log.d(TAG, "onReceive: level=" + level);
-		Log.d(TAG, "onReceive: plugged=" + plugged);
-		Log.d(TAG, "onReceive: present=" + present);
-		Log.d(TAG, "onReceive: scale=" + scale);
-		Log.d(TAG, "onReceive: status=" + status);
-		Log.d(TAG, "onReceive: technology=" + technology);
-		Log.d(TAG, "onReceive: temperature=" + temperature);
+			int iconSmall = intent.getIntExtra(BatteryManager.EXTRA_ICON_SMALL, -1);
+			int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+			int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+			boolean present = intent.getBooleanExtra(BatteryManager.EXTRA_PRESENT, false);
+			int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+			int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+			String technology = intent.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY);
+			int temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1);
+
+			StringBuffer buffer = new StringBuffer();
+			buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+			buffer.append("toString=" + toString + "\n");
+			buffer.append("health=" + health + "\n");
+			buffer.append("voltage=" + voltage + "\n");
+			buffer.append("iconSmall=" + iconSmall + "\n");
+			buffer.append("level=" + level + "\n");
+			buffer.append("plugged=" + plugged + "\n");
+			buffer.append("present=" + present + "\n");
+			buffer.append("scale=" + scale + "\n");
+			buffer.append("status=" + status + "\n");
+			buffer.append("technology=" + technology + "\n");
+			buffer.append("temperature=" + temperature + "\n");
+
+			Log.d(TAG, "printIntent: " + buffer.toString() + "\n");
+
+			return buffer.toString();
+		}
+		return "intent is null";
 	}
 }

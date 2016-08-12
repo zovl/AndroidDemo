@@ -44,7 +44,7 @@
             android:text="exit" />
 
         <EditText
-            android:id="@+id/exitText"
+            android:id="@+id/exitCode"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="center_horizontal"

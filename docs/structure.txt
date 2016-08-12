@@ -1,0 +1,6 @@
+root
+    |--data
+    |--logic
+    |--ui
+        |--activity
+        |--application

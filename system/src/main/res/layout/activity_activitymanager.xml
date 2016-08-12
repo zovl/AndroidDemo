@@ -67,6 +67,19 @@
             android:text="getMemoryInfo"
             android:id="@+id/getMemoryInfo" />
 
+        <EditText
+            android:id="@+id/pid"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="center_horizontal"
+            android:text="1"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getProcessMemoryInfo"
+            android:id="@+id/getProcessMemoryInfo" />
+
         <!--显示-->
 
         <ImageView

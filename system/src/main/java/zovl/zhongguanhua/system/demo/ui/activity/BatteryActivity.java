@@ -1,5 +1,6 @@
 package zovl.zhongguanhua.system.demo.ui.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,13 +45,14 @@ public class BatteryActivity extends TBaseActivity {
         switch (view.getId()) {
 
             case R.id.intent:
-                BatteryHelper.intent(this);
-                setText();
+                Intent intent = BatteryHelper.intent(this);
+                String s = BatteryHelper.printIntent(intent);
+                setText(s);
                 break;
 
             case R.id.property:
-                BatteryHelper.property(this);
-                setText();
+                s = BatteryHelper.property(this);
+                setText(s);
                 break;
         }
     }

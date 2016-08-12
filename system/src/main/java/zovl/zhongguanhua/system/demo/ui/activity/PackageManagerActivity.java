@@ -140,13 +140,15 @@ public class PackageManagerActivity extends TBaseActivity {
                 break;
 
             case R.id.getActivityInfo:
-                PackageHelper.getActivityInfo(this, PackageManagerActivity.class);
-                setText();
+
+                ActivityInfo activityInfo = PackageHelper.getActivityInfo(this, PackageManagerActivity.class);
+                s = PackageHelper.printActivityInfo(activityInfo);
+                setText(s);
                 break;
 
             case R.id.getReceiverInfo:
 
-                ActivityInfo activityInfo = PackageHelper.getReceiverInfo(this, PackageManagerActivity.class);
+                activityInfo = PackageHelper.getReceiverInfo(this, PackageManagerActivity.class);
                 s = PackageHelper.printActivityInfo(activityInfo);
                 setText(s);
                 break;

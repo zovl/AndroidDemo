@@ -4,8 +4,8 @@ import android.view.View;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import zovl.zhongguanhua.system.demo.R;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
+import zovl.zhongguanhua.system.demo.R;
 
 public class AppstartActivity extends TBaseActivity {
 

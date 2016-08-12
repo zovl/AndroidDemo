@@ -20,6 +20,9 @@ public class ScreenUtil {
 	public static final String TAG = ScreenUtil.class.getSimpleName();
 
 	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
 
 	/**
 	 * 功能：屏幕单位转换
@@ -38,6 +41,9 @@ public class ScreenUtil {
 	}
 
 	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
 
 	/**
 	 * 功能：屏幕单位转换
@@ -55,6 +61,9 @@ public class ScreenUtil {
 		return (int) (dpValue * scale + 0.5f);
 	}
 
+	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
 	// ---------------------------------------------------------------------------------
 	
 	/**
@@ -90,12 +99,15 @@ public class ScreenUtil {
 	}
 
 	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------
 
 	/**
 	 * 获得屏幕比例
 	 */
 	public static float getAreaOneRatio(Activity activity){
-		Log.d(TAG, "getAreaOneRatio: // -------------------------------------------------------------");
+		Log.d(TAG, "----------------[restartPackage]------------------");
 		int[] size = getAreaOne(activity);
 		int a = size[0];
 		int b = size[1];
@@ -113,13 +125,11 @@ public class ScreenUtil {
 		return ratio;
 	}
 
-	// ---------------------------------------------------------------------------------
-
 	/**
 	 * 获得屏幕尺寸（宽 x 高）（px）
 	 */
-	public static int[] getAreaOne(Activity activity){
-		Log.d(TAG, "getAreaOne: // -------------------------------------------------------------");
+	public static int[] getAreaOne(Activity activity) {
+		Log.d(TAG, "----------------[getAreaOne]------------------");
 		Display display = activity.getWindowManager().getDefaultDisplay();
 		Point point = new Point();
 		display.getSize(point);
@@ -131,8 +141,8 @@ public class ScreenUtil {
 	/**
 	 * 获得应用区域尺寸（宽 x 高）（px）
 	 */
-	public static int[] getAreaTwo(Activity activity){
-		Log.d(TAG, "getAreaOne: // -------------------------------------------------------------");
+	public static int[] getAreaTwo(Activity activity) {
+		Log.d(TAG, "----------------[getAreaTwo]------------------");
 		Rect rect = new Rect();
 		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
 		Log.d(TAG, "getAreaOne: width=" + rect.width());
@@ -143,8 +153,8 @@ public class ScreenUtil {
 	/**
 	 * 获得用户绘图区域尺寸（宽 x 高）（px）
 	 */
-	public static int[] getAreaThree(Activity activity){
-		Log.d(TAG, "getAreaOne: // -------------------------------------------------------------");
+	public static int[] getAreaThree(Activity activity) {
+		Log.d(TAG, "----------------[getAreaThree]------------------");
 		Rect rect = new Rect();
 		activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT).getDrawingRect(rect);
 		Log.d(TAG, "getAreaOne: width=" + rect.width());

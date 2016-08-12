@@ -11,10 +11,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
-/*
     lintOptions {
+        abortOnError false
         disable 'InvalidPackage'
-    }*/
+    }
 
     defaultConfig {
         applicationId "zovl.zhongguanhua.signature.demo"
@@ -34,46 +34,46 @@ android {
     signingConfigs {
 
         release {
-            keyAlias 'signature'
-            keyPassword 'zz88036'
             storeFile file('E:/Android/new/0/AndroidDemo/keystore/AndroidDemo.jks')
             storePassword 'zz880326'
+            keyAlias 'signature'
+            keyPassword 'zgh891210'
         }
-
+/*
         debug {
             // nothing
-        }
+        }*/
     }
 
     buildTypes {
-
+        // 发行版
         release {
             // 是否混淆
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // minifyEnabled false
+            // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             // 签名
             signingConfig signingConfigs.release
-            debuggable false
-            jniDebuggable false
-            renderscriptDebuggable false
-            pseudoLocalesEnabled false
-            zipAlignEnabled true
+            // debuggable false
+            // jniDebuggable false
+            // renderscriptDebuggable false
+            // pseudoLocalesEnabled false
+            // zipAlignEnabled true
             // 是否显示日志
             buildConfigField "boolean", "LOG_DEBUG", "false"
         }
-
+        /*
+        // 调试
         debug {
-            // 是否混淆
-            minifyEnabled false
             // 签名
-            signingConfig signingConfigs.debug
-            debuggable false
-            jniDebuggable false
-            renderscriptDebuggable false
-            pseudoLocalesEnabled false
-            zipAlignEnabled false
+            signingConfig signingConfigs.release
             // 是否显示日志
             buildConfigField "boolean", "LOG_DEBUG", "true"
+        }*/
+
+        // 未签名
+        unsigned {
+            // 是否显示日志
+            buildConfigField "boolean", "LOG_DEBUG", "false"
         }
     }
 

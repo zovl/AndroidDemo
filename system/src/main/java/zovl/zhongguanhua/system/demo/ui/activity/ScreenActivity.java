@@ -51,15 +51,18 @@ public class ScreenActivity extends TBaseActivity {
         switch (view.getId()) {
 
             case R.id.getAreaOne:
-                ScreenUtil.getAreaOne(this);
+                int[] a = ScreenUtil.getAreaOne(this);
+                setText(a[0] + "/" + a[1]);
                 break;
 
             case R.id.getAreaTwo:
-                ScreenUtil.getAreaTwo(this);
+                a = ScreenUtil.getAreaTwo(this);
+                setText(a[0] + "/" + a[1]);
                 break;
 
             case R.id.getAreaThree:
-                ScreenUtil.getAreaThree(this);
+                a = ScreenUtil.getAreaThree(this);
+                setText(a[0] + "/" + a[1]);
                 break;
         }
     }
