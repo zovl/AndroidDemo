@@ -17,7 +17,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "zovl.zhongguanhua.signature.demo"
+        applicationId "zovl.zhongguanhua.sign.demo"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1

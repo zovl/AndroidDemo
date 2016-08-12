@@ -1,7 +1,4 @@
-include ':app',
-
-        ':sign',
-        ':signature',
+include ':signature',
 
         ':system',
 
