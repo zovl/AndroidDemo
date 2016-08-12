@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/component" />
             <option value="$PROJECT_DIR$/lib-framework" />
             <option value="$PROJECT_DIR$/media" />
+            <option value="$PROJECT_DIR$/signature" />
             <option value="$PROJECT_DIR$/system" />
             <option value="$PROJECT_DIR$/thread" />
           </set>
@@ -27,6 +28,7 @@
             <option value="$PROJECT_DIR$/component" />
             <option value="$PROJECT_DIR$/lib-framework" />
             <option value="$PROJECT_DIR$/media" />
+            <option value="$PROJECT_DIR$/signature" />
             <option value="$PROJECT_DIR$/system" />
             <option value="$PROJECT_DIR$/thread" />
           </set>

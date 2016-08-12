@@ -1,5 +1,7 @@
 package zovl.zhongguanhua.thread.demo.ui.activity;
 
+import android.os.Looper;
+import android.util.AtomicFile;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -62,10 +65,11 @@ public class NewActivity extends TBaseActivity {
             R.id.isAlive,
 
             R.id.startAll,
-            R.id.stopAll,
             R.id.isAliveAll,
             R.id.interruptAll,
+            R.id.yieldAll,
 
+            R.id.stopAll,
             R.id.suspendAll,
             R.id.resumeAll})
     public void onClick(View view) {
@@ -137,16 +141,6 @@ public class NewActivity extends TBaseActivity {
                 }
                 break;
 
-            case R.id.stopAll:
-                for (Thread th : threads) {
-                    try {
-                        th.stop();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
-
             case R.id.isAliveAll:
                 printMyThreadState();
                 break;
@@ -154,6 +148,22 @@ public class NewActivity extends TBaseActivity {
             case R.id.interruptAll:
                 for (Thread th : threads) {
                     th.interrupt();
+                }
+                break;
+
+            case R.id.yieldAll:
+                for (LoopThread th : threads) {
+                    th.setYield(true);
+                }
+                break;
+
+            case R.id.stopAll:
+                for (Thread th : threads) {
+                    try {
+                        th.stop();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
 
@@ -181,8 +191,7 @@ public class NewActivity extends TBaseActivity {
         for (Thread thread : threads) {
             buffer.append("thread: " + thread + "\n");
         }
-        log(buffer.toString());
-        setText();
+        logText(buffer.toString());
     }
 
     private void printMyThreadState() {
@@ -195,8 +204,7 @@ public class NewActivity extends TBaseActivity {
                     "--isAlive=" + thread.isAlive() +
                     "--state=" + thread.getState() + "\n");
         }
-        log(buffer.toString());
-        setText();
+        logText(buffer.toString());
     }
 
     private void printMyThreadState(Thread thread) {
@@ -208,37 +216,44 @@ public class NewActivity extends TBaseActivity {
             buffer.append("thread: " + thread.getName() +
                     "--isAlive=" + thread.isAlive() +
                     "--state=" + thread.getState() + "\n");
-            log(buffer.toString());
-            setText();
+            logText(buffer.toString());
         }
     }
 
     private class LoopThread extends Thread {
 
         private int index;
+        private AtomicBoolean isYield = new AtomicBoolean(false);
+
+        public void setYield(boolean yield) {
+            isYield.set(yield);
+        }
 
         @Override
         public void run() {
             super.run();
 
-            log("thread: " + getName() + "--running...");
-            setText();
+            logText("thread: " + getName() + "--running...");
 
             while (true) {
                 if (isInterrupted()) {
-                    log("thread: " + getName() + "--interrupt...");
+                    logText("thread: " + getName() + "--interrupt...");
                     return;
                 }
                 ++index;
                 Log.d(TAG, "thread: " + getName() + "--index=" + index);
-                setText();
                 try {
                     sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                    log("thread: " + getName() + "--interrupted...exception...");
-                    setText();
+                    logText("thread: " + getName() + "--interrupted...exception...");
                     return;
+                }
+
+                if (isYield.get()) {
+                    yield();
+                    isYield.set(false);
+                    logText("thread: " + getName() + "--yielded...");
                 }
             }
         }

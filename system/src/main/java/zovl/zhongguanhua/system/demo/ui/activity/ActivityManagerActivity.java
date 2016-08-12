@@ -58,34 +58,29 @@ public class ActivityManagerActivity extends TBaseActivity {
 
             case R.id.runningAppProcesses:
                 runningAppProcesses(this);
-                setText();
+                
                 break;
 
             case R.id.runningServices:
                 runningServices(this);
-                setText();
                 break;
 
             case R.id.appTasks:
                 appTasks(this);
-                setText();
                 break;
 
             // ------------------------------------------------------
 
             case R.id.runningTasks:
                 runningTasks(this);
-                setText();
                 break;
 
             case R.id.recentTasks:
                 recentTasks(this);
-                setText();
                 break;
 
             case R.id.getMemoryInfo:
                 getMemoryInfo(this);
-                setText();
                 break;
         }
     }

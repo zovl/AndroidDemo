@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:padding="12dp">
 
-        <!--###########################<base>##############################-->
+        <!--###########################<new>##############################-->
 
         <TextView
             android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:paddingLeft="12dp"
             android:textColor="#0000ff"
             android:textSize="16sp"
-            android:text="base" />
+            android:text="new" />
 
         <Button
             android:layout_width="match_parent"
@@ -78,6 +78,12 @@
             android:layout_height="56dp"
             android:text="interrupt--All"
             android:id="@+id/interruptAll" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="yield--All"
+            android:id="@+id/yieldAll" />
 
         <TextView
             android:layout_width="match_parent"

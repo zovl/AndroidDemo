@@ -18,7 +18,7 @@ public class MainActivity extends TBaseActivity {
     }
 
     @OnClick({R.id.info,
-            R.id.base,
+            R.id.init,
             R.id.join})
     public void onClick(View view) {
 
@@ -30,7 +30,7 @@ public class MainActivity extends TBaseActivity {
                 startActivity(InfoActivity.class);
                 break;
 
-            case R.id.base:
+            case R.id.init:
                 startActivity(NewActivity.class);
                 break;
 

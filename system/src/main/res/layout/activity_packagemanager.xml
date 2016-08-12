@@ -29,6 +29,18 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:text="getSystemPackages"
+            android:id="@+id/getSystemPackages" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="getUserPackages"
+            android:id="@+id/getUserPackages" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
             android:text="getPackageInfo"
             android:id="@+id/getPackageInfo" />
 

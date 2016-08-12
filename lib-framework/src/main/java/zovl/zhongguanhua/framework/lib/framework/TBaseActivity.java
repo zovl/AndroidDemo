@@ -108,16 +108,6 @@ public abstract class TBaseActivity extends BaseActivity {
 
     /**---------------------------------------------------*/
 
-    private StringBuffer sb = new StringBuffer();
-
-    protected void log(String msg) {
-        Log.d(tag, msg);
-        sb.insert(0, msg + "\n");
-        // Log.d(tag, "thread:" + Thread.currentThread());
-    }
-
-    // ------------------------------------------------------------------------------------------------
-
     protected TextView getText() {
         return null;
     }
@@ -130,15 +120,13 @@ public abstract class TBaseActivity extends BaseActivity {
         return "";
     }
 
-    protected void setText() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (getText() != null && sb != null) {
-                    getText().setText(sb.toString());
-                }
-            }
-        });
+    protected void log(String msg) {
+        Log.d(tag, msg);
+    }
+
+    protected void logText(String msg) {
+        Log.d(tag, msg);
+        setText(msg);
     }
 
     protected void setText(final String text) {
@@ -146,7 +134,8 @@ public abstract class TBaseActivity extends BaseActivity {
             @Override
             public void run() {
                 if (getText() != null && text != null) {
-                    getText().setText(text + "\n" + getTextString());
+                    getText().setText(text + "\n" +
+                            getTextString());
                 }
             }
         });

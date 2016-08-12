@@ -27,7 +27,7 @@
             android:text="info"
             android:id="@+id/info" />
 
-        <!--###########################<base>##############################-->
+        <!--###########################<new>##############################-->
 
         <TextView
             android:layout_width="match_parent"
@@ -36,13 +36,13 @@
             android:paddingLeft="12dp"
             android:textColor="#ff0000"
             android:textSize="16sp"
-            android:text="base" />
+            android:text="new" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="base"
-            android:id="@+id/base" />
+            android:text="new"
+            android:id="@+id/init" />
 
         <!--###########################<yield>##############################-->
 
