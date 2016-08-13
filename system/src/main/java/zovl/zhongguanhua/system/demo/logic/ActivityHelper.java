@@ -300,7 +300,7 @@ public class ActivityHelper {
 	// ---------------------------------------------------------------------------------
 
 	public static String memoryInfo(ActivityManager.MemoryInfo memoryInfo) {
-		Log.d(TAG, "----------------[recentTaskInfo]------------------");
+		Log.d(TAG, "----------------[memoryInfo]------------------");
 
 		if (memoryInfo != null) {
 			StringBuffer buffer = new StringBuffer();
