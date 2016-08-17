@@ -1,6 +1,6 @@
 package zovl.zhongguanhua.component.demo.ui.activity;
 
-import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,9 +8,10 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import zovl.zhongguanhua.component.demo.R;
+import zovl.zhongguanhua.framework.lib.framework.AppManager;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 
-public class IIIActivity extends TBaseActivity {
+public class LockActivity extends TBaseActivity {
 
     @Override
     public TextView getText() {
@@ -29,29 +30,33 @@ public class IIIActivity extends TBaseActivity {
 
     @Override
     public int getContentView() {
-        return R.layout.activity_iii;
+        return R.layout.activity_lock;
     }
 
-    @OnClick({R.id.button})
+    @OnClick({R.id.startLockTask,
+            R.id.stopLockTask})
     public void onClick(View view) {
 
         setTitle(getTitle() + "#");
 
+        MainActivity mainActivity = (MainActivity) AppManager.getInstance().getActivity(MainActivity.class);
+        StartActivity startActivity = (StartActivity) AppManager.getInstance().getActivity(StartActivity.class);
+
         switch (view.getId()) {
 
-            case R.id.button:
-                button(this);
-                setText();
+            case R.id.startLockTask:
+                if (Build.VERSION.SDK_INT >= 21) {
+                    mainActivity.startLockTask();
+                }
+                break;
+
+            case R.id.stopLockTask:
+                if (Build.VERSION.SDK_INT >= 21) {
+                    mainActivity.stopLockTask();
+                }
                 break;
         }
     }
 
     // ---------------------------------------------------------------------------------
-
-    public void button(Context context) {
-
-        log("finish: // --------------------------------------------------------");
-
-        log("####################################################");
-    }
 }

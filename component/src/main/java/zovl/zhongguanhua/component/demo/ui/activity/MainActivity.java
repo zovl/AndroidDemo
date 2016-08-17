@@ -17,19 +17,22 @@ public class MainActivity extends TBaseActivity {
         return R.layout.activity_main;
     }
 
-    @OnClick({R.id.iActivity,
+    @OnClick({R.id.startActivity,
             R.id.aActivity,
             R.id.secaActivity,
 
-            R.id.appstartActivity})
+            R.id.task,
+            R.id.lock,
+
+            R.id.otherActivity})
     public void onClick(View view) {
 
         setTitle(getTitle() + "#");
 
         switch (view.getId()) {
 
-            case R.id.iActivity:
-                startActivity(IActivity.class);
+            case R.id.startActivity:
+                startActivity(StartActivity.class);
                 break;
 
             case R.id.aActivity:
@@ -40,9 +43,17 @@ public class MainActivity extends TBaseActivity {
                 startActivity(SecaActivity.class);
                 break;
 
-            case R.id.appstartActivity:
+            case R.id.otherActivity:
                 startActivity("zovl.zhongguanhua.system.demo",
                         "zovl.zhongguanhua.system.demo.ui.activity.AppstartActivity");
+                break;
+
+            case R.id.task:
+                startActivity(FinishAndRemoveActivity.class);
+                break;
+
+            case R.id.lock:
+                startActivity(LockActivity.class);
                 break;
         }
     }

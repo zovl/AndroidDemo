@@ -9,14 +9,17 @@
         android:layout_height="match_parent"
         android:padding="12dp">
 
-        <!--###########################<Finish>##############################-->
+        <!--###########################[Finish]##############################-->
+        <!--###########################[Finish]##############################-->
+        <!--###########################[Finish]##############################-->
+        <!--###########################[Finish]##############################-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:gravity="center_vertical"
             android:paddingLeft="12dp"
-            android:textColor="#000000"
+            android:textColor="#0000ff"
             android:textSize="16sp"
             android:text="Finish" />
 
@@ -38,14 +41,17 @@
             android:text="finishAfterTransition"
             android:id="@+id/finishAfterTransition" />
 
-        <!--###########################<FinishAndRemove>##############################-->
+        <!--###########################[FinishAndRemove]##############################-->
+        <!--###########################[FinishAndRemove]##############################-->
+        <!--###########################[FinishAndRemove]##############################-->
+        <!--###########################[FinishAndRemove]##############################-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:gravity="center_vertical"
             android:paddingLeft="12dp"
-            android:textColor="#000000"
+            android:textColor="#0000ff"
             android:textSize="16sp"
             android:text="FinishAndRemove" />
 
@@ -61,14 +67,17 @@
             android:text="finishAffinity"
             android:id="@+id/finishAffinity" />
 
-        <!--###########################<Background>##############################-->
+        <!--###########################[Background]##############################-->
+        <!--###########################[Background]##############################-->
+        <!--###########################[Background]##############################-->
+        <!--###########################[Background]##############################-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:gravity="center_vertical"
             android:paddingLeft="12dp"
-            android:textColor="#000000"
+            android:textColor="#0000ff"
             android:textSize="16sp"
             android:text="Background" />
 
@@ -78,30 +87,10 @@
             android:text="moveTaskToBack"
             android:id="@+id/moveTaskToBack" />
 
-        <!--###########################<LockTask>##############################-->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="12dp"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:text="LockTask" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="startLockTask"
-            android:id="@+id/startLockTask" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="stopLockTask"
-            android:id="@+id/stopLockTask" />
-
-        <!--显示-->
+        <!--#########################################################-->
+        <!--#########################################################-->
+        <!--#########################################################-->
+        <!--#########################################################-->
 
         <ImageView
             android:layout_width="match_parent"

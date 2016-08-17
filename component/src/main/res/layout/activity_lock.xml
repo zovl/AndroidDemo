@@ -9,19 +9,36 @@
         android:layout_height="match_parent"
         android:padding="12dp">
 
-        <Button
+        <!--###########################[Lock]##############################-->
+        <!--###########################[Lock]##############################-->
+        <!--###########################[Lock]##############################-->
+        <!--###########################[Lock]##############################-->
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="startActivity"
-            android:id="@+id/startActivity" />
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#0000ff"
+            android:textSize="16sp"
+            android:text="Lock" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="startActivities"
-            android:id="@+id/startActivities" />
+            android:text="startLockTask"
+            android:id="@+id/startLockTask" />
 
-        <!--显示-->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="stopLockTask"
+            android:id="@+id/stopLockTask" />
+
+        <!--#########################################################-->
+        <!--#########################################################-->
+        <!--#########################################################-->
+        <!--#########################################################-->
 
         <ImageView
             android:layout_width="match_parent"

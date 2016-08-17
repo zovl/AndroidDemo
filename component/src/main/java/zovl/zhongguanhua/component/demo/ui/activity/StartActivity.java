@@ -10,10 +10,8 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import zovl.zhongguanhua.component.demo.R;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
-import zovl.zhongguanhua.component.demo.ui.activity.IIActivity;
-import zovl.zhongguanhua.component.demo.ui.activity.IIIActivity;
 
-public class IActivity extends TBaseActivity {
+public class StartActivity extends TBaseActivity {
 
     @Override
     public TextView getText() {
@@ -32,10 +30,11 @@ public class IActivity extends TBaseActivity {
 
     @Override
     public int getContentView() {
-        return R.layout.activity_i;
+        return R.layout.activity_start;
     }
 
-    @OnClick({R.id.startActivity,
+    @OnClick({R.id.aStartActivity,
+            R.id.bStartActivity,
             R.id.startActivities})
     public void onClick(View view) {
 
@@ -43,38 +42,43 @@ public class IActivity extends TBaseActivity {
 
         switch (view.getId()) {
 
-            case R.id.startActivity:
-                startActivity(this);
-                setText();
+            case R.id.aStartActivity:
+                aStartActivity(this);
+                break;
+
+            case R.id.bStartActivity:
+                bStartActivity(this);
                 break;
 
             case R.id.startActivities:
                 startActivities(this);
-                setText();
                 break;
         }
     }
 
     // ---------------------------------------------------------------------------------
 
-    private void startActivity(Activity activity) {
-
-        log("startActivity: // --------------------------------------------------------");
+    private void aStartActivity(Activity activity) {
 
         Intent intent = new Intent();
-        intent.setClass(this, IIActivity.class);
+        intent.setClass(this, AStartActivity.class);
+        activity.startActivity(intent);
+    }
+
+    private void bStartActivity(Activity activity) {
+
+        Intent intent = new Intent();
+        intent.setClass(this, BStartActivity.class);
         activity.startActivity(intent);
     }
 
     private void startActivities(Activity activity) {
 
-        log("startActivities: // --------------------------------------------------------");
-
         Intent a = new Intent();
-        a.setClass(this, IIActivity.class);
+        a.setClass(this, AStartActivity.class);
 
         Intent b = new Intent();
-        b.setClass(this, IIIActivity.class);
+        b.setClass(this, BStartActivity.class);
 
         activity.startActivities(new Intent[]{ a, b });
     }

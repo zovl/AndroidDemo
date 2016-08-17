@@ -23,25 +23,41 @@
         </activity>
 
         <!--###########################################################################-->
+        <!--###########################################################################-->
+        <!--###########################################################################-->
+        <!--###########################################################################-->
 
         <!--component-->
 
         <activity
-            android:name=".ui.activity.IActivity"
+            android:name=".ui.activity.StartActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.IIActivity"
+            android:name=".ui.activity.AStartActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.IIIActivity"
+            android:name=".ui.activity.BStartActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.FinishAndRemoveActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.LockActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 
+        <!--###########################################################################-->
+        <!--###########################################################################-->
+        <!--###########################################################################-->
         <!--###########################################################################-->
 
         <!--first-->

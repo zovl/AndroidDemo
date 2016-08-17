@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:padding="12dp">
 
-        <!--###########################<Activity>##############################-->
+        <!--###########################<start>##############################-->
 
         <TextView
             android:layout_width="match_parent"
@@ -19,13 +19,36 @@
             android:paddingLeft="12dp"
             android:textColor="#ff0000"
             android:textSize="16sp"
-            android:text="Activity" />
+            android:text="start" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="iActivity"
-            android:id="@+id/iActivity" />
+            android:text="startActivity"
+            android:id="@+id/startActivity" />
+
+        <!--###########################<task/lock>##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="task/lock" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="task"
+            android:id="@+id/task" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="lock"
+            android:id="@+id/lock" />
 
         <!--###########################<first>##############################-->
 
@@ -61,7 +84,7 @@
             android:text="secaActivity"
             android:id="@+id/secaActivity" />
 
-        <!--###########################<system>##############################-->
+        <!--###########################<other>##############################-->
 
         <TextView
             android:layout_width="match_parent"
@@ -70,13 +93,13 @@
             android:paddingLeft="12dp"
             android:textColor="#ff0000"
             android:textSize="16sp"
-            android:text="system" />
+            android:text="other" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="appstartActivity"
-            android:id="@+id/appstartActivity" />
+            android:text="otherActivity"
+            android:id="@+id/otherActivity" />
 
     </LinearLayout>
 </ScrollView>
