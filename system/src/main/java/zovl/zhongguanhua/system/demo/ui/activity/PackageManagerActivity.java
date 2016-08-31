@@ -1,9 +1,11 @@
 package zovl.zhongguanhua.system.demo.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
 import android.view.View;
@@ -18,12 +20,16 @@ import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.framework.lib.utils.ViewUtil;
 import zovl.zhongguanhua.system.demo.R;
+import zovl.zhongguanhua.system.demo.compenent.recever.BatteryReceiver;
 import zovl.zhongguanhua.system.demo.logic.PackageHelper;
+import zovl.zhongguanhua.system.demo.ui.service.ActivityManagerService;
 
 public class PackageManagerActivity extends TBaseActivity {
 
-    @Bind(R.id.getPackageArchiveInfo_edit)
-    EditText paEdit;
+    @Bind(R.id.localApk)
+    EditText localApk;
+    @Bind(R.id.appPackgeName)
+    EditText appPackgeName;
 
     @Override
     public TextView getText() {
@@ -107,14 +113,14 @@ public class PackageManagerActivity extends TBaseActivity {
 
             case R.id.getPackageInfo:
 
-                PackageInfo p = PackageHelper.getPackageInfo(this, getPackageName());
+                PackageInfo p = PackageHelper.getPackageInfo(this, appPackgeName.getText().toString(), PackageManager.GET_ACTIVITIES);
                 String s = PackageHelper.printPackageInfo(this, p);
                 setText(s);
                 break;
 
             case R.id.getPackageArchiveInfo:
 
-                p = PackageHelper.getPackageArchiveInfo(this, paEdit.getText().toString());
+                p = PackageHelper.getPackageArchiveInfo(this, localApk.getText().toString(), PackageManager.GET_ACTIVITIES);
                 s = PackageHelper.printPackageInfo(this, p);
                 setText(s);
                 break;
@@ -134,7 +140,7 @@ public class PackageManagerActivity extends TBaseActivity {
 
             case R.id.getApplicationInfo:
 
-                ApplicationInfo applicationInfo = PackageHelper.getApplicationInfo(this, "com.bbk.appstore");
+                ApplicationInfo applicationInfo = PackageHelper.getApplicationInfo(this, appPackgeName.getText().toString());
                 s = PackageHelper.printApplicationInfo(this, applicationInfo);
                 setText(s);
                 break;
@@ -148,14 +154,14 @@ public class PackageManagerActivity extends TBaseActivity {
 
             case R.id.getReceiverInfo:
 
-                activityInfo = PackageHelper.getReceiverInfo(this, PackageManagerActivity.class);
+                activityInfo = PackageHelper.getReceiverInfo(this, BatteryReceiver.class);
                 s = PackageHelper.printActivityInfo(activityInfo);
                 setText(s);
                 break;
 
             case R.id.getServiceInfo:
 
-                ServiceInfo serviceInfo = PackageHelper.getServiceInfo(this, PackageManagerActivity.class);
+                ServiceInfo serviceInfo = PackageHelper.getServiceInfo(this, ActivityManagerService.class);
                 s = PackageHelper.printServiceInfo(serviceInfo);
                 setText(s);
                 break;
@@ -170,13 +176,13 @@ public class PackageManagerActivity extends TBaseActivity {
             // --------------------------------
 
             case R.id.getLaunchIntentForPackage:
-                Intent intent = PackageHelper.getLaunchIntentForPackage(this, "com.bbk.appstore");
+                Intent intent = PackageHelper.getLaunchIntentForPackage(this, appPackgeName.getText().toString());
                 startActivity(intent);
                 setText(intent.toString());
                 break;
 
             case R.id.getLeanbackLaunchIntentForPackage:
-                intent = PackageHelper.getLeanbackLaunchIntentForPackage(this, "com.bbk.appstore");
+                intent = PackageHelper.getLeanbackLaunchIntentForPackage(this, appPackgeName.getText().toString());
                 startActivity(intent);
                 setText(intent.toString());
                 break;

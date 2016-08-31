@@ -16,7 +16,8 @@ import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
 import zovl.zhongguanhua.glrecorder.demo.R;
 
-public class MainActivity extends TBaseActivity {
+public class
+MainActivity extends TBaseActivity {
 
     @Bind(R.id.glSurfaceView)
     GLSurfaceView glSurfaceView;

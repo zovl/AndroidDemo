@@ -45,7 +45,7 @@
             android:id="@+id/getPackageInfo" />
 
         <EditText
-            android:id="@+id/getPackageArchiveInfo_edit"
+            android:id="@+id/localApk"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="center_horizontal"
@@ -73,6 +73,16 @@
             android:layout_height="56dp"
             android:text="getInstalledApplications"
             android:id="@+id/getInstalledApplications" />
+
+        <!--com.huawei.systemmanager-->
+        <!--com.iqoo.secure-->
+
+        <EditText
+            android:id="@+id/appPackgeName"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="center_horizontal"
+            android:text="com.iqoo.secure"/>
 
         <Button
             android:layout_width="match_parent"

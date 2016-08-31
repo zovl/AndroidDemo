@@ -6,6 +6,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.system.demo.R;
+import zovl.zhongguanhua.system.demo.ui.service.ActivityManagerService;
 
 public class AppstartActivity extends TBaseActivity {
 
@@ -21,6 +22,7 @@ public class AppstartActivity extends TBaseActivity {
             R.id.system,
             R.id.memory,
             R.id.activityManager,
+            R.id.activityService,
             R.id.packageManager,
             R.id.context,
             R.id.debug,
@@ -46,6 +48,10 @@ public class AppstartActivity extends TBaseActivity {
 
             case R.id.activityManager:
                 startActivity(ActivityManagerActivity.class);
+                break;
+
+            case R.id.activityService:
+                ActivityManagerService.startService(this);
                 break;
 
             case R.id.packageManager:

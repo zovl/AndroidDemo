@@ -69,6 +69,10 @@
 
         <!--########################################################################################-->
 
+        <service android:name=".ui.service.ActivityManagerService"/>
+
+        <!--########################################################################################-->
+
         <receiver
             android:name=".compenent.recever.BatteryReceiver"
             android:enabled="false"

@@ -78,6 +78,12 @@
             android:text="ActivityManager"
             android:id="@+id/activityManager" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="activityService"
+            android:id="@+id/activityService" />
+
         <!--###########################<PackageManager>##############################-->
 
         <TextView

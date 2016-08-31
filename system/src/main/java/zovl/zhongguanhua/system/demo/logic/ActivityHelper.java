@@ -2,6 +2,7 @@ package zovl.zhongguanhua.system.demo.logic;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Debug;
 import android.util.Log;
@@ -29,14 +30,15 @@ public class ActivityHelper {
 		if (runningAppProcessInfo != null) {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+			buffer.append("\n");
 
 			buffer.append("processName=" + runningAppProcessInfo.processName + "\n");
 			buffer.append("pid=" + runningAppProcessInfo.pid + "\n");
 			buffer.append("uid=" + runningAppProcessInfo.uid + "\n");
 			buffer.append("describeContents=" + runningAppProcessInfo.describeContents() + "\n");
 			for (String pkg : runningAppProcessInfo.pkgList) {
-                buffer.append("pkg=" + pkg + "\n");
-            }
+				buffer.append("pkg=" + pkg + "\n");
+			}
 			buffer.append("lastTrimLevel=" + runningAppProcessInfo.lastTrimLevel + "\n");
 			buffer.append("lru=" + runningAppProcessInfo.lru + "\n");
 			// buffer.append("processState=" + runningAppProcessInfo.processState + "\n");
@@ -45,8 +47,9 @@ public class ActivityHelper {
 			buffer.append("importanceReasonComponent=" + runningAppProcessInfo.importanceReasonComponent + "\n");
 			buffer.append("importanceReasonCode=" + runningAppProcessInfo.importanceReasonCode + "\n");
 			// buffer.append("importanceReasonImportance=" + runningAppProcessInfo.importanceReasonImportance + "\n");
+			buffer.append("\n");
 
-			Log.d(TAG, "runningAppProcessInfo: " + buffer.toString());
+			Log.d(TAG, "runningAppProcessInfo: " + "\n" + buffer.toString());
 			return buffer.toString();
 		}
 		return "runningAppProcessInfo is null";
@@ -58,6 +61,7 @@ public class ActivityHelper {
 		if (runningServiceInfo != null) {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+			buffer.append("\n");
 
 			buffer.append("service=" + runningServiceInfo.service + "\n");
 			buffer.append("process=" + runningServiceInfo.process + "\n");
@@ -73,8 +77,9 @@ public class ActivityHelper {
 			buffer.append("lastActivityTime=" + runningServiceInfo.lastActivityTime + "\n");
 			buffer.append("restarting=" + runningServiceInfo.restarting + "\n");
 			buffer.append("flags=" + runningServiceInfo.flags + "\n");
+			buffer.append("\n");
 
-			Log.d(TAG, "runningServiceInfo: " + buffer.toString() + "\n");
+			Log.d(TAG, "runningServiceInfo: " + "\n" + buffer.toString());
 			return buffer.toString();
 		}
 		return "runningServiceInfo is null";
@@ -95,9 +100,11 @@ public class ActivityHelper {
 
 				StringBuffer buffer = new StringBuffer();
 				buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+				buffer.append("\n");
 
 				buffer.append("toString=" + toString + "\n");
 				buffer.append("recentTaskInfo=" + recentTaskInfo + "\n");
+				buffer.append("\n");
 
 				Log.d(TAG, "runningServiceInfo: " + buffer.toString() + "\n");
 				return buffer.toString();
@@ -113,6 +120,7 @@ public class ActivityHelper {
 		if (runningTaskInfo != null) {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+			buffer.append("\n");
 
 			buffer.append("id=" + runningTaskInfo.id + "\n");
 			buffer.append("baseActivity=" + runningTaskInfo.baseActivity + "\n");
@@ -123,8 +131,9 @@ public class ActivityHelper {
 			buffer.append("numRunning=" + runningTaskInfo.numRunning + "\n");
 			// buffer.append("lastActiveTime=" + runningTaskInfo.lastActiveTime + "\n");
 			buffer.append("describeContents=" + runningTaskInfo.describeContents() + "\n");
+			buffer.append("\n");
 
-			Log.d(TAG, "runningTaskInfo: " + buffer.toString() + "\n");
+			Log.d(TAG, "runningTaskInfo: " + "\n" + buffer.toString());
 			return buffer.toString();
 		}
 		return "runningTaskInfo is null";
@@ -136,6 +145,7 @@ public class ActivityHelper {
 		if (recentTaskInfo != null) {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+			buffer.append("\n");
 
 			buffer.append("id=" + recentTaskInfo.id + "\n");
 			buffer.append("affiliatedTaskId=" + recentTaskInfo.affiliatedTaskId + "\n");
@@ -156,8 +166,9 @@ public class ActivityHelper {
 			// buffer.append("firstActiveTime=" + recentTaskInfo.firstActiveTime + "\n");
 			// buffer.append("lastActiveTime=" + recentTaskInfo.lastActiveTime + "\n");
 			// buffer.append("affiliatedTaskColor=" + recentTaskInfo.affiliatedTaskColor + "\n");
+			buffer.append("\n");
 
-			Log.d(TAG, "recentTaskInfo: " + buffer.toString() + "\n");
+			Log.d(TAG, "recentTaskInfo: " + "\n" + buffer.toString());
 			return buffer.toString();
 		}
 		return "recentTaskInfo is null";
@@ -305,6 +316,7 @@ public class ActivityHelper {
 		if (memoryInfo != null) {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+			buffer.append("\n");
 			
 			buffer.append("availMem=" + memoryInfo.availMem + "\n");
 			buffer.append("totalMem=" + memoryInfo.totalMem + "\n");
@@ -318,8 +330,9 @@ public class ActivityHelper {
 			// buffer.append("secondaryServerThreshold=" + memoryInfo.secondaryServerThreshold + "\n");
 			// buffer.append("visibleAppThreshold=" + memoryInfo.visibleAppThreshold + "\n");
 			// buffer.append("foregroundAppThreshold=" + memoryInfo.foregroundAppThreshold + "\n");
+			buffer.append("\n");
 
-			Log.d(TAG, "memoryInfo: " + buffer.toString());
+			Log.d(TAG, "memoryInfo: " + "\n" + buffer.toString());
 			return buffer.toString();
 		}
 		return "memoryInfo is null";
@@ -331,6 +344,7 @@ public class ActivityHelper {
 		if (memoryInfo != null) {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+			buffer.append("\n");
 
 			buffer.append("dalvikPss=" + memoryInfo.dalvikPss + "\n");
             // buffer.append("dalvikSwappablePss=" + memoryInfo.dalvikSwappablePss + "\n");
@@ -370,8 +384,9 @@ public class ActivityHelper {
             // buffer.append("getOtherPrivate=" + memoryInfo.getOtherPrivate() + "\n");
             // buffer.append("getOtherSharedClean=" + memoryInfo.getOtherSharedClean() + "\n");
             // buffer.append("getOtherSwappedOut=" + memoryInfo.getOtherSwappedOut() + "\n");
+			buffer.append("\n");
 
-			Log.d(TAG, "memoryInfo: " + buffer.toString());
+			Log.d(TAG, "memoryInfo: " + "\n" + buffer.toString());
 			return buffer.toString();
 		}
 		return "memoryInfo is null";

@@ -2,6 +2,7 @@ package zovl.zhongguanhua.media.demo.logic;
 
 import android.util.Log;
 
+import com.coremedia.iso.IsoFile;
 import com.coremedia.iso.boxes.Box;
 import com.coremedia.iso.boxes.Container;
 import com.googlecode.mp4parser.FileDataSourceImpl;
@@ -15,7 +16,6 @@ import com.googlecode.mp4parser.authoring.tracks.AppendTrack;
 import com.googlecode.mp4parser.authoring.tracks.CroppedTrack;
 import com.googlecode.mp4parser.authoring.tracks.h264.H264TrackImpl;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -35,19 +35,22 @@ public class MP4parserHelper {
      *
      * @param srcPath   视频源文件
      * @param dstPath   视频剪辑后保存的文件
-     * @param startTime 开始（毫秒）
-     * @param endTime   结束（毫秒）
+     * @param startMillSecs 开始（毫秒）
+     * @param endMilliSecs   结束（毫秒）
      * @return 是否剪辑成功
      */
-    public static boolean startTrim(String srcPath, String dstPath, long startTime, long endTime) {
+    public static boolean trimMedia(String srcPath, String dstPath, long startMillSecs, long endMilliSecs) {
         Log.d(TAG, "----------------------------------[startTrim]----------------------------------");
-        Log.d(TAG, "startTrim: srcPath=" + srcPath);
-        Log.d(TAG, "startTrim: dstPath=" + dstPath);
-        Log.d(TAG, "startTrim: startTime=" + startTime);
-        Log.d(TAG, "startTrim: endTime=" + endTime);
+        Log.d(TAG, "trimMedia: srcPath=" + srcPath);
+        Log.d(TAG, "trimMedia: dstPath=" + dstPath);
+        Log.d(TAG, "trimMedia: startTime=" + startMillSecs);
+        Log.d(TAG, "trimMedia: endTime=" + endMilliSecs);
         try {
-            startTrim(new File(srcPath), new File(dstPath), startTime, endTime);
-            Log.d(TAG, "startTrim: true");
+            Movie newMovie = trimMedia_1(srcPath, startMillSecs, endMilliSecs);
+            if (newMovie != null)
+                writeMovie_1(dstPath, newMovie);
+            Log.d(TAG, "trimMedia: true");
+            printMovie(newMovie);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,21 +61,22 @@ public class MP4parserHelper {
     /**
      * 视频剪辑
      */
-    private static void startTrim(File scrFile, File dstFile, long startTime, long endTime) throws IOException {
+    private static Movie trimMedia_1(String srcPath, long startMillSecs, long endMilliSecs) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        Movie movie = MovieCreator.build(scrFile.getPath());
-        List<Track> tracks = movie.getTracks();
-        movie.setTracks(new LinkedList<Track>());
-        double startTimeSec = startTime / 1000;
-        double endTimeSec = endTime / 1000;
+        Movie origMovie = MovieCreator.build(srcPath);
+        printMovie(origMovie);
+        List<Track> tracks = origMovie.getTracks();
+        origMovie.setTracks(new LinkedList<Track>());
+        double startSecs = startMillSecs / 1000;
+        double endSecs = endMilliSecs / 1000;
         boolean timeCorrected = false;
         for (Track track : tracks) {
             if (track.getSyncSamples() != null && track.getSyncSamples().length > 0) {
                 if (timeCorrected) {
                     throw new RuntimeException("The startTime has already been corrected by another track with SyncSample. Not Supported.");
                 }
-                startTimeSec = correctTimeToSyncSample(track, startTimeSec, false);
-                endTimeSec = correctTimeToSyncSample(track, endTimeSec, true);
+                startSecs = correctTimeToSyncSample(track, startSecs, false);
+                endSecs = correctTimeToSyncSample(track, endSecs, true);
                 timeCorrected = true;
             }
         }
@@ -84,25 +88,20 @@ public class MP4parserHelper {
             long endSample = -1;
             for (int i = 0; i < track.getSampleDurations().length; i++) {
                 long delta = track.getSampleDurations()[i];
-                if (currentTime <= startTimeSec) {
+                if (currentTime <= startSecs) {
                     startSample = currentSample;
                 }
-                if (currentTime <= endTimeSec) {
+                if (currentTime <= endSecs) {
                     endSample = currentSample;
                 }
                 lastTime = currentTime;
                 currentTime += (double) delta / (double) track.getTrackMetaData().getTimescale();
                 currentSample++;
             }
-            movie.addTrack(new CroppedTrack(track, startSample, endSample));
-            // movie.addTrack(new AppendTrack(new CroppedTrack(track, startSample, endSample), new CroppedTrack(track, startSample, endSample)));
+            Log.d(TAG, "muxVideoAndAudio: " + startSample + "--" + endSample);
+            origMovie.addTrack(new CroppedTrack(track, startSample, endSample));
         }
-        Container container = new DefaultMp4Builder().build(movie);
-        FileOutputStream fos = new FileOutputStream(dstFile);
-        FileChannel fc = fos.getChannel();
-        container.writeContainer(fc);
-        fc.close();
-        fos.close();
+        return origMovie;
     }
 
     private static double correctTimeToSyncSample(Track track, double cutHere, boolean next) {
@@ -149,9 +148,12 @@ public class MP4parserHelper {
         Log.d(TAG, "muxMedia: srcPaths=" + srcPaths);
         Log.d(TAG, "muxMedia: dstPath=" + dstPath);
         try {
-            Movie newMovie = muxMedia_1(srcPaths, dstPath);
-            writeMovie_1(new File(dstPath), newMovie);
+            Movie newMovie = muxMedia_1(srcPaths);
+            if (newMovie != null) {
+                writeMovie_1(dstPath, newMovie);
+            }
             Log.d(TAG, "muxMedia: true");
+            printMovie(newMovie);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -162,7 +164,7 @@ public class MP4parserHelper {
     /**
      * 视频合成
      */
-    private static Movie muxMedia_1(String[] srcPaths, String dstPath) throws IOException {
+    private static Movie muxMedia_1(String[] srcPaths) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
 
         Movie[] srcMovies = new Movie[srcPaths.length];
@@ -211,13 +213,18 @@ public class MP4parserHelper {
         try {
             // 有效
             // Movie newMovie = muxVideoAndAudio_2(new File(videoPath), new File(audioPath), new File(dstPath));
-            // writeMovie_1(new File(dstPath), newMovie);
+            // if (newMovie != null) {
+            //     writeMovie_1(new File(dstPath), newMovie);
+            // }
 
             // 有效
-            Movie newMovie = muxVideoAndAudio_3(new File(videoPath), new File(audioPath), new File(dstPath));
-            writeMovie_1(new File(dstPath), newMovie);
+            Movie newMovie = muxVideoAndAudio_3(videoPath, audioPath);
+            if (newMovie != null) {
+                writeMovie_1(dstPath, newMovie);
+            }
 
             Log.d(TAG, "muxVideoAndAudio: true");
+            printMovie(newMovie);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -228,10 +235,10 @@ public class MP4parserHelper {
     /**
      * 视频音频合成
      */
-    private static Movie muxVideoAndAudio_1(File videoFile, File audioFile, File dstFile) throws IOException {
+    private static Movie muxVideoAndAudio_1(String videoPath, String audioPath) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        Movie videoMovie = MovieCreator.build(videoFile.getPath());
-        Movie audioMovie = MovieCreator.build(audioFile.getPath());
+        Movie videoMovie = MovieCreator.build(videoPath);
+        Movie audioMovie = MovieCreator.build(audioPath);
         Movie newMovie = new Movie();
 
         Track audioTrack = audioMovie.getTracks().get(0);
@@ -254,10 +261,10 @@ public class MP4parserHelper {
     /**
      * 视频音频合成
      */
-    private static Movie muxVideoAndAudio_2(File videoFile, File audioFile, File dstFile) throws IOException {
+    private static Movie muxVideoAndAudio_2(String videoPath, String audioPath) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        Movie videoMovie = MovieCreator.build(videoFile.getPath());
-        Movie audioMovie = MovieCreator.build(audioFile.getPath());
+        Movie videoMovie = MovieCreator.build(videoPath);
+        Movie audioMovie = MovieCreator.build(audioPath);
         Movie newMovie = new Movie();
 
         List<Track> videoTracks = new LinkedList<>();
@@ -317,10 +324,10 @@ public class MP4parserHelper {
     /**
      * 视频音频合成
      */
-    private static Movie muxVideoAndAudio_3(File videoFile, File audioFile, File dstFile) throws IOException {
+    private static Movie muxVideoAndAudio_3(String videoPath, String audioPath) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        Movie videoMovie = MovieCreator.build(videoFile.getPath());
-        Movie audioMovie = MovieCreator.build(audioFile.getPath());
+        Movie videoMovie = MovieCreator.build(videoPath);
+        Movie audioMovie = MovieCreator.build(audioPath);
         Movie newMovie = new Movie();
 
         Track audioTrack = audioMovie.getTracks().get(0);
@@ -334,12 +341,167 @@ public class MP4parserHelper {
     }
 
     /**
+     * 视频音频合成（音轨裁剪和拼接）
+     * @deprecated 报错
+     */
+    private static Movie muxVideoAndAudio_4(String videoPath, String audioPath) throws IOException {
+        Movie videoMovie = MovieCreator.build(videoPath);
+        Movie audioMovie = MovieCreator.build(audioPath);
+        printMovie(audioMovie);
+        printMovie(videoMovie);
+        Movie newMovie = new Movie();
+        List<Track> videoTracks = new LinkedList<>();
+        List<Track> audioTracks = new LinkedList<>();
+
+        //---------------------------------
+
+        Track audioTrack = audioMovie.getTracks().get(0);
+        Track videoTrack = videoMovie.getTracks().get(0);
+
+        //---------------------------------
+
+        for (Track track : audioMovie.getTracks()) {
+            if (track.getHandler().equals("soun")) {
+                audioTracks.add(track);
+            }
+        }
+
+        for (Track track : videoMovie.getTracks()) {
+            if (track.getHandler().equals("vide")) {
+                videoTracks.add(track);
+            } else if (track.getHandler().equals("soun")) {
+                audioTracks.add(track);
+            }
+        }
+
+        //---------------------------------
+
+        // List<Track> tracks = new LinkedList<>();
+        // tracks.addAll(audioMovie.getTracks());
+        // tracks.addAll(videoMovie.getTracks());
+
+        //---------------------------------
+
+        IsoFile videoFile = new IsoFile(videoPath);
+        IsoFile audioFile = new IsoFile(audioPath);
+        double videoSecs = (double) videoFile.getMovieBox().getMovieHeaderBox().getDuration() /
+                videoFile.getMovieBox().getMovieHeaderBox().getTimescale();
+        double audioSecs = (double) audioFile.getMovieBox().getMovieHeaderBox().getDuration() /
+                audioFile.getMovieBox().getMovieHeaderBox().getTimescale();
+
+        Log.d(TAG, "muxVideoAndAudio: videoSecs=" + videoSecs);
+        Log.d(TAG, "muxVideoAndAudio: audioSecs=" + audioSecs);
+
+        if (videoSecs - audioSecs > 0) {// 视频轨道长
+            Log.d(TAG, "muxVideoAndAudio: a");
+            for (Track track : videoTracks) {
+                newMovie.addTrack(track);
+            }
+
+            double startTime1 = 0;
+            double endTime1 = audioSecs;
+            double startTime2 = audioSecs;
+            double endTime2 = videoSecs;
+            boolean timeCorrected = false;
+            for (Track track : videoTracks) {
+                if (track.getSyncSamples() != null && track.getSyncSamples().length > 0) {
+                    if (timeCorrected) {
+                        throw new RuntimeException("The startTime has already been corrected by another track with SyncSample. Not Supported.");
+                    }
+                    startTime1 = correctTimeToSyncSample(track, startTime1, false);
+                    endTime1 = correctTimeToSyncSample(track, endTime1, true);
+                    startTime2 = correctTimeToSyncSample(track, startTime2, false);
+                    endTime2 = correctTimeToSyncSample(track, endTime2, true);
+                    timeCorrected = true;
+                }
+            }
+
+            long currentSample = 0;
+            double currentTime = 0;
+            double lastTime = -1;
+            long startSample1 = -1;
+            long endSample1 = -1;
+            for (int i = 0; i < audioTrack.getSampleDurations().length; i++) {
+                long delta = audioTrack.getSampleDurations()[i];
+                if (currentTime > lastTime && currentTime <= startTime1) {
+                    startSample1 = currentSample;
+                }
+                if (currentTime > lastTime && currentTime <= endTime1) {
+                    endSample1 = currentSample;
+                }
+                lastTime = currentTime;
+                currentTime += (double) delta / (double) audioTrack.getTrackMetaData().getTimescale();
+                currentSample++;
+            }
+            currentSample = 0;
+            currentTime = 0;
+            lastTime = -1;
+            long startSample2 = -1;
+            long endSample2 = -1;
+            for (int i = 0; i < videoTrack.getSampleDurations().length; i++) {
+                long delta = videoTrack.getSampleDurations()[i];
+                if (currentTime > lastTime && currentTime <= startTime2) {
+                    startSample2 = currentSample;
+                }
+                if (currentTime > lastTime && currentTime <= endTime2) {
+                    endSample2 = currentSample;
+                }
+                lastTime = currentTime;
+                currentTime += (double) delta / (double) videoTrack.getTrackMetaData().getTimescale();
+                currentSample++;
+            }
+            Log.d(TAG, "muxVideoAndAudio: " + startSample1 + "--" + endSample1);
+            Log.d(TAG, "muxVideoAndAudio: " + startSample2 + "--" + endSample2);
+            newMovie.addTrack(
+                    new AppendTrack(
+                            new CroppedTrack(audioTrack, startSample1, endSample1),
+                            new CroppedTrack(videoTrack, startSample2, endSample2)));
+        } else if (videoSecs - audioSecs < 0) {// 音频轨道长
+            Log.d(TAG, "muxVideoAndAudio: b");
+            for (Track track : audioTracks) {
+                newMovie.addTrack(new CroppedTrack(track, 0, findNextSyncSample(track, videoSecs)));
+            }
+            for (Track track : videoTracks) {
+                newMovie.addTrack(track);
+            }
+        } else {
+            Log.d(TAG, "muxVideoAndAudio: c");
+            for (Track track : audioTracks) {
+                newMovie.addTrack(track);
+            }
+            for (Track track : videoTracks) {
+                newMovie.addTrack(track);
+            }
+        }
+
+        return newMovie;
+    }
+
+    private static long findNextSyncSample(Track track, double cutHere) {
+        long currentSample = 0;
+        double currentTime = 0;
+        long[] durations = track.getSampleDurations();
+        long[] syncSamples = track.getSyncSamples();
+        for (int i = 0; i < durations.length; i++) {
+            long delta = durations[i];
+
+            if ((syncSamples == null || syncSamples.length > 0 || Arrays.binarySearch(syncSamples, currentSample + 1) >= 0)
+                    && currentTime > cutHere) {
+                return i;
+            }
+            currentTime += (double) delta / (double) track.getTrackMetaData().getTimescale();
+            currentSample++;
+        }
+        return currentSample;
+    }
+
+    /**
      * 视频音频合成
      */
-    private static Movie muxVideoAndAudio_9(File h264File, File aacFile, File dstFile) throws IOException {
+    private static Movie muxVideoAndAudio_9(String h264Path, String aacPath) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        H264TrackImpl h264Track = new H264TrackImpl(new FileDataSourceImpl(h264File.getPath()));
-        AACTrackImpl aacTrack = new AACTrackImpl(new FileDataSourceImpl(aacFile.getPath()));
+        H264TrackImpl h264Track = new H264TrackImpl(new FileDataSourceImpl(h264Path));
+        AACTrackImpl aacTrack = new AACTrackImpl(new FileDataSourceImpl(aacPath));
         Movie movie = new Movie();
         movie.addTrack(h264Track);
         movie.addTrack(aacTrack);
@@ -360,9 +522,13 @@ public class MP4parserHelper {
         Log.d(TAG, "extractVideo: srcPath=" + srcPath);
         Log.d(TAG, "extractVideo: dstPath=" + dstPath);
         try {
-            Movie newMoview = extractVideo_1(new File(srcPath), new File(dstPath));
-            writeMovie_1(new File(dstPath), newMoview);
+            Movie newMovie = extractVideo_1(srcPath);
+            if (newMovie != null) {
+                writeMovie_1(dstPath, newMovie);
+            }
+
             Log.d(TAG, "extractVideo: true");
+            printMovie(newMovie);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -373,9 +539,9 @@ public class MP4parserHelper {
     /**
      * 提取视频
      */
-    private static Movie extractVideo_1(File scrFile, File dstFile) throws IOException {
+    private static Movie extractVideo_1(String srcPath) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        Movie srcMovie = MovieCreator.build(scrFile.getPath());
+        Movie srcMovie = MovieCreator.build(srcPath);
         Movie dstMovie = new Movie();
 
         //---------------------------------
@@ -435,9 +601,13 @@ public class MP4parserHelper {
         Log.d(TAG, "extractAudio: srcPath=" + srcPath);
         Log.d(TAG, "extractAudio: dstPath=" + dstPath);
         try {
-            Movie newMoview = extractAudio_1(new File(srcPath), new File(dstPath));
-            writeMovie_1(new File(dstPath), newMoview);
+            Movie newMovie = extractAudio_1(srcPath);
+            if (newMovie != null) {
+                writeMovie_1(dstPath, newMovie);
+            }
+
             Log.d(TAG, "extractAudio: true");
+            printMovie(newMovie);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -448,9 +618,9 @@ public class MP4parserHelper {
     /**
      * 提取音轨
      */
-    private static Movie extractAudio_1(File scrFile, File dstFile) throws IOException {
+    private static Movie extractAudio_1(String srcPath) throws IOException {
         Log.d(TAG, "--------------------------------------------------------------------");
-        Movie srcMovie = MovieCreator.build(scrFile.getPath());
+        Movie srcMovie = MovieCreator.build(srcPath);
         Movie dstMovie = new Movie();
 
         //---------------------------------
@@ -489,12 +659,12 @@ public class MP4parserHelper {
     /**
      * 保存视频
      *
-     * @param file 保存的路径
+     * @param path 保存的路径
      * @param movie 保存的视频
      */
-    private static void writeMovie_1(File file, Movie movie) throws IOException {
+    private static void writeMovie_1(String path, Movie movie) throws IOException {
         Container container = new DefaultMp4Builder().build(movie);
-        FileOutputStream fos = new FileOutputStream(file);
+        FileOutputStream fos = new FileOutputStream(path);
         FileChannel fc = fos.getChannel();
         container.writeContainer(fc);
         fc.close();
@@ -504,12 +674,12 @@ public class MP4parserHelper {
     /**
      * 保存视频
      *
-     * @param file 保存的路径
+     * @param path 保存的路径
      * @param movie 保存的视频
      */
-    private static void writeMovie_2(File file, Movie movie) throws IOException {
+    private static void writeMovie_2(String path, Movie movie) throws IOException {
         Container container = new DefaultMp4Builder().build(movie);
-        FileChannel fc = new RandomAccessFile(file, "rw").getChannel();
+        FileChannel fc = new RandomAccessFile(path, "rw").getChannel();
         container.writeContainer(fc);
         fc.close();
     }
@@ -517,33 +687,63 @@ public class MP4parserHelper {
     // ---------------------------------------------------------------------------------
 
     /**
+     * 打印电影
+     */
+    private static void printMovie(Movie movie) {
+        Log.d(TAG, "--------------------------------[Movie]------------------------------------");
+        if (movie != null) {
+            Log.d(TAG, "printTrack: movie=" + movie.toString());
+            if (movie.getTracks() != null) {
+                for (Track track: movie.getTracks()) {
+                    printTrack(track);
+                }
+            }
+        }
+    }
+
+    /**
      * 打印轨道
      */
-    private static void printTrack(Track track) throws Exception {
+    private static void printTrack(Track track) {
         Log.d(TAG, "--------------------------------[Track]------------------------------------");
-        Log.d(TAG, "printTrack: track=" + track);
-        Log.d(TAG, "printTrack: hanlder=" + track.getHandler());
-        Log.d(TAG, "printTrack: duration=" + track.getDuration());
-        // printBox(track.getMediaHeaderBox());
-        printBox(track.getSampleDescriptionBox());
-        printBox(track.getSubsampleInformationBox());
-        /*
-        for (Sample sample : track.getSamples()) {
-            printSample(sample);
-        }*/
+        if (track != null) {
+            Log.d(TAG, "printTrack: name=" + track.getName());
+            Log.d(TAG, "printTrack: hanlder=" + track.getHandler());
+            Log.d(TAG, "printTrack: duration=" + track.getDuration());
+            if (track.getSamples() != null) {
+                Log.d(TAG, "printTrack: samplesSize=" + track.getSamples().size());
+            }
+            if (track.getSampleDurations() != null) {
+                Log.d(TAG, "printTrack: samplesDurationsLength=" + track.getSampleDurations().length);
+            }
+            if (track.getSyncSamples() != null) {
+                Log.d(TAG, "printTrack: SyncSamplesLength=" + track.getSyncSamples().length);
+            }
+            // printBox(track.getMediaHeaderBox());
+            // printBox(track.getSampleDescriptionBox());
+            // printBox(track.getSubsampleInformationBox());
+            /*
+            for (Sample sample : track.getSamples()) {
+                printSample(sample);
+            }*/
+        }
     }
 
-    private static void printBox(Box box) throws Exception {
+    private static void printBox(Box box) {
         Log.d(TAG, "--------------------------------[Box]------------------------------------");
-        Log.d(TAG, "printTrack: box=" + box);
-        Log.d(TAG, "printTrack: type=" + box.getType());
-        Log.d(TAG, "printTrack: offSet=" + box.getOffset());
-        Log.d(TAG, "printTrack: parent=" + box.getParent());
-        Log.d(TAG, "printTrack: size=" + box.getSize());
+        if (box != null) {
+            Log.d(TAG, "printTrack: box=" + box);
+            Log.d(TAG, "printTrack: type=" + box.getType());
+            Log.d(TAG, "printTrack: offSet=" + box.getOffset());
+            Log.d(TAG, "printTrack: parent=" + box.getParent());
+            Log.d(TAG, "printTrack: size=" + box.getSize());
+        }
     }
 
-    private static void printSample(Sample sample) throws Exception {
+    private static void printSample(Sample sample) {
         Log.d(TAG, "--------------------------------[Sample]------------------------------------");
-        Log.d(TAG, "printTrack: sample=" + sample);
+        if (sample != null) {
+            Log.d(TAG, "printTrack: sample=" + sample);
+        }
     }
 }

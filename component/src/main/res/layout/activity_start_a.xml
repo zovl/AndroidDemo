@@ -10,5 +10,5 @@
         android:gravity="center"
         android:textColor="#0000ff"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="A\n\nStartResultActivity" />
+        android:text="A\n\nStartActivity" />
 </RelativeLayout>
