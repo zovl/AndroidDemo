@@ -12,10 +12,10 @@ android {
         versionName "1.0"
 
         ndk {
-            moduleName "nativeModule"
-            ldLibs "log", "z", "m"
+            // so 文件名称
+            moduleName "Person"
+            // ldLibs "log", "z", "m"
             abiFilters "armeabi", "armeabi-v7a", "x86"
-
         }
     }
 
@@ -25,13 +25,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-/*
+
     sourceSets {
         main {
-            jniLibs.srcDir ""
-            jni.srcDirs ""
+            jni.srcDirs = []
+            jniLibs.srcDirs = ['src/main/libs']
         }
-    }*/
+    }
 
     productFlavors {
         arm {
