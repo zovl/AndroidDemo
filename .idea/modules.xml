@@ -2,16 +2,17 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidDemo.iml" filepath="$PROJECT_DIR$/AndroidDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GLRecorderDemo/GLRecorderDemo.iml" filepath="$PROJECT_DIR$/GLRecorderDemo/GLRecorderDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GLRecorderLib/GLRecorderLib.iml" filepath="$PROJECT_DIR$/GLRecorderLib/GLRecorderLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/component/component.iml" filepath="$PROJECT_DIR$/component/component.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lib-framework/lib-framework.iml" filepath="$PROJECT_DIR$/lib-framework/lib-framework.iml" />
-      <module fileurl="file://$PROJECT_DIR$/media/media.iml" filepath="$PROJECT_DIR$/media/media.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidDemo.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GLRecorderDemo/GLRecorderDemo.iml" filepath="$PROJECT_DIR$/.idea/modules/GLRecorderDemo/GLRecorderDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GLRecorderLib/GLRecorderLib.iml" filepath="$PROJECT_DIR$/.idea/modules/GLRecorderLib/GLRecorderLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/component/component.iml" filepath="$PROJECT_DIR$/.idea/modules/component/component.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jni/jni.iml" filepath="$PROJECT_DIR$/jni/jni.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib-framework/lib-framework.iml" filepath="$PROJECT_DIR$/.idea/modules/lib-framework/lib-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/media/media.iml" filepath="$PROJECT_DIR$/.idea/modules/media/media.iml" />
       <module fileurl="file://$PROJECT_DIR$/signature/sign.iml" filepath="$PROJECT_DIR$/signature/sign.iml" />
-      <module fileurl="file://$PROJECT_DIR$/signature/signature.iml" filepath="$PROJECT_DIR$/signature/signature.iml" />
-      <module fileurl="file://$PROJECT_DIR$/system/system.iml" filepath="$PROJECT_DIR$/system/system.iml" />
-      <module fileurl="file://$PROJECT_DIR$/thread/thread.iml" filepath="$PROJECT_DIR$/thread/thread.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/signature/signature.iml" filepath="$PROJECT_DIR$/.idea/modules/signature/signature.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/system/system.iml" filepath="$PROJECT_DIR$/.idea/modules/system/system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/thread/thread.iml" filepath="$PROJECT_DIR$/.idea/modules/thread/thread.iml" />
     </modules>
   </component>
 </project>

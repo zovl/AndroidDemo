@@ -1,0 +1,19 @@
+
+# Git/SVN 忽略文件
+
+1.Project dir
+
+*.iml
+.gradle
+.idea
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/apk
+/captures
+
+2.Module dir
+
+/build
