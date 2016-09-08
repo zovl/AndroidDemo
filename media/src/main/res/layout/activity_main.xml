@@ -67,6 +67,12 @@
             android:text="Camera2Texture"
             android:id="@+id/camera2Texture" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="PreviewSurface"
+            android:id="@+id/previewSurface" />
+
         <!--###########################<视频编辑>##############################-->
 
         <TextView

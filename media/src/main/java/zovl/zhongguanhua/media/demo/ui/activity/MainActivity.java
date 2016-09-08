@@ -26,7 +26,8 @@ public class MainActivity extends TBaseActivity {
             R.id.audioRecord,
             R.id.cameraSurface,
             R.id.cameraTexture,
-            R.id.camera2Texture})
+            R.id.camera2Texture,
+            R.id.previewSurface})
     public void onClick(View view) {
 
         switch (view.getId()) {
@@ -45,6 +46,10 @@ public class MainActivity extends TBaseActivity {
 
             case R.id.camera2Texture:
                 startActivity(Camera2TextureActivity.class);
+                break;
+
+            case R.id.previewSurface:
+                startActivity(PreviewSurfaceActivity.class);
                 break;
 
             case R.id.extractor:

@@ -36,13 +36,6 @@ public class CodecActivity extends TBaseActivity {
     @Bind(R.id.text)
     TextView text;
 
-    private MediaCodec mediaCodec;
-    private MediaExtractor extractor;
-    private MediaFormat format;
-    private String mime;
-    private int sampleRate = 0, channels = 0, bitrate = 0;
-    private long presentationTimeUs = 0, duration = 0;
-
     @Override
     public int getContentView() {
         return R.layout.activity_codec;
@@ -78,6 +71,13 @@ public class CodecActivity extends TBaseActivity {
     }
 
     // ---------------------------------------------------------------------------------
+
+    private MediaCodec mediaCodec;
+    private MediaExtractor extractor;
+    private MediaFormat format;
+    private String mime;
+    private int sampleRate = 0, channels = 0, bitrate = 0;
+    private long presentationTimeUs = 0, duration = 0;
 
     private void codec(String path) {
         log("----------------------------------[codec]----------------------------------");

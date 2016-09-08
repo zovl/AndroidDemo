@@ -38,8 +38,6 @@ public class CameraHelper {
         Log.d(TAG, "openCamera: // -----------------------------------------------------");
         int size = CameraUtil.cameraSize();
         int next = (index + 1) % size;
-        Log.d(TAG, "switchCamera: size=" + size);
-        Log.d(TAG, "switchCamera: next=" + next);
         if (size >= 2) {
             destroyCamera();
             camera = CameraUtil.openCamera(next);
@@ -48,14 +46,12 @@ public class CameraHelper {
                 isOpenCamera = true;
                 info = CameraUtil.cameraInfo(index);
                 isFrontCamera = CameraUtil.isFrontCamera(index);
-                Log.d(TAG, "switchCamera: 2");
             } else {
                 camera = CameraUtil.openCamera(index);
                 if (camera != null) {
                     isOpenCamera = true;
                     info = CameraUtil.cameraInfo(index);
                     isFrontCamera = CameraUtil.isFrontCamera(index);
-                    Log.d(TAG, "switchCamera: 3");
                 } else {
                     isOpenCamera = false;
                     info = null;
@@ -64,10 +60,8 @@ public class CameraHelper {
             }
         }
 
-        Log.d(TAG, "switchCamera: camera=" + camera);
         Log.d(TAG, "switchCamera: index=" + index);
         Log.d(TAG, "switchCamera: isOpenCamera=" + isOpenCamera);
-        Log.d(TAG, "switchCamera: info=" + info);
         Log.d(TAG, "switchCamera: isFrontCamera=" + isFrontCamera);
     }
 

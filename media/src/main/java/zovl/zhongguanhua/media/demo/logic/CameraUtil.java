@@ -99,6 +99,12 @@ public class CameraUtil {
     public static void destroyCamera(Camera camera) {
         if (camera != null) {
             try {
+                camera.setPreviewCallback(null);
+                camera.setPreviewCallbackWithBuffer(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
                 camera.stopPreview();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -233,12 +239,21 @@ public class CameraUtil {
      * 相机预览
      */
     public static boolean restartPreview(Camera camera) {
+        return restartPreview(camera, null);
+    }
+
+    /**
+     * 相机预览
+     */
+    public static boolean restartPreview(Camera camera, Camera.PreviewCallback callback) {
         if (camera != null) {
             try {
                 camera.stopPreview();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            if (callback != null)
+                camera.setPreviewCallback(callback);
             try {
                 camera.startPreview();
             } catch (Exception e) {
@@ -258,7 +273,16 @@ public class CameraUtil {
      * 相机开始预览
      */
     public static boolean startPreview(Camera camera) {
+        return startPreview(camera, null);
+    }
+
+    /**
+     * 相机开始预览
+     */
+    public static boolean startPreview(Camera camera, Camera.PreviewCallback callback) {
         if (camera != null) {
+            if (callback != null)
+                camera.setPreviewCallback(callback);
             try {
                 camera.startPreview();
             } catch (Exception e) {
@@ -615,7 +639,7 @@ public class CameraUtil {
                             previewSize = size;
                         }
                     }
-                    Log.d(TAG, "printParameters: previewSize--width=" + previewSize.width + "--height=" + previewSize.height);
+                    Log.d(TAG, "setPreviewParametersSmallest: previewSize--width=" + previewSize.width + "--height=" + previewSize.height);
                     parameters.setPreviewSize(previewSize.width, previewSize.height);
                 }
 
@@ -670,13 +694,13 @@ public class CameraUtil {
                             previewSize = size;
                         }
                     }
-                    Log.d(TAG, "printParameters: previewSize--width=" + previewSize.width + "--height=" + previewSize.height);
+                    Log.d(TAG, "setPreviewParametersLargest: previewSize--width=" + previewSize.width + "--height=" + previewSize.height);
                     parameters.setPreviewSize(previewSize.width, previewSize.height);
                 }
 
                 try {
                     camera.setParameters(parameters);
-                    Log.d(TAG, "setPreviewParametersSmallest: true");
+                    Log.d(TAG, "setPreviewParametersLargest: true");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -693,13 +717,13 @@ public class CameraUtil {
                             frameRate = rate;
                         }
                     }
-                    Log.d(TAG, "setPreviewParametersSmallest: frameRate=" + frameRate);
+                    Log.d(TAG, "setPreviewParametersLargest: frameRate=" + frameRate);
                     parameters.setPreviewFrameRate(frameRate);
                 }
 
                 try {
                     camera.setParameters(parameters);
-                    Log.d(TAG, "setPreviewParametersSmallest: true");
+                    Log.d(TAG, "setPreviewParametersLargest: true");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

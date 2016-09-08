@@ -14,7 +14,7 @@ android {
         ndk {
             // so 文件名称
             moduleName "Person"
-            // ldLibs "log", "z", "m"
+            ldLibs "log", "z", "m"
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
     }

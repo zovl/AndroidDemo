@@ -52,6 +52,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".ui.activity.PreviewSurfaceActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".ui.activity.ExtractorActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
