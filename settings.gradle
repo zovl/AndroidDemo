@@ -1,13 +1,13 @@
-include ':signature',
-        ':jni',
+include ':android-signature',
+        ':android-jni',
 
-        ':system',
+        ':android-system',
 
-        ':media',
+        ':android-media',
 
-        ':thread',
+        ':android-thread',
 
-        ':component',
+        ':android-component',
         ':lib-framework',
 
         ':GLRecorderDemo',
