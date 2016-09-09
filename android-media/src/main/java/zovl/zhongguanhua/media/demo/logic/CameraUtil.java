@@ -52,11 +52,11 @@ public class CameraUtil {
     /**
      * 打开相机
      *
-     * @param isFrontCamera 是否打开前置相机
+     * @param flag 是否打开前置相机
      */
-    public static Camera openCamera(boolean isFrontCamera) {
-        Log.i(TAG, "isFrontCamera=" + isFrontCamera);
-        if (isFrontCamera) {// 打开前置摄像头
+    public static Camera openCamera(boolean flag) {
+        Log.d(TAG, "openCamera: flag=" + flag);
+        if (flag) {// 打开前置摄像头
             Camera.CameraInfo info = new Camera.CameraInfo();
             for (int i = 0; i < Camera.getNumberOfCameras(); i++) {
                 Camera.getCameraInfo(i, info);
@@ -84,9 +84,10 @@ public class CameraUtil {
      * @param i 相机标示
      */
     public static Camera openCamera(int i) {
-        Log.i(TAG, "i=" + i);
+        Log.d(TAG, "openCamera: i=" + i);
         try {
-            return Camera.open(i);
+            Camera camera =  Camera.open(i);
+            return camera;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,7 +122,9 @@ public class CameraUtil {
      * 相机数量
      */
     public static int cameraSize() {
-        return Camera.getNumberOfCameras();
+        int number = Camera.getNumberOfCameras();
+        Log.d(TAG, "cameraSize: number=" + number);
+        return number;
     }
 
     /**
@@ -141,7 +144,7 @@ public class CameraUtil {
     /**
      * 获得相机信息
      */
-    public static boolean isFrontCamera(int i) {
+    public static boolean frontCamera(int i) {
         Camera.CameraInfo info = cameraInfo(i);
         if (info != null) {
             if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
@@ -325,6 +328,7 @@ public class CameraUtil {
                 try {
                     parameters.setFlashMode(mode);
                     camera.setParameters(parameters);
+                    Log.d(TAG, "setFlashMode: true");
                     return true;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -395,7 +399,6 @@ public class CameraUtil {
                     try {
                         camera.setParameters(parameters);
                         Log.d(TAG, "setZoom: true");
-                        Log.d(TAG, "setZoom: zoom=" + camera.getParameters().getZoom());
                         return true;
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -411,7 +414,9 @@ public class CameraUtil {
      */
     public static int maxZoom(Camera camera) {
         try {
-            return camera.getParameters().getMaxZoom();
+            int maxZoom = camera.getParameters().getMaxZoom();
+            Log.d(TAG, "maxZoom: maxZoom=" + maxZoom);
+            return maxZoom;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -423,7 +428,9 @@ public class CameraUtil {
      */
     public static int zoom(Camera camera) {
         try {
-            return camera.getParameters().getZoom();
+            int zoom = camera.getParameters().getZoom();
+            Log.d(TAG, "maxZoom: zoom=" + zoom);
+            return zoom;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -741,6 +748,7 @@ public class CameraUtil {
             return;
         try {
             camera.autoFocus(null);
+            Log.d(TAG, "autoFocusCamera: true");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -778,6 +786,7 @@ public class CameraUtil {
         try {
             // 有些机型会出异常
             camera.setParameters(parameters);
+            Log.d(TAG, "focusCamera: true");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -855,176 +864,275 @@ public class CameraUtil {
     /**
      * 打印相机信息
      */
-    public static void printInfo(Camera.CameraInfo info) {
-        if (info == null)
-            return;
-        Log.d(TAG, "----------------info------------------");
-        Log.d(TAG, "printInfo: info=" + info);
-        Log.d(TAG, "printInfo: canDisableShutterSound=" + info.canDisableShutterSound);
-        Log.d(TAG, "printInfo: facing=" + info.facing);
-        Log.d(TAG, "printInfo: orientation=" + info.orientation);
-    }
+    public static String printInfo(Camera.CameraInfo info) {
+        Log.d(TAG, "----------------[printInfo]------------------");
+        if (info != null) {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+            buffer.append("\n");
 
-    /**
-     * 打印相机参数
-     */
-    public static void printParameters(Camera camera) {
-        if (camera == null)
-            return;
-        if (camera.getParameters() == null)
-            return;
-        Camera.Parameters parameters = camera.getParameters();
-        printParameters(parameters);
-    }
+            buffer.append("canDisableShutterSound=" + info.canDisableShutterSound + "\n");
+            buffer.append("facing=" + info.facing + "\n");
+            buffer.append("orientation=" + info.orientation + "\n");
 
-    /**
-     * 打印相机参数
-     */
-    public static void printParameters(Camera.Parameters parameters) {
-        if (parameters == null)
-            return;
-        Log.d(TAG, "----------------parameters------------------");
-        Log.d(TAG, "printParameters: parameters=" + parameters);
-
-        // ---------------------------------------------------------
-        Log.d(TAG, "------------------------------------------------");
-
-        Log.d(TAG, "----------------supportedPreviewSizes------------------");
-        List<Camera.Size> previewSizes = parameters.getSupportedPreviewSizes();
-        if (previewSizes != null)
-            for (Camera.Size previewSize : previewSizes) {
-                Log.d(TAG, "printParameters: previewSizes--width=" + previewSize.width + "--height=" + previewSize.height);
-            }
-        Log.d(TAG, "----------------supportedPreviewFrameRates------------------");
-        List<Integer> previewFrameRates = parameters.getSupportedPreviewFrameRates();
-        if (previewFrameRates != null) {
-            for (Integer previewFrameRate: previewFrameRates){
-                Log.d(TAG, "printParameters: previewFrameRates=" + previewFrameRate);
-            }
+            buffer.append("\n");
+            Log.d(TAG, "printInfo: " + "\n" + buffer.toString());
+            return buffer.toString();
         }
-        Log.d(TAG, "----------------supportedPreviewFpsRange------------------");
-        List<int[]> list = parameters.getSupportedPreviewFpsRange();
-        if (list != null) {
-            for (int[] arr: list){
-                Log.d(TAG, "----------------------------------");
-                for (int a : arr) {
-                    Log.d(TAG, "printParameters: previewFpsRange--a=" + a);
+        return "info is null";
+    }
+
+    /**
+     * 打印相机参数
+     */
+    public static String printCamera(Camera camera) {
+        Log.d(TAG, "----------------[printCamera]------------------");
+        if (camera != null) {
+            Camera.Parameters parameters = camera.getParameters();
+            if (parameters != null) {
+                return printParameters(parameters);
+            }
+            return "parameters is null";
+        }
+        return "camera is null";
+
+    }
+
+    /**
+     * 打印相机参数
+     */
+    public static String printParameters(Camera.Parameters parameters) {
+        if (parameters != null) {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+            buffer.append("\n");
+
+            // ----------------------------------------------------------------------
+
+            buffer.append("[Preview]" + "\n");
+            Camera.Size previewSize = parameters.getPreviewSize();
+            buffer.append("previewSize" + "\n");
+            buffer.append(cameraSize(previewSize));
+
+            buffer.append("previewFrameRate=" + parameters.getPreviewFrameRate() + "\n");
+
+            int previewFormat = parameters.getPreviewFormat();
+            buffer.append("previewFormat" + "\n");
+            buffer.append(imageFormat(previewFormat));
+
+            List<Camera.Size> previewSizes = parameters.getSupportedPreviewSizes();
+            buffer.append("supportedPreviewSizes" + "\n");
+            buffer.append(cameraSizes(previewSizes));
+
+            Camera.Size preferredPreviewSize = parameters.getPreferredPreviewSizeForVideo();
+            buffer.append("preferredPreviewSizeForVideos" + "\n");
+            buffer.append(cameraSize(preferredPreviewSize));
+
+            List<Integer> previewFrameRates = parameters.getSupportedPreviewFrameRates();
+            buffer.append("supportedPreviewFrameRates" + "\n");
+            if (previewFrameRates != null) {
+                for (Integer previewFrameRate: previewFrameRates){
+                    buffer.append("\t" + previewFrameRate + "\n");
                 }
             }
-        }
-        Log.d(TAG, "----------------supportedPreviewFormats------------------");
-        List<Integer> previewFormats = parameters.getSupportedPreviewFormats();
-        if (previewFormats != null) {
-            for (int previewFormat :
-                    previewFormats) {
-                Log.d(TAG, "printParameters: previewFormat=" + previewFormat);
-            }
-        }
 
-        Log.d(TAG, "----------------previewSize------------------");
-        Camera.Size previewSize = parameters.getPreviewSize();
-        if (previewSize != null) {
-            Log.d(TAG, "printParameters: previewSize--width=" + previewSize.width + "--height=" + previewSize.height);
-        }
-        Log.d(TAG, "printParameters: previewFrameRate=" + parameters.getPreviewFrameRate());
-        Log.d(TAG, "printParameters: previewFormat=" + parameters.getPreviewFormat());
-
-        // ---------------------------------------------------------
-        Log.d(TAG, "------------------------------------------------");
-
-        Log.d(TAG, "printParameters: pictureFormat=" + parameters.getPictureFormat());
-        Log.d(TAG, "printParameters: zoom=" + parameters.getZoom());
-        Log.d(TAG, "printParameters: isZoomSupported=" + parameters.isZoomSupported());
-        Log.d(TAG, "printParameters: maxZoom=" + parameters.getMaxZoom());
-        Log.d(TAG, "printParameters: zoomRatios=" + parameters.getZoomRatios());
-        Log.d(TAG, "printParameters: JpegQuality=" + parameters.getJpegQuality());
-        Log.d(TAG, "printParameters: jpegThumbnailQuality=" + parameters.getJpegThumbnailQuality());
-        Log.d(TAG, "printParameters: jpegThumbnailSize=" + parameters.getJpegThumbnailSize());
-        Log.d(TAG, "printParameters: FlashMode=" + parameters.getFlashMode());
-        Log.d(TAG, "printParameters: focusMode=" + parameters.getFocusMode());
-        Log.d(TAG, "printParameters: sceneMode=" + parameters.getSceneMode());
-        Log.d(TAG, "printParameters: horizontalViewAngle=" + parameters.getHorizontalViewAngle());
-
-        Log.d(TAG, "----------------pictureSize------------------");
-        Camera.Size pictureSize = parameters.getPictureSize();
-        if (pictureSize != null) {
-            Log.d(TAG, "printParameters: pictureSize--width=" + pictureSize.width + "--height=" + pictureSize.height);
-        }
-
-        Log.d(TAG, "----------------preferredPreviewSizeForVideo------------------");
-        Camera.Size preferredPreviewSize = parameters.getPreferredPreviewSizeForVideo();
-        if (preferredPreviewSize != null) {
-            Log.d(TAG, "printParameters: preferredPreviewSize--width=" + preferredPreviewSize.width + "--height=" + preferredPreviewSize.height);
-        }
-
-        Log.d(TAG, "----------------supportedPictureSizes------------------");
-        List<Camera.Size> pictureSizes = parameters.getSupportedPictureSizes();
-        if (pictureSizes != null)
-            for (Camera.Size picSize : pictureSizes) {
-                Log.d(TAG, "printParameters: pictureSizes--width=" + picSize.width + "--height=" + picSize.height);
+            List<int[]> list = parameters.getSupportedPreviewFpsRange();
+            buffer.append("supportedPreviewFpsRanges" + "\n");
+            if (list != null) {
+                for (int[] arr: list){
+                    for (int a : arr) {
+                        buffer.append("\t" + a + "\n");
+                    }
+                }
             }
 
-        Log.d(TAG, "----------------supportedVideoSizes------------------");
-        List<Camera.Size> videoSizes = parameters.getSupportedVideoSizes();
-        if (videoSizes != null)
-            for (Camera.Size videoSize : videoSizes) {
-                Log.d(TAG, "printParameters: videoSizes--width=" + videoSize.width + "--height=" + videoSize.height);
+            List<Integer> previewFormats = parameters.getSupportedPreviewFormats();
+            buffer.append("supportedPreviewFormats" + "\n");
+            buffer.append(imageFormats(previewFormats));
+
+            // ----------------------------------------------------------------------
+
+            buffer.append("[Picture]" + "\n");
+            // 相机图片格式
+            buffer.append("pictureFormat" + "\n");
+            int pictureFormat = parameters.getPictureFormat();
+            buffer.append(imageFormat(pictureFormat));
+            // 相机图片尺寸
+            Camera.Size pictureSize = parameters.getPictureSize();
+            buffer.append("pictureSize" + "\n");
+            buffer.append(cameraSize(pictureSize));
+
+            buffer.append("JpegQuality=" + parameters.getJpegQuality() + "\n");
+            buffer.append("jpegThumbnailQuality=" + parameters.getJpegThumbnailQuality() + "\n");
+            buffer.append("jpegThumbnailSize=" + parameters.getJpegThumbnailSize() + "\n");
+            // 相机支持图片尺寸
+            List<Camera.Size> pictureSizes = parameters.getSupportedPictureSizes();
+            buffer.append("supportedPictureSizes" + "\n");
+            buffer.append(cameraSizes(pictureSizes));
+            // 相机支持图片格式
+            List<Integer> picFormats = parameters.getSupportedPictureFormats();
+            buffer.append("supportedPictureFormats" + "\n");
+            buffer.append(imageFormats(picFormats));
+            // 相机支持缩略图
+            List<Camera.Size> jpegThumbnailSizes = parameters.getSupportedJpegThumbnailSizes();
+            buffer.append("supportedJpegThumbnailSizes" + "\n");
+            buffer.append(cameraSizes(jpegThumbnailSizes));
+
+            // ----------------------------------------------------------------------
+
+            buffer.append("[Video]" + "\n");
+            buffer.append("videoStabilization=" + parameters.getVideoStabilization() + "\n");
+            // 相机支持录像尺寸
+            List<Camera.Size> videoSizes = parameters.getSupportedVideoSizes();
+            buffer.append("supportedVideoSizes" + "\n");
+            buffer.append(cameraSizes(videoSizes));
+
+            // ----------------------------------------------------------------------
+
+            buffer.append("[Zoom]" + "\n");
+            buffer.append("zoom=" + parameters.getZoom() + "\n");
+            buffer.append("isZoomSupported=" + parameters.isZoomSupported() + "\n");
+            buffer.append("maxZoom=" + parameters.getMaxZoom() + "\n");
+            buffer.append("zoomRatios=" + parameters.getZoomRatios() + "\n");
+
+            // ----------------------------------------------------------------------
+
+            buffer.append("[Parameters]" + "\n");
+            buffer.append("FlashMode=" + parameters.getFlashMode() + "\n");
+            buffer.append("focusMode=" + parameters.getFocusMode() + "\n");
+            buffer.append("sceneMode=" + parameters.getSceneMode() + "\n");
+            buffer.append("horizontalViewAngle=" + parameters.getHorizontalViewAngle() + "\n");
+
+            List<String> flashModes = parameters.getSupportedFlashModes();
+            if (flashModes != null) {
+                for (String flashMode : flashModes) {
+                    buffer.append("supportedFlashMode=" + flashMode + "\n");
+                }
+            }
+            List<String> focusModes = parameters.getSupportedFocusModes();
+            if (focusModes != null) {
+                for (String focusMode :
+                        focusModes) {
+                    buffer.append("supportedFocusModes=" + focusMode + "\n");
+                }
+            }
+            List<String> sceneModes = parameters.getSupportedSceneModes();
+            if (sceneModes != null) {
+                for (String sceneMode :
+                        sceneModes) {
+                    buffer.append("supportedSceneMode=" + sceneMode + "\n");
+                }
+            }
+            List<String> antibandings = parameters.getSupportedAntibanding();
+            if (antibandings != null) {
+                for (String antibanding :
+                        antibandings) {
+                    buffer.append("supportedAntibanding=" + antibanding + "\n");
+                }
+            }
+            List<String> whiteBalances = parameters.getSupportedWhiteBalance();
+            if (whiteBalances != null) {
+                for (String whiteBalance :
+                        whiteBalances) {
+                    buffer.append("supportedWhiteBalance=" + whiteBalance + "\n");
+                }
+            }
+            List<String> colorEffects = parameters.getSupportedColorEffects();
+            if (colorEffects != null) {
+                for (String colorEffect :
+                        colorEffects) {
+                    buffer.append("supportedColorEffect=" + colorEffect + "\n");
+                }
             }
 
-        // ---------------------------------------------------------
-        Log.d(TAG, "------------------------------------------------");
-
-        Log.d(TAG, "----------------supportedFlashModes------------------");
-        List<String> flashModes = parameters.getSupportedFlashModes();
-        if (flashModes != null) {
-            for (String flashMode : flashModes) {
-                Log.d(TAG, "printParameters: flashMode=" + flashMode);
-            }
+            buffer.append("\n");
+            Log.d(TAG, "printParameters: " + "\n" + buffer.toString());
+            return buffer.toString();
         }
+        return "parameters is null";
+    }
 
-        Log.d(TAG, "----------------supportedFocusModes------------------");
-        List<String> focusModes = parameters.getSupportedFocusModes();
-        if (focusModes != null) {
-            for (String focusMode :
-                    focusModes) {
-                Log.d(TAG, "printParameters: focusMode=" + focusMode);
+    /**
+     * 打印图片参数
+     */
+    public static String imageFormats(List<Integer> formats) {
+        if (formats != null && formats.size() > 0) {
+            StringBuffer buffer = new StringBuffer();
+            for (Integer format : formats) {
+                buffer.append("\tformat=" + format + "\n");
+                buffer.append(imageFormat(format));
             }
+            return buffer.toString();
         }
+        return "";
+    }
 
-        Log.d(TAG, "----------------supportedSceneModes------------------");
-        List<String> sceneModes = parameters.getSupportedSceneModes();
-        if (sceneModes != null) {
-            for (String sceneMode :
-                    sceneModes) {
-                Log.d(TAG, "printParameters: sceneMode=" + sceneMode);
+    /**
+     * 打印图片参数
+     */
+    public static String imageFormat(Integer format) {
+        if (format != null) {
+            int bitsPerPixel = ImageFormat.getBitsPerPixel(format);
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("\t\tbitsPerPixel=" + bitsPerPixel + "\n");
+            switch (format) {
+                case ImageFormat.RGB_565:
+                    buffer.append("\t\tformat=" + "RGB_565" + "\n");
+                case ImageFormat.NV16:
+                    buffer.append("\t\tformat=" + "NV16" + "\n");
+                case ImageFormat.YUY2:
+                    buffer.append("\t\tformat=" + "YUY2" + "\n");
+                case ImageFormat.YV12:
+                    buffer.append("\t\tformat=" + "YV12" + "\n");
+                case ImageFormat.DEPTH16:
+                    buffer.append("\t\tformat=" + "DEPTH16" + "\n");
+                case ImageFormat.NV21:
+                    buffer.append("\t\tformat=" + "NV21" + "\n");
+                case ImageFormat.YUV_420_888:
+                    buffer.append("\t\tformat=" + "YUV_420_888" + "\n");
+                case ImageFormat.YUV_422_888:
+                    buffer.append("\t\tformat=" + "YUV_422_888" + "\n");
+                case ImageFormat.YUV_444_888:
+                    buffer.append("\t\tformat=" + "YUV_444_888" + "\n");
+                case ImageFormat.FLEX_RGB_888:
+                    buffer.append("\t\tformat=" + "FLEX_RGB_888" + "\n");
+                case ImageFormat.FLEX_RGBA_8888:
+                    buffer.append("\t\tformat=" + "FLEX_RGBA_8888" + "\n");
+                case ImageFormat.RAW_SENSOR:
+                    buffer.append("\t\tformat=" + "RAW_SENSOR" + "\n");
+                case ImageFormat.RAW10:
+                    buffer.append("\t\tformat=" + "RAW10" + "\n");
+                case ImageFormat.RAW12:
+                    buffer.append("\t\tformat=" + "RAW12" + "\n");
             }
+            return buffer.toString();
         }
+        return "";
+    }
 
-        Log.d(TAG, "----------------supportedAntibanding------------------");
-        List<String> antibandings = parameters.getSupportedAntibanding();
-        if (antibandings != null) {
-            for (String antibanding :
-                    antibandings) {
-                Log.d(TAG, "printParameters: antibanding=" + antibanding);
+    /**
+     * 打印相机尺寸
+     */
+    public static String cameraSizes(List<Camera.Size> sizes) {
+        if (sizes != null && sizes.size() > 0) {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("\tsizes" + "\n");
+            for (Camera.Size size : sizes) {
+                buffer.append(cameraSize(size));
             }
+            return buffer.toString();
         }
+        return "";
+    }
 
-        Log.d(TAG, "----------------supportedWhiteBalance------------------");
-        List<String> whiteBalances = parameters.getSupportedWhiteBalance();
-        if (whiteBalances != null) {
-            for (String whiteBalance :
-                    whiteBalances) {
-                Log.d(TAG, "printParameters: whiteBalance=" + whiteBalance);
-            }
+    /**
+     * 打印相机尺寸
+     */
+    public static String cameraSize(Camera.Size size) {
+        if (size != null) {
+            String s = "\t\twidth=" + size.width + "--height=" + size.height + "\n";
+            return s;
         }
-
-        Log.d(TAG, "----------------supportedColorEffects------------------");
-        List<String> colorEffects = parameters.getSupportedColorEffects();
-        if (colorEffects != null) {
-            for (String colorEffect :
-                    colorEffects) {
-                Log.d(TAG, "printParameters: colorEffect=" + colorEffect);
-            }
-        }
+        return "";
     }
 }

@@ -45,13 +45,13 @@ public class CameraHelper {
                 index = next;
                 isOpenCamera = true;
                 info = CameraUtil.cameraInfo(index);
-                isFrontCamera = CameraUtil.isFrontCamera(index);
+                isFrontCamera = CameraUtil.frontCamera(index);
             } else {
                 camera = CameraUtil.openCamera(index);
                 if (camera != null) {
                     isOpenCamera = true;
                     info = CameraUtil.cameraInfo(index);
-                    isFrontCamera = CameraUtil.isFrontCamera(index);
+                    isFrontCamera = CameraUtil.frontCamera(index);
                 } else {
                     isOpenCamera = false;
                     info = null;

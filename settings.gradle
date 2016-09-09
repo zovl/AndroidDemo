@@ -8,6 +8,7 @@ include ':android-signature',
         ':android-thread',
 
         ':android-component',
+        ':android-event',
         ':lib-framework',
 
         ':GLRecorderDemo',

@@ -80,7 +80,7 @@ public class CameraSurfaceView extends SurfaceView {
             CameraUtil.setPreview(camera(), CameraSurfaceView.this);
             CameraUtil.startPreview(camera());
 
-            CameraUtil.printParameters(camera());
+            CameraUtil.printCamera(camera());
         }
 
         @Override
@@ -113,7 +113,7 @@ public class CameraSurfaceView extends SurfaceView {
             CameraUtil.setPreview(camera(), CameraSurfaceView.this);
             CameraUtil.startPreview(camera());
 
-            CameraUtil.printParameters(camera());
+            CameraUtil.printCamera(camera());
         }
     }
 

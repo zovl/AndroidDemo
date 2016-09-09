@@ -53,7 +53,7 @@ public class CameraTextureView extends TextureView {
             CameraUtil.setPreview(cameraHelper.camera(), CameraTextureView.this);
             CameraUtil.startPreview(cameraHelper.camera());
 
-            CameraUtil.printParameters(cameraHelper.camera());
+            CameraUtil.printCamera(cameraHelper.camera());
         }
 
         @Override
