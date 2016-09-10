@@ -15,6 +15,9 @@ import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
 import zovl.zhongguanhua.media.demo.R;
 import zovl.zhongguanhua.media.demo.logic.MP4parserHelper;
 
+/**
+ * 活动：mp4parser视频剪辑
+ */
 public class MP4parserActivity extends TBaseActivity {
 
     public static final String TAG = MP4parserActivity.class.getSimpleName();

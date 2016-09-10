@@ -23,6 +23,7 @@ public class MainActivity extends TBaseActivity {
             R.id.retriever,
             R.id.codec,
             R.id.mp4prser,
+            R.id.screen,
             R.id.audioRecord,
             R.id.cameraSurface,
             R.id.cameraTexture,
@@ -66,6 +67,10 @@ public class MainActivity extends TBaseActivity {
 
             case R.id.mp4prser:
                 startActivity(MP4parserActivity.class);
+                break;
+
+            case R.id.screen:
+                startActivity(ScreenActivity.class);
                 break;
         }
     }

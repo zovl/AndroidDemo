@@ -15,7 +15,7 @@ import zovl.zhongguanhua.media.demo.R;
 import zovl.zhongguanhua.media.demo.logic.RetrieverHelper;
 
 /**
- * Created by zovl on 2016/8/30.
+ * 活动：
  */
 public class RetrieverActivity extends TBaseActivity {
 
