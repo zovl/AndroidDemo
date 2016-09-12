@@ -38,7 +38,8 @@ public class ScreenActivity extends TBaseActivity {
             case R.id.startScreenCapture:
                 if (Build.VERSION.SDK_INT >= 21) {
                     imageFile = StorageUtil.getRootFile("_image.png");
-                    ScreenCaptureActivity.startScreenCaptureActivity(this, imageFile.getPath());
+                    ScreenCaptureActivity.startCapture(this, imageFile.getPath());
+                    toastShort(imageFile.getAbsolutePath());
                 } else {
                     ToastHelper.s("系统版本低于21");
                 }
@@ -47,33 +48,37 @@ public class ScreenActivity extends TBaseActivity {
             case R.id.startScreenRecord:
                 if (Build.VERSION.SDK_INT >= 21) {
                     videoFile = StorageUtil.getRootFile("_video.mp4");
-                    ScreenRecordActivity.startScreenRecordActivity(this, videoFile.getPath(), Configuration.DEFAULT);
+                    ScreenRecordActivity.startRecording(this, videoFile.getPath(), Configuration.DEFAULT);
+                    toastShort(videoFile.getAbsolutePath());
                 } else {
-                    ToastHelper.s("系统版本低于21");
+                    ToastHelper.l("系统版本低于21");
                 }
                 break;
 
             case R.id.pauseScreenRecord:
                 if (Build.VERSION.SDK_INT >= 21) {
                     ScreenRecordActivity.pauseRecording();
+                    toastShort(videoFile.getAbsolutePath());
                 } else {
-                    ToastHelper.s("系统版本低于21");
+                    ToastHelper.l("系统版本低于21");
                 }
                 break;
 
             case R.id.restartScreenRecord:
                 if (Build.VERSION.SDK_INT >= 21) {
                     ScreenRecordActivity.restartRecording();
+                    toastShort(videoFile.getAbsolutePath());
                 } else {
-                    ToastHelper.s("系统版本低于21");
+                    ToastHelper.l("系统版本低于21");
                 }
                 break;
 
             case R.id.stopScreenRecord:
                 if (Build.VERSION.SDK_INT >= 21) {
                     ScreenRecordActivity.stopRecording();
+                    toastShort(videoFile.getAbsolutePath());
                 } else {
-                    ToastHelper.s("系统版本低于21");
+                    ToastHelper.l("系统版本低于21");
                 }
                 break;
 

@@ -37,7 +37,7 @@ public class ScreenCaptureActivity extends Activity {
 
 	private static final String TAG = ScreenCaptureActivity.class.getSimpleName();
 
-	public static void startScreenCaptureActivity(Context context, String path) {
+	public static void startCapture(Context context, String path) {
 		Intent intent = new Intent();
 		intent.setClass(context, ScreenCaptureActivity.class);
 		// intent.setAction(Intent.ACTION_MAIN);

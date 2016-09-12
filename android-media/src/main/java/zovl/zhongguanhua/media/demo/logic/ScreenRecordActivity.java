@@ -36,7 +36,7 @@ public class ScreenRecordActivity extends Activity {
 
 	private static final String TAG = ScreenRecordActivity.class.getSimpleName();
 
-	public static void startScreenRecordActivity(Context context, String path, Configuration configuration) {
+	public static void startRecording(Context context, String path, Configuration configuration) {
 		Intent intent = new Intent();
 		intent.setClass(context, ScreenRecordActivity.class);
 		// intent.setAction(Intent.ACTION_MAIN);
@@ -91,6 +91,10 @@ public class ScreenRecordActivity extends Activity {
 		wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, TAG);
 
 		manager = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+
+		if (mediaMuxer != null) {
+			stopRecording();
+		}
 		startRecording();
 	}
 
@@ -138,23 +142,27 @@ public class ScreenRecordActivity extends Activity {
 
 	public static void stopRecording() {
 		if (mediaMuxer != null) {
-			isPauseRecording.set(false);
 			isStopRecording.set(true);
+			mediaMuxer = null;
 		}
 	}
 
 	public static void pauseRecording() {
 		if (mediaMuxer != null) {
-			isPauseRecording.set(true);
-			ptsPause = System.nanoTime();
+			if (!isPauseRecording.get()) {
+				isPauseRecording.set(true);
+				ptsPause = System.nanoTime();
+			}
 		}
 	}
 
 	public static void restartRecording() {
 		if (mediaMuxer != null) {
-			isPauseRecording.set(false);
-			ptsRestart = System.nanoTime() - 1000000000L;
-			pts = pts + (ptsRestart - ptsPause);
+			if (isPauseRecording.get()) {
+				isPauseRecording.set(false);
+				ptsRestart = System.nanoTime() - 1000000000L;
+				pts = pts + (ptsRestart - ptsPause);
+			}
 		}
 	}
 
@@ -294,15 +302,19 @@ public class ScreenRecordActivity extends Activity {
 
 					videoStartTime = System.nanoTime();
 					int newVideoIndex = 0;
+					int newAudioIndex = 0;
+					// 视频编码
 					while (!isStopRecording.get()) {
-						if (!isStopRecording.get()) {
+						if (!isPauseRecording.get()) {
 							long frameTime = System.nanoTime();
 							int videoIndex = videoCodec.dequeueOutputBuffer(videoBuffer, 1000L);
+							Log.d(TAG, "video: videoIndex=" + videoIndex);
 							//check Video index and add Video track
 							if (videoIndex == MediaCodec.INFO_TRY_AGAIN_LATER) {
 							} else if (videoIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
 								if (!isMuxerStarted) {
 									newVideoIndex = mediaMuxer.addTrack(videoCodec.getOutputFormat());
+									Log.d(TAG, "video: muxerTrackNumber=" + muxerTrackNumber);
 									muxerTrackNumber++;
 									if (muxerTrackNumber == 2) {
 										mediaMuxer.start();
@@ -324,15 +336,17 @@ public class ScreenRecordActivity extends Activity {
 									videoCodec.releaseOutputBuffer(videoIndex, false);
 								}
 							}
-							
+							// 音频编码
 							if (isAudio) {
 								int audioIndex = audioCodec.dequeueOutputBuffer(audioBuffer, 1000L);
+								Log.d(TAG, "audio: audioIndex=" + audioIndex);
 								//check audio index
-								if (audioIndex == MediaCodec.INFO_TRY_AGAIN_LATER) {
-                                } else if (audioIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
+								if (audioIndex == MediaCodec.INFO_TRY_AGAIN_LATER) {// -1
+                                } else if (audioIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {// -2
                                     if (!isMuxerStarted) {
-                                        audioIndex = mediaMuxer.addTrack(audioCodec.getOutputFormat());
-                                        muxerTrackNumber++;
+										newAudioIndex = mediaMuxer.addTrack(audioCodec.getOutputFormat());
+										Log.d(TAG, "audio: muxerTrackNumber=" + muxerTrackNumber);
+										muxerTrackNumber++;
                                         if (muxerTrackNumber == 2) {
 											mediaMuxer.start();
                                             Log.d(TAG, "audio: start");
@@ -349,7 +363,7 @@ public class ScreenRecordActivity extends Activity {
                                             outputBuffer.position(audioBuffer.offset);
                                             outputBuffer.limit(audioBuffer.offset + audioBuffer.size);
                                             audioBuffer.presentationTimeUs = (frameTime - videoStartTime - pts) / 1000;
-											mediaMuxer.writeSampleData(audioIndex, outputBuffer, audioBuffer);
+											mediaMuxer.writeSampleData(newAudioIndex, outputBuffer, audioBuffer);
                                         }
                                         audioCodec.releaseOutputBuffer(audioIndex, false);
                                     }
@@ -369,6 +383,11 @@ public class ScreenRecordActivity extends Activity {
 							}
 						}
 					}
+					if (mediaMuxer != null) {
+						mediaMuxer.stop();
+						mediaMuxer.release();
+						mediaMuxer = null;
+					}
 					if (videoCodec != null) {
 						videoCodec.stop();
 						videoCodec.release();
@@ -377,20 +396,11 @@ public class ScreenRecordActivity extends Activity {
 						audioCodec.stop();
 						audioCodec.release();
 					}
-					if (mediaMuxer != null) {
-						try {
-							mediaMuxer.stop();
-							mediaMuxer.release();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						mediaMuxer = null;
+					if (projection != null) {
+						projection.stop();
 					}
 					if (virtualDisplay != null) {
 						virtualDisplay.release();
-					}
-					if (projection != null) {
-						projection.stop();
 					}
 					if (audioThread != null && audioThread.isAlive()) {
 						audioThread.stopRecord();
@@ -411,7 +421,6 @@ public class ScreenRecordActivity extends Activity {
 		private final int SIZE_PER_FRAME = 1024;
 		private final int FRAMES = 25;
 
-		private int bufferSize;
 		private AudioRecord audioRecord;
 		private AtomicBoolean isRecording = new AtomicBoolean(false);
 		private ArrayBlockingQueue<byte[]> queue;
@@ -424,14 +433,14 @@ public class ScreenRecordActivity extends Activity {
 		@Override
 		public void run() {
 			Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_AUDIO);
-			bufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
 
-			int buffer_size = SIZE_PER_FRAME * FRAMES;
-			if (buffer_size < buffer_size) {
-				buffer_size = (bufferSize / SIZE_PER_FRAME + 1) * SIZE_PER_FRAME * 2;
+			int minBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
+			int bufferSize = SIZE_PER_FRAME * FRAMES;
+			if (bufferSize < minBufferSize) {
+				bufferSize = (minBufferSize / SIZE_PER_FRAME + 1) * SIZE_PER_FRAME * 2;
 			}
 
-			audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, buffer_size);
+			audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, bufferSize);
 			if (audioRecord.getState() == AudioRecord.STATE_UNINITIALIZED) {
 				return;
 			}

@@ -32,8 +32,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="MediaRecorder"
-            android:id="@+id/mediaRecorder" />
+            android:text="MediaPlayer"
+            android:id="@+id/mediaPlayer" />
 
         <!--###########################录音/拍摄/拍照##############################-->
         <!--###########################录音/拍摄/拍照##############################-->

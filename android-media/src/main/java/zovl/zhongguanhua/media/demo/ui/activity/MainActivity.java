@@ -1,10 +1,12 @@
 package zovl.zhongguanhua.media.demo.ui.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
+import zovl.zhongguanhua.framework.lib.utils.ToastHelper;
 import zovl.zhongguanhua.media.demo.R;
 
 public class MainActivity extends TBaseActivity {
@@ -46,7 +48,11 @@ public class MainActivity extends TBaseActivity {
                 break;
 
             case R.id.camera2Texture:
-                startActivity(Camera2TextureActivity.class);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    startActivity(Camera2TextureActivity.class);
+                } else {
+                    ToastHelper.l("系统版本低于21");
+                }
                 break;
 
             case R.id.previewSurface:

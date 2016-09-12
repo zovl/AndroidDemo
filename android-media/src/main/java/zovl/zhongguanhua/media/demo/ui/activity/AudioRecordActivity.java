@@ -12,13 +12,15 @@ import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
 import zovl.zhongguanhua.media.demo.R;
 import zovl.zhongguanhua.media.demo.logic.AudioRecorder;
+import zovl.zhongguanhua.media.demo.logic.AudioRecorder2;
 
 public class AudioRecordActivity extends TBaseActivity {
 
     public static final String TAG = AudioRecordActivity.class.getSimpleName();
 
-    private File file;
+    private File file, file2;
     private AudioRecorder audioRecorder = new AudioRecorder();
+    private AudioRecorder2 audioRecorder2 = new AudioRecorder2();
 
     @Override
     public int getContentView() {
@@ -38,7 +40,10 @@ public class AudioRecordActivity extends TBaseActivity {
 
     @OnClick({R.id.start,
             R.id.stop,
-            R.id.open})
+            R.id.open,
+            R.id.start2,
+            R.id.stop2,
+            R.id.open2})
     public void onClick(View view) {
 
         switch (view.getId()) {
@@ -58,6 +63,29 @@ public class AudioRecordActivity extends TBaseActivity {
                 if (audioRecorder.isRecording())
                     return;
                 openFile(file);
+                break;
+
+            case R.id.start2:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        file2 = StorageUtil.getRootFile("_audio.pcm");
+                        audioRecorder2.startRecord(file2.getAbsolutePath());
+                        toastShort(file2.getAbsolutePath());
+                    }
+                }).start();
+                break;
+
+            case R.id.stop2:
+                audioRecorder2.stopRecord();
+                toastShort(file2.getAbsolutePath());
+                break;
+
+            case R.id.open2:
+                if (audioRecorder2.isRecording())
+                    return;
+                openFile(file2);
                 break;
         }
     }

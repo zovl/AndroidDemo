@@ -9,6 +9,20 @@
         android:layout_height="match_parent"
         android:padding="12dp">
 
+        <!--###########################第一种方法录音##############################-->
+        <!--###########################第一种方法录音##############################-->
+        <!--###########################第一种方法录音##############################-->
+        <!--###########################第一种方法录音##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="第一种方法录音" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -26,6 +40,38 @@
             android:layout_height="56dp"
             android:text="open"
             android:id="@+id/open" />
+
+        <!--###########################第二种方法录音##############################-->
+        <!--###########################第二种方法录音##############################-->
+        <!--###########################第二种方法录音##############################-->
+        <!--###########################第二种方法录音##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="第二种方法录音" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="start2"
+            android:id="@+id/start2" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="stop2"
+            android:id="@+id/stop2" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="open2"
+            android:id="@+id/open2" />
 
     </LinearLayout>
 </ScrollView>
