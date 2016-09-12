@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Object.wait(),Object.notify()对单线程的控制
+ * wait/notify对单线程的控制
  */
 public class NotifyWaitThread {
 

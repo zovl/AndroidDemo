@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Object.wait(),Object.notify()对多线程的控制
+ * wait/notify对多线程的控制
  */
 public class NotifyWaitMultiThread {
 
@@ -39,7 +39,7 @@ public class NotifyWaitMultiThread {
         }
         flag.set(true);
 
-        // 5秒后【唤醒】工作线程
+        // 5秒后【唤醒】一个工作线程
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -48,6 +48,18 @@ public class NotifyWaitMultiThread {
         synchronized (syncObj) {
             flag.set(false);
             syncObj.notify();
+            System.out.println("object: " + Thread.currentThread().getName() + "--notify...");
+        }
+
+        // 5秒后【唤醒】全部工作线程
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        synchronized (syncObj) {
+            flag.set(false);
+            syncObj.notifyAll();
             System.out.println("object: " + Thread.currentThread().getName() + "--notify...");
         }
     }
