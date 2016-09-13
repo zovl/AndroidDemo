@@ -17,7 +17,7 @@ public class NotifyWaitMultiThread {
          */
 
         // 线程是否【等待】
-        AtomicBoolean flag = new AtomicBoolean(false);
+        AtomicBoolean isWait = new AtomicBoolean(false);
 
         // 同步对象
         Object syncObj = new Object();
@@ -26,7 +26,7 @@ public class NotifyWaitMultiThread {
 
         // 线程【开始】
         for (int i = 0; i < 5; i++) {
-            Thread thread = new NotifyWaitThread.WorkerThread(flag, syncObj);
+            Thread thread = new NotifyWaitThread.WorkerThread(isWait, syncObj);
             threads.add(thread);
             thread.start();
         }
@@ -37,7 +37,7 @@ public class NotifyWaitMultiThread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        flag.set(true);
+        isWait.set(true);
 
         // 5秒后【唤醒】一个工作线程
         try {
@@ -46,7 +46,7 @@ public class NotifyWaitMultiThread {
             e.printStackTrace();
         }
         synchronized (syncObj) {
-            flag.set(false);
+            isWait.set(false);
             syncObj.notify();
             System.out.println("object: " + Thread.currentThread().getName() + "--notify...");
         }
@@ -58,7 +58,7 @@ public class NotifyWaitMultiThread {
             e.printStackTrace();
         }
         synchronized (syncObj) {
-            flag.set(false);
+            isWait.set(false);
             syncObj.notifyAll();
             System.out.println("object: " + Thread.currentThread().getName() + "--notify...");
         }

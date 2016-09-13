@@ -5,20 +5,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 线程执行体内的空循环
  */
-public class EmptyLoopThread {
+public class EmptyThread {
 
     public static void main(String[] args) {
 
-        JavaThread thread = new JavaThread();
+        WorkerThread thread = new WorkerThread();
         thread.start();
     }
 
-    public static class JavaThread extends Thread {
+    public static class WorkerThread extends Thread {
 
         private AtomicInteger index = new AtomicInteger(0);
 
-        public JavaThread() {
-            super("newThread-JavaThread");
+        public WorkerThread() {
+            super("newThread-WorkerThread");
         }
 
         @Override

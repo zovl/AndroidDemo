@@ -15,13 +15,13 @@ public class NotifyWaitThread {
          */
 
         // 线程是否【等待】
-        AtomicBoolean flag = new AtomicBoolean(false);
+        AtomicBoolean isWait = new AtomicBoolean(false);
 
         // 同步对象
         Object syncObj = new Object();
 
         // 线程【开始】
-        Thread thread = new WorkerThread(flag, syncObj);
+        Thread thread = new WorkerThread(isWait, syncObj);
         thread.start();
 
         // 5秒后工作线程【等待】
@@ -30,7 +30,7 @@ public class NotifyWaitThread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        flag.set(true);
+        isWait.set(true);
 
         // 5秒后【唤醒】工作线程
         try {
@@ -39,7 +39,7 @@ public class NotifyWaitThread {
             e.printStackTrace();
         }
         synchronized (syncObj) {
-            flag.set(false);
+            isWait.set(false);
             syncObj.notify();
             System.out.println("object: " + Thread.currentThread().getName() + "--notify...");
         }
@@ -49,13 +49,13 @@ public class NotifyWaitThread {
 
         private AtomicInteger index = new AtomicInteger(0);
         // 线程是否【等待】
-        private AtomicBoolean flag;
+        private AtomicBoolean isWait;
         // 同步对象
         private Object syncObj;
 
-        public WorkerThread(AtomicBoolean flag, Object syncObj) {
+        public WorkerThread(AtomicBoolean isWait, Object syncObj) {
             super("newThread-WorkerThread");
-            this.flag = flag;
+            this.isWait = isWait;
             this.syncObj = syncObj;
         }
 
@@ -73,13 +73,13 @@ public class NotifyWaitThread {
                     e.printStackTrace();
                 }
 
-                if (flag.get()) {
+                if (isWait.get()) {
                     // 当前线程【等待】
                     synchronized (syncObj) {
                         try {
                             System.out.println("object: " + Thread.currentThread().getName() + "--wait...");
                             syncObj.wait();
-                            System.out.println("object: " + Thread.currentThread().getName() + "--notify...");
+                            System.out.println("object: " + Thread.currentThread().getName() + "--contine...");
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
