@@ -1,6 +1,5 @@
 package zovl.zhongguanhua.system.demo.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
@@ -22,7 +21,7 @@ import zovl.zhongguanhua.framework.lib.utils.ViewUtil;
 import zovl.zhongguanhua.system.demo.R;
 import zovl.zhongguanhua.system.demo.compenent.recever.BatteryReceiver;
 import zovl.zhongguanhua.system.demo.logic.PackageHelper;
-import zovl.zhongguanhua.system.demo.ui.service.ActivityManagerService;
+import zovl.zhongguanhua.system.demo.compenent.servece.ActivityManagerService;
 
 public class PackageManagerActivity extends TBaseActivity {
 

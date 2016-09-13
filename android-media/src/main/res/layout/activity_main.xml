@@ -151,5 +151,11 @@
             android:text="Screen"
             android:id="@+id/screen" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Screen Server"
+            android:id="@+id/screenServer" />
+
     </LinearLayout>
 </ScrollView>

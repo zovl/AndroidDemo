@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.media.demo.ui.application;
+package zovl.zhongguanhua.media.demo.compenent.application;
 
 import zovl.zhongguanhua.framework.lib.framework.BaseApplication;
 

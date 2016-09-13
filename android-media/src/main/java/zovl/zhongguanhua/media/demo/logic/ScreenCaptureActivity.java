@@ -37,6 +37,8 @@ public class ScreenCaptureActivity extends Activity {
 
 	private static final String TAG = ScreenCaptureActivity.class.getSimpleName();
 
+	public static final boolean DEBUG = true;
+
 	public static void startCapture(Context context, String path) {
 		Intent intent = new Intent();
 		intent.setClass(context, ScreenCaptureActivity.class);
@@ -90,7 +92,7 @@ public class ScreenCaptureActivity extends Activity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-		Log.d(TAG, "onConfigurationChanged: newConfig=" + newConfig);
+		if (DEBUG) Log.d(TAG, "onConfigurationChanged: newConfig=" + newConfig);
 	}
 
 	// --------------------------------------------------------------------------------------------------------
@@ -108,15 +110,15 @@ public class ScreenCaptureActivity extends Activity {
 		}
 	}
 
-	private void stopCapture() {/*
+	private void stopCapture() {
+		if (projection != null) {
+			projection.stop();
+		}
 		if (virtualDisplay != null) {
 			virtualDisplay.release();
 		}
 		if (imageReader != null) {
 			imageReader.close();
-		}*/
-		if (projection != null) {
-			projection.stop();
 		}
 	}
 
@@ -129,6 +131,7 @@ public class ScreenCaptureActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+		Log.d(TAG, "onActivityResult: ----------------------------------------------------------");
 		Log.d(TAG, "onActivityResult: requestCode=" + requestCode);
 		Log.d(TAG, "onActivityResult: resultCode=" + resultCode);
 		Log.d(TAG, "onActivityResult: data=" + data);
@@ -164,14 +167,6 @@ public class ScreenCaptureActivity extends Activity {
 							imageReader.getSurface(),
 							null,
 							null);
-
-					handler.post(new Runnable() {
-						@Override
-						public void run() {
-
-							stopCapture();
-						}
-					});
 
 					Looper.loop();
 				}
@@ -227,11 +222,11 @@ public class ScreenCaptureActivity extends Activity {
 					bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
 					long endMills = System.currentTimeMillis();
 
-					Log.d(TAG, "onImageAvailable: startMills=" + startMills);
-					Log.d(TAG, "onImageAvailable: difTime=" + (middleMills - startMills));
-					Log.d(TAG, "onImageAvailable: middleMills=" + middleMills);
-					Log.d(TAG, "saveBitmpToStorage: difTime=" + (endMills - middleMills));
-					Log.d(TAG, "onImageAvailable: endMills=" + endMills);
+					if (DEBUG) Log.d(TAG, "onImageAvailable: startMills=" + startMills);
+					if (DEBUG) Log.d(TAG, "onImageAvailable: difTime=" + (middleMills - startMills));
+					if (DEBUG) Log.d(TAG, "onImageAvailable: middleMills=" + middleMills);
+					if (DEBUG) Log.d(TAG, "saveBitmpToStorage: difTime=" + (endMills - middleMills));
+					if (DEBUG) Log.d(TAG, "onImageAvailable: endMills=" + endMills);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

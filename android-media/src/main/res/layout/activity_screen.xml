@@ -18,6 +18,26 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:text="打开"
+            android:id="@+id/open" />
+
+        <!--###########################第一种录屏##############################-->
+        <!--###########################第一种录屏##############################-->
+        <!--###########################第一种录屏##############################-->
+        <!--###########################第一种录屏##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="第一种录屏：" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
             android:text="开始录屏"
             android:id="@+id/startScreenRecord" />
 
@@ -39,11 +59,43 @@
             android:text="停止录屏"
             android:id="@+id/stopScreenRecord" />
 
+        <!--###########################第二种录屏##############################-->
+        <!--###########################第二种录屏##############################-->
+        <!--###########################第二种录屏##############################-->
+        <!--###########################第二种录屏##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="第二种录屏：" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="打开"
-            android:id="@+id/open" />
+            android:text="开始录屏"
+            android:id="@+id/startScreenRecordb" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="暂停录屏"
+            android:id="@+id/pauseScreenRecordb" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="继续录屏"
+            android:id="@+id/restartScreenRecordb" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="停止录屏"
+            android:id="@+id/stopScreenRecordb" />
 
     </LinearLayout>
 </ScrollView>

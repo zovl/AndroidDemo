@@ -6,8 +6,12 @@ import android.view.View;
 
 import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
+import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
 import zovl.zhongguanhua.framework.lib.utils.ToastHelper;
 import zovl.zhongguanhua.media.demo.R;
+import zovl.zhongguanhua.media.demo.compenent.service.ScreenService;
+import zovl.zhongguanhua.media.demo.logic.ScreenCaptureActivity;
+import zovl.zhongguanhua.media.demo.logic.TaskUtil;
 
 public class MainActivity extends TBaseActivity {
 
@@ -26,6 +30,7 @@ public class MainActivity extends TBaseActivity {
             R.id.codec,
             R.id.mp4prser,
             R.id.screen,
+            R.id.screenServer,
             R.id.audioRecord,
             R.id.cameraSurface,
             R.id.cameraTexture,
@@ -77,6 +82,15 @@ public class MainActivity extends TBaseActivity {
 
             case R.id.screen:
                 startActivity(ScreenActivity.class);
+                break;
+
+            case R.id.screenServer:
+                if (Build.VERSION.SDK_INT >= 21) {
+                    ScreenService.startService(this);
+                    TaskUtil.clearTaskAndAffinity(this);
+                } else {
+                    ToastHelper.s("系统版本低于21");
+                }
                 break;
         }
     }

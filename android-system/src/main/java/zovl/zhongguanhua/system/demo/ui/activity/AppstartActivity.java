@@ -6,7 +6,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.system.demo.R;
-import zovl.zhongguanhua.system.demo.ui.service.ActivityManagerService;
+import zovl.zhongguanhua.system.demo.compenent.servece.ActivityManagerService;
 
 public class AppstartActivity extends TBaseActivity {
 

@@ -26,9 +26,8 @@ public class EmptyLoopThread {
             super.run();
 
             // 循环
-            while (true) {/*
-                System.out.println("thread: " + getName() + "--running..." +
-                        "--index=" + index.incrementAndGet());*/
+            while (true) {
+
             }
         }
     }

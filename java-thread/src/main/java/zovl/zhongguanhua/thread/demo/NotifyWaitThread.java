@@ -34,7 +34,7 @@ public class NotifyWaitThread {
 
         // 5秒后【唤醒】工作线程
         try {
-            Thread.sleep(5000);
+            Thread.sleep(25000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -73,7 +73,7 @@ public class NotifyWaitThread {
                     e.printStackTrace();
                 }
 
-                if (flag.get() == true) {
+                if (flag.get()) {
                     // 当前线程【等待】
                     synchronized (syncObj) {
                         try {
