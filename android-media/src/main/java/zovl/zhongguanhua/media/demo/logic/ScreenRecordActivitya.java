@@ -29,7 +29,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * 活动：5.0录屏
+ * 活动：5.0录屏（简化版）
  */
 @TargetApi(21)
 public class ScreenRecordActivitya extends Activity {
@@ -185,11 +185,11 @@ public class ScreenRecordActivitya extends Activity {
 	private static MediaMuxer mediaMuxer;
 	private MediaCodec.BufferInfo videoInfo = new MediaCodec.BufferInfo();
 	private MediaCodec.BufferInfo audioInfo = new MediaCodec.BufferInfo();
-	protected MediaCodec videoCodec, audioCodec;
+	private MediaCodec videoCodec, audioCodec;
 	private VirtualDisplay virtualDisplay;
 	private Surface surface;
 	private AudioThread audioThread;
-	public ArrayBlockingQueue<byte[]> audioQueue = new ArrayBlockingQueue<>(50);
+	private ArrayBlockingQueue<byte[]> audioQueue = new ArrayBlockingQueue<>(50);
 
 	private Object syncObj = new Object();
 
@@ -203,14 +203,20 @@ public class ScreenRecordActivitya extends Activity {
 
 	private static AtomicBoolean isStopRecording = new AtomicBoolean(false);
 	private static AtomicBoolean isPauseRecording = new AtomicBoolean(false);
-	private boolean isMuxerStarted = false;
+	private AtomicBoolean isMuxerStarted = new AtomicBoolean(false);
+	private AtomicBoolean isAudioStarted = new AtomicBoolean(false);
 	private int MUXER_TRACK_NUMBER = 1;
 	private int muxerTrackNumber = 0;
-	private long audioStartTime = 0;
-	private long videoStartTime = 0;
+	private long mediaStartTime = 0;
 	private static long pts = 0;           // 时间戳的缩减量
 	private static long ptsPause = 0;      // 暂停时的时间戳
 	private static long ptsRestart = 0;    // 重启时的时间戳
+
+	private final int SAMPLE_RATE = 44100;
+	private final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
+	private final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
+	private final int SIZE_PER_FRAME = 1024;
+	private final int FRAMES = 25;
 
 	@Override
 	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
@@ -266,17 +272,19 @@ public class ScreenRecordActivitya extends Activity {
                             e.printStackTrace();
                         }
 
-						audioThread = new AudioThread(audioQueue, syncObj);
-						audioThread.start();
-						synchronized (syncObj) {
-							try {
-                                syncObj.wait();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+						if (audioCodec != null) {
+							audioThread = new AudioThread(syncObj);
+							audioThread.start();
+							synchronized (syncObj) {
+                                try {
+                                    syncObj.wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             }
 						}
 
-						if (audioThread != null && audioThread.isRecording()) {
+						if (isAudioStarted.get()) {
 							MUXER_TRACK_NUMBER = 2;
 						}
 					}
@@ -321,28 +329,43 @@ public class ScreenRecordActivitya extends Activity {
 
 					if (DEBUG) Log.d(TAG, "codec: start");
 
-					videoStartTime = System.nanoTime();
+					mediaStartTime = System.nanoTime();
 					int newVideoIndex = 0;
 					int newAudioIndex = 0;
 					while (!isStopRecording.get()) {
 						if (!isPauseRecording.get()) {
 							long frameTime = System.nanoTime();
+							// 取出录音器的数据，写入音频编码器
+							if (isAudio && isAudioStarted.get() && isMuxerStarted.get()) {
+								byte[] audioBytes = audioQueue.peek();
+								if (audioBytes != null) {
+                                    audioQueue.remove();
+                                    int inputIndex = audioCodec.dequeueInputBuffer(-1);
+                                    if (inputIndex >= 0) {
+                                        ByteBuffer inputBuffer = audioCodec.getInputBuffer(inputIndex);
+                                        inputBuffer.clear();
+                                        inputBuffer.put(audioBytes);
+										long nanoTime = System.nanoTime();
+                                        audioCodec.queueInputBuffer(inputIndex, 0, audioBytes.length, nanoTime / 1000, 0);
+                                    }
+                                }
+							}
 							// 视频编码
 							int videoIndex = videoCodec.dequeueOutputBuffer(videoInfo, 1000L);
 							if (DEBUG) Log.d(TAG, "video: videoIndex=" + videoIndex);
-							if (videoIndex == MediaCodec.INFO_TRY_AGAIN_LATER) {
-							} else if (videoIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
-								if (!isMuxerStarted) {
+							if (videoIndex == MediaCodec.INFO_TRY_AGAIN_LATER) {// -1
+							} else if (videoIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {// -2
+								if (!isMuxerStarted.get()) {
 									newVideoIndex = mediaMuxer.addTrack(videoCodec.getOutputFormat());
 									if (DEBUG) Log.d(TAG, "video: muxerTrackNumber=" + muxerTrackNumber);
 									muxerTrackNumber++;
 									if (muxerTrackNumber == MUXER_TRACK_NUMBER) {
 										mediaMuxer.start();
-										isMuxerStarted = true;
-										if (DEBUG) Log.d(TAG, "mnuxer: start");
+										isMuxerStarted.set(true);
+										if (DEBUG) Log.d(TAG, "muxer: start");
 									}
 								}
-							} else if (videoIndex > 0 && isMuxerStarted) {// 取出视频编码后的数据，写入混合器
+							} else if (videoIndex > 0 && isMuxerStarted.get()) {// 写入混合器
 								ByteBuffer outputBuffer = videoCodec.getOutputBuffer(videoIndex);
 								if (outputBuffer != null) {
 									if ((videoInfo.flags & MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != 0) {
@@ -351,29 +374,29 @@ public class ScreenRecordActivitya extends Activity {
 									if (videoInfo.size != 0) {
 										outputBuffer.position(videoInfo.offset);
 										outputBuffer.limit(videoInfo.offset + videoInfo.size);
-										videoInfo.presentationTimeUs = (frameTime - videoStartTime - pts) / 1000;
+										videoInfo.presentationTimeUs = (frameTime - mediaStartTime - pts) / 1000;
 										mediaMuxer.writeSampleData(newVideoIndex, outputBuffer, videoInfo);
 									}
 									videoCodec.releaseOutputBuffer(videoIndex, false);
 								}
 							}
 							// 音频编码
-							if (isAudio && audioThread != null && audioThread.isRecording()) {
+							if (isAudio && isAudioStarted.get()) {
 								int audioIndex = audioCodec.dequeueOutputBuffer(audioInfo, 1000L);
 								if (DEBUG) Log.d(TAG, "audio: audioIndex=" + audioIndex);
 								if (audioIndex == MediaCodec.INFO_TRY_AGAIN_LATER) {// -1
                                 } else if (audioIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {// -2
-                                    if (!isMuxerStarted) {
+                                    if (!isMuxerStarted.get()) {
 										newAudioIndex = mediaMuxer.addTrack(audioCodec.getOutputFormat());
 										if (DEBUG) Log.d(TAG, "audio: muxerTrackNumber=" + muxerTrackNumber);
 										muxerTrackNumber++;
                                         if (muxerTrackNumber == MUXER_TRACK_NUMBER) {
 											mediaMuxer.start();
-                                            isMuxerStarted = true;
-											if (DEBUG) Log.d(TAG, "mnuxer: start");
+                                            isMuxerStarted.set(true);
+											if (DEBUG) Log.d(TAG, "muxer: start");
                                         }
                                     }
-                                } else if (audioIndex > 0 && isMuxerStarted) {// 取出音频编码后的数据，写入混合器
+                                } else if (audioIndex > 0 && isMuxerStarted.get()) {// 写入混合器
                                     ByteBuffer outputBuffer = audioCodec.getOutputBuffer(audioIndex);
                                     if (outputBuffer != null) {
                                         if ((audioInfo.flags & MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != 0) {
@@ -382,22 +405,10 @@ public class ScreenRecordActivitya extends Activity {
                                         if (audioInfo.size != 0) {
                                             outputBuffer.position(audioInfo.offset);
                                             outputBuffer.limit(audioInfo.offset + audioInfo.size);
-                                            audioInfo.presentationTimeUs = (frameTime - videoStartTime - pts) / 1000;
+                                            audioInfo.presentationTimeUs = (frameTime - mediaStartTime - pts) / 1000;
 											mediaMuxer.writeSampleData(newAudioIndex, outputBuffer, audioInfo);
                                         }
                                         audioCodec.releaseOutputBuffer(audioIndex, false);
-                                    }
-                                }
-								// 取出录音器的数据，写入音频编码器
-								byte[] audioBytes = audioQueue.peek();
-								if (audioBytes != null) {
-									audioQueue.remove();
-                                    int inputIndex = audioCodec.dequeueInputBuffer(-1);
-                                    if (inputIndex >= 0) {
-                                        ByteBuffer inputBuffer = audioCodec.getInputBuffer(inputIndex);
-                                        inputBuffer.clear();
-                                        inputBuffer.put(audioBytes);
-                                        audioCodec.queueInputBuffer(inputIndex, 0, audioBytes.length, (System.nanoTime() - audioStartTime) / 1000, 0);
                                     }
                                 }
 							}
@@ -428,10 +439,8 @@ public class ScreenRecordActivitya extends Activity {
 						virtualDisplay.release();
 						if (DEBUG) Log.d(TAG, "virtualDisplay: stop");
 					}
-					if (audioThread != null) {
-						audioThread.stopRecord();
-						if (DEBUG) Log.d(TAG, "audioThread: stop");
-					}
+					isAudioStarted.set(false);
+					if (DEBUG) Log.d(TAG, "audioThread: stop");
 				}
 			}, "newThread-ScreenRecordActivitya").start();
 		} else {
@@ -442,21 +451,12 @@ public class ScreenRecordActivitya extends Activity {
 
 	public class AudioThread extends Thread {
 
-		private final int SAMPLE_RATE = 44100;
-		private final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
-		private final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
-		private final int SIZE_PER_FRAME = 1024;
-		private final int FRAMES = 25;
-
 		private AudioRecord audioRecord;
-		private AtomicBoolean isRecording = new AtomicBoolean(false);
-		private ArrayBlockingQueue<byte[]> audioQueue;
 
 		private Object syncObj;
 
-		public AudioThread(ArrayBlockingQueue<byte[]> audioQueue, Object syncObj) {
+		public AudioThread(Object syncObj) {
 			super("newThread-AudioThread");
-			this.audioQueue = audioQueue;
 			this.syncObj = syncObj;
 		}
 
@@ -472,7 +472,6 @@ public class ScreenRecordActivitya extends Activity {
 			}
 
 			audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, bufferSize);
-			// 如果不允许权限和要求权限，录音器会初始化失败
 			if (audioRecord.getState() == AudioRecord.STATE_UNINITIALIZED) {
 				synchronized (syncObj) {
 					if (syncObj != null) {
@@ -482,7 +481,7 @@ public class ScreenRecordActivitya extends Activity {
 				return;
 			}
 			audioRecord.startRecording();
-			isRecording.set(true);
+			isAudioStarted.set(true);
 
 			synchronized (syncObj) {
 				if (syncObj != null) {
@@ -492,7 +491,7 @@ public class ScreenRecordActivitya extends Activity {
 
 			if (DEBUG) Log.d(TAG, "audioRecord: start");
 
-			while (isRecording.get()) {
+			while (isAudioStarted.get()) {
 				byte[] audioBuffer = new byte[SIZE_PER_FRAME];
 				int result = audioRecord.read(audioBuffer, 0, SIZE_PER_FRAME);
 				if (result == AudioRecord.ERROR_BAD_VALUE ||
@@ -515,14 +514,6 @@ public class ScreenRecordActivitya extends Activity {
 
 				if (DEBUG) Log.d(TAG, "audioRecord: stop");
 			}
-		}
-
-		public void stopRecord() {
-			isRecording.set(false);
-		}
-
-		public boolean isRecording() {
-			return isRecording.get();
 		}
 	}
 }

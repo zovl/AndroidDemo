@@ -12,7 +12,7 @@ import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
 import zovl.zhongguanhua.media.demo.R;
 import zovl.zhongguanhua.media.demo.logic.AudioRecorder;
-import zovl.zhongguanhua.media.demo.logic.AudioRecorder2;
+import zovl.zhongguanhua.media.demo.logic.AudioRecorderb;
 
 public class AudioRecordActivity extends TBaseActivity {
 
@@ -20,7 +20,7 @@ public class AudioRecordActivity extends TBaseActivity {
 
     private File file, file2;
     private AudioRecorder audioRecorder = new AudioRecorder();
-    private AudioRecorder2 audioRecorder2 = new AudioRecorder2();
+    private AudioRecorderb audioRecorderb = new AudioRecorderb();
 
     @Override
     public int getContentView() {
@@ -49,7 +49,7 @@ public class AudioRecordActivity extends TBaseActivity {
         switch (view.getId()) {
 
             case R.id.start:
-                file = StorageUtil.getRootFile("_audio.mp4");
+                file = StorageUtil.getRootFile("_audio.mp3");
                 audioRecorder.startRecord(file.getAbsolutePath());
                 toastShort(file.getAbsolutePath());
                 break;
@@ -66,24 +66,18 @@ public class AudioRecordActivity extends TBaseActivity {
                 break;
 
             case R.id.start2:
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        file2 = StorageUtil.getRootFile("_audio.pcm");
-                        audioRecorder2.startRecord(file2.getAbsolutePath());
-                        toastShort(file2.getAbsolutePath());
-                    }
-                }).start();
+                file2 = StorageUtil.getRootFile("_audio.pcm");
+                audioRecorderb.startRecord(file2.getAbsolutePath());
+                toastShort(file2.getAbsolutePath());
                 break;
 
             case R.id.stop2:
-                audioRecorder2.stopRecord();
+                audioRecorderb.stopRecord();
                 toastShort(file2.getAbsolutePath());
                 break;
 
             case R.id.open2:
-                if (audioRecorder2.isRecording())
+                if (audioRecorderb.isRecording())
                     return;
                 openFile(file2);
                 break;

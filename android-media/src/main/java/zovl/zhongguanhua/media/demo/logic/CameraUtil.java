@@ -17,7 +17,9 @@ import android.view.TextureView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 工具：摄像头
+ */
 public class CameraUtil {
 
     public final static String TAG = CameraUtil.class.getSimpleName();

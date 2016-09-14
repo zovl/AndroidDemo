@@ -5,6 +5,9 @@ import android.util.Log;
 
 import java.io.IOException;
 
+/**
+ * 工具：录音
+ */
 public class AudioRecorder {
 
     public static final String TAG  = AudioRecorder.class.getSimpleName();

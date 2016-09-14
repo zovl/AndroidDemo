@@ -37,7 +37,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import zovl.zhongguanhua.framework.lib.utils.BitmapUtil;
 import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
-
+/**
+ * 视图：摄像头5.0
+ */
 @TargetApi(21)
 public class Camera2TextureView extends TextureView  {
 

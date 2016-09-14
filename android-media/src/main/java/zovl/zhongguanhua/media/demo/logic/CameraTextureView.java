@@ -6,7 +6,9 @@ import android.hardware.Camera;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.TextureView;
-
+/**
+ * 视图：摄像头5.0
+ */
 public class CameraTextureView extends TextureView {
 
     public final static String TAG = CameraTextureView.class.getSimpleName();

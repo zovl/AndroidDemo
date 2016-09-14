@@ -16,7 +16,9 @@ import java.io.File;
 
 import zovl.zhongguanhua.framework.lib.utils.BitmapUtil;
 import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
-
+/**
+ * 视图：摄像头
+ */
 public class CameraSurfaceView extends SurfaceView {
 
     public final static String TAG = CameraSurfaceView.class.getSimpleName();

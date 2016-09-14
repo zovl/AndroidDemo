@@ -5,7 +5,9 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 工具：摄像头
+ */
 public class CameraHelper {
 
     public final static String TAG = CameraHelper.class.getSimpleName();

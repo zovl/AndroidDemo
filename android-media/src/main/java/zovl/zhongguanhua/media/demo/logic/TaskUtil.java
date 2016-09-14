@@ -3,7 +3,9 @@ package zovl.zhongguanhua.media.demo.logic;
 import android.app.Activity;
 import android.os.Build;
 import android.util.Log;
-
+/**
+ * 工具：任务栈
+ */
 public class TaskUtil {
 
     public static final String TAG = TaskUtil.class.getSimpleName();

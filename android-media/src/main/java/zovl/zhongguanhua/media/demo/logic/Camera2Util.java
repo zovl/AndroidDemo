@@ -8,7 +8,9 @@ import android.hardware.camera2.CameraManager;
 import android.util.Log;
 
 import java.util.List;
-
+/**
+ * 工具：摄像头5.0
+ */
 @TargetApi(21)
 public class Camera2Util {
 
