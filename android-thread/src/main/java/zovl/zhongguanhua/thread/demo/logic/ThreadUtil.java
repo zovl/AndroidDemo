@@ -5,17 +5,22 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 工具：线程工具
+ */
 public class ThreadUtil {
 
     public static final String TAG = ThreadUtil.class.getSimpleName();
 
+    // ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------
 
     /**
      * 打印线程参数
      */
     public static String printThreads(Thread[] threads) {
-        Log.d(TAG, "----------------printThreads------------------");
         if (threads != null && threads.length > 0) {
             StringBuffer buffer = new StringBuffer();
             for (Thread thread : threads) {
@@ -31,9 +36,10 @@ public class ThreadUtil {
      * 打印线程参数（thread）
      */
     public static String printThread(Thread thread) {
-        Log.d(TAG, "----------------printThread------------------");
         if (thread != null) {
             StringBuffer buffer = new StringBuffer();
+            buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+            buffer.append("\n");
 
             String name = thread.getName();
             String toString = thread.toString();
@@ -43,19 +49,15 @@ public class ThreadUtil {
 
             ThreadGroup threadGroup = thread.getThreadGroup();
 
-            buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            buffer.append("\n");
-            buffer.append("\n");
             buffer.append("toString=" + toString + "\n");
             buffer.append("name=" + name + "\n");
             buffer.append("id=" + id + "\n");
             buffer.append("priority=" + priority + "\n");
             buffer.append("state=" + state + "\n");
-
             buffer.append("threadGroup=" + threadGroup + "\n");
 
+            buffer.append("\n");
             Log.d(TAG, "printThread: " + buffer.toString());
-
             return buffer.toString();
         }
         return "thread has not info...";
@@ -65,7 +67,6 @@ public class ThreadUtil {
      * 打印线程组参数
      */
     public static String printGroups(ThreadGroup[] groups) {
-        Log.d(TAG, "----------------printGroups------------------");
         if (groups != null && groups.length > 0) {
             StringBuffer buffer = new StringBuffer();
             for (ThreadGroup group : groups) {
@@ -81,9 +82,10 @@ public class ThreadUtil {
      * 打印线程组参数（group）
      */
     public static String printGroup(ThreadGroup group) {
-        Log.d(TAG, "----------------printGroup------------------");
         if (group != null) {
             StringBuffer buffer = new StringBuffer();
+            buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "\n");
+            buffer.append("\n");
 
             String name = group.getName();
             int maxPriority = group.getMaxPriority();
@@ -95,9 +97,6 @@ public class ThreadUtil {
 
             ThreadGroup parent = group.getParent();
 
-            buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            buffer.append("\n");
-            buffer.append("\n");
             buffer.append("toString=" + toString + "\n");
             buffer.append("name=" + name + "\n");
             buffer.append("maxPriority=" + maxPriority + "\n");
@@ -105,16 +104,18 @@ public class ThreadUtil {
             buffer.append("activeGroupCount=" + activeGroupCount + "\n");
             buffer.append("isDaemon=" + isDaemon + "\n");
             buffer.append("isDestroyed=" + isDestroyed + "\n");
-
             buffer.append("parent=" + parent + "\n");
 
+            buffer.append("\n");
             Log.d(TAG, "printGroup: " + buffer.toString());
-
             return buffer.toString();
         }
         return "group has not info...";
     }
 
+    // ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------
 
     /**
