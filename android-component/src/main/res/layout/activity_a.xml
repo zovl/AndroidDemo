@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <zovl.zhongguanhua.component.demo.ui.view.ABCDView
+        <zovl.zhongguanhua.component.demo.view.ABCDView
             android:id="@+id/abcd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

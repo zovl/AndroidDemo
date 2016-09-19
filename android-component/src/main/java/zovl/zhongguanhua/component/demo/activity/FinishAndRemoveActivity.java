@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.component.demo.ui.activity;
+package zovl.zhongguanhua.component.demo.activity;
 
 import android.os.Build;
 import android.view.View;
@@ -11,7 +11,7 @@ import zovl.zhongguanhua.component.demo.R;
 import zovl.zhongguanhua.framework.lib.framework.AppManager;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 
-public class LockActivity extends TBaseActivity {
+public class FinishAndRemoveActivity extends TBaseActivity {
 
     @Override
     public TextView getText() {
@@ -30,11 +30,16 @@ public class LockActivity extends TBaseActivity {
 
     @Override
     public int getContentView() {
-        return R.layout.activity_lock;
+        return R.layout.activity_finishandremove;
     }
 
-    @OnClick({R.id.startLockTask,
-            R.id.stopLockTask})
+    @OnClick({R.id.isFinishing,
+            R.id.finish,
+            R.id.finishAfterTransition,
+            R.id.finishAndRemoveTask,
+            R.id.finishAffinity,
+
+            R.id.moveTaskToBack})
     public void onClick(View view) {
 
         setTitle(getTitle() + "#");
@@ -44,16 +49,32 @@ public class LockActivity extends TBaseActivity {
 
         switch (view.getId()) {
 
-            case R.id.startLockTask:
+            case R.id.isFinishing:
+                this.isFinishing();
+                break;
+
+            case R.id.finish:
+                this.finish();
+                break;
+
+            case R.id.finishAfterTransition:
                 if (Build.VERSION.SDK_INT >= 21) {
-                    mainActivity.startLockTask();
+                    this.finishAfterTransition();
                 }
                 break;
 
-            case R.id.stopLockTask:
+            case R.id.finishAndRemoveTask:
                 if (Build.VERSION.SDK_INT >= 21) {
-                    mainActivity.stopLockTask();
+                    mainActivity.finishAndRemoveTask();
                 }
+                break;
+
+            case R.id.finishAffinity:
+                this.finishAffinity();
+                break;
+
+            case R.id.moveTaskToBack:
+                startActivity.moveTaskToBack(false);
                 break;
         }
     }

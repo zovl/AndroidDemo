@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.component.demo.ui.activity;
+package zovl.zhongguanhua.component.demo.activity;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -7,9 +7,9 @@ import android.widget.TextView;
 import butterknife.Bind;
 import zovl.zhongguanhua.component.demo.R;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
-import zovl.zhongguanhua.component.demo.ui.view.ABCDView;
+import zovl.zhongguanhua.component.demo.view.ABCDView;
 
-public class SecdActivity extends TBaseActivity {
+public class SeccActivity extends TBaseActivity {
 
     @Bind(R.id.abcd)
     ABCDView view;

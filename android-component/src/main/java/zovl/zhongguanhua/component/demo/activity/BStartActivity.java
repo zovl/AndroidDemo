@@ -1,12 +1,12 @@
-package zovl.zhongguanhua.component.demo.ui.activity;
+package zovl.zhongguanhua.component.demo.activity;
 
 import zovl.zhongguanhua.component.demo.R;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 
-public class AStartActivity extends TBaseActivity {
+public class BStartActivity extends TBaseActivity {
 
     @Override
     public int getContentView() {
-        return R.layout.activity_start_a;
+        return R.layout.activity_start_b;
     }
 }
