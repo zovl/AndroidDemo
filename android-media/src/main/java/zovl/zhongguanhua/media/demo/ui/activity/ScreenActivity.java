@@ -46,7 +46,7 @@ public class ScreenActivity extends TBaseActivity {
                 if (Build.VERSION.SDK_INT >= 21) {
                     imageFile = StorageUtil.getRootFile("_image.png");
                     ScreenCaptureActivity.startCapture(this, imageFile.getPath());
-                    toastShort(imageFile.getAbsolutePath());
+                    ToastHelper.s(imageFile.getAbsolutePath());
                 } else {
                     ToastHelper.s("系统版本低于21");
                 }
@@ -65,7 +65,7 @@ public class ScreenActivity extends TBaseActivity {
                     configuration.setAudio(true);
                     configuration.setLandscape(true);
                     ScreenRecordActivitya.startRecording(this, videoFile.getPath(), configuration);
-                    toastShort(videoFile.getAbsolutePath());
+                    ToastHelper.s(videoFile.getAbsolutePath());
                 } else {
                     ToastHelper.l("系统版本低于21");
                 }
@@ -90,7 +90,7 @@ public class ScreenActivity extends TBaseActivity {
             case R.id.stopScreenRecord:
                 if (Build.VERSION.SDK_INT >= 21) {
                     ScreenRecordActivitya.stopRecording();
-                    toastShort(videoFile.getAbsolutePath());
+                    ToastHelper.s(videoFile.getAbsolutePath());
                 } else {
                     ToastHelper.l("系统版本低于21");
                 }
@@ -103,7 +103,7 @@ public class ScreenActivity extends TBaseActivity {
                     configuration.setAudio(true);
                     configuration.setLandscape(true);
                     ScreenRecordActivityb.startRecording(this, videoFileb.getPath(), configuration);
-                    toastShort(videoFileb.getAbsolutePath());
+                    ToastHelper.s(videoFileb.getAbsolutePath());
                 } else {
                     ToastHelper.l("系统版本低于21");
                 }
@@ -128,29 +128,11 @@ public class ScreenActivity extends TBaseActivity {
             case R.id.stopScreenRecordb:
                 if (Build.VERSION.SDK_INT >= 21) {
                     ScreenRecordActivityb.stopRecording();
-                    toastShort(videoFileb.getAbsolutePath());
+                    ToastHelper.s(videoFileb.getAbsolutePath());
                 } else {
                     ToastHelper.l("系统版本低于21");
                 }
                 break;
-        }
-    }
-
-    private void openVideoFile(File file) {
-        if (file != null) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            Uri uri = Uri.fromFile(file);
-            intent.setDataAndTypeAndNormalize(uri, "video/mp4");
-            startActivity(intent);
-        }
-    }
-
-    private void openImageFile(File file) {
-        if (file != null) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            Uri uri = Uri.fromFile(file);
-            intent.setDataAndTypeAndNormalize(uri, "image");
-            startActivity(intent);
         }
     }
 

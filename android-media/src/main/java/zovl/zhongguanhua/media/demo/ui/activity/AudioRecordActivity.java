@@ -1,7 +1,5 @@
 package zovl.zhongguanhua.media.demo.ui.activity;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,6 +8,7 @@ import java.io.File;
 import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
+import zovl.zhongguanhua.framework.lib.utils.ToastHelper;
 import zovl.zhongguanhua.media.demo.R;
 import zovl.zhongguanhua.media.demo.logic.AudioRecorder;
 import zovl.zhongguanhua.media.demo.logic.AudioRecorderb;
@@ -51,45 +50,36 @@ public class AudioRecordActivity extends TBaseActivity {
             case R.id.start:
                 file = StorageUtil.getRootFile("_audio.mp3");
                 audioRecorder.startRecord(file.getAbsolutePath());
-                toastShort(file.getAbsolutePath());
+                ToastHelper.s(file.getAbsolutePath());
                 break;
 
             case R.id.stop:
                 audioRecorder.stopRecord();
-                toastShort(file.getAbsolutePath());
+                ToastHelper.s(file.getAbsolutePath());
                 break;
 
             case R.id.open:
                 if (audioRecorder.isRecording())
                     return;
-                openFile(file);
+                openMp4File(file);
                 break;
 
             case R.id.start2:
                 file2 = StorageUtil.getRootFile("_audio.pcm");
                 audioRecorderb.startRecord(file2.getAbsolutePath());
-                toastShort(file2.getAbsolutePath());
+                ToastHelper.s(file2.getAbsolutePath());
                 break;
 
             case R.id.stop2:
                 audioRecorderb.stopRecord();
-                toastShort(file2.getAbsolutePath());
+                ToastHelper.s(file2.getAbsolutePath());
                 break;
 
             case R.id.open2:
                 if (audioRecorderb.isRecording())
                     return;
-                openFile(file2);
+                openMp4File(file2);
                 break;
-        }
-    }
-
-    private void openFile(File file) {
-        if (file != null) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            Uri uri = Uri.fromFile(file);
-            intent.setDataAndTypeAndNormalize(uri, "video/mp4");
-            startActivity(intent);
         }
     }
 

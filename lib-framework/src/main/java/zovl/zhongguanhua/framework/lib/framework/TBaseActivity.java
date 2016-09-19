@@ -1,10 +1,14 @@
 package zovl.zhongguanhua.framework.lib.framework;
 
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -44,7 +48,11 @@ public abstract class TBaseActivity extends BaseActivity {
     // ----------------------------------------------------------------------------------------
     // ----------------------------------------------------------------------------------------
 
-    protected void toastShort(final String text) {
+    /**
+     * @deprecated
+     * @param text
+     */
+    private void toastShort(final String text) {
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -53,7 +61,11 @@ public abstract class TBaseActivity extends BaseActivity {
         });
     }
 
-    protected void toastLong(final String text) {
+    /**
+     * @deprecated
+     * @param text
+     */
+    private void toastLong(final String text) {
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -101,6 +113,7 @@ public abstract class TBaseActivity extends BaseActivity {
     }
 
     protected void dismissDialog() {
+
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -217,5 +230,110 @@ public abstract class TBaseActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // ----------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------
+
+    protected void openMp4File(File file) {
+        if (file != null) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.fromFile(file);
+            if (Build.VERSION.SDK_INT >= 16) {
+                intent.setDataAndTypeAndNormalize(uri, "video/mp4");
+            }
+            try {
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected void openVideoFile(File file) {
+        if (file != null) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.fromFile(file);
+            if (Build.VERSION.SDK_INT >= 16) {
+                intent.setDataAndTypeAndNormalize(uri, "video");
+            }
+            try {
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected void openImageFile(File file) {
+        if (file != null) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.fromFile(file);
+            if (Build.VERSION.SDK_INT >= 16) {
+                intent.setDataAndTypeAndNormalize(uri, "image");
+            }
+            try {
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // ----------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------
+
+    private static final int REQUEST_CODE_FILE = 11;
+
+    protected void selectFile() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        try {
+            startActivityForResult(Intent.createChooser(intent, "Select a File"), REQUEST_CODE_FILE);
+        } catch (ActivityNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)  {
+        Log.d(tag, "onActivityResult: requestCode=" + requestCode);
+        Log.d(tag, "onActivityResult: resultCode=" + resultCode);
+        if (resultCode == RESULT_OK) {
+            // 选择文件
+            if (requestCode == REQUEST_CODE_FILE) {
+                Uri uri = data.getData();
+                Log.d(tag, "onActivityResult: uri=" + uri);
+                String path = null;
+                if ("content".equalsIgnoreCase(uri.getScheme())) {
+                    String[] projection = { "_data" };
+                    Cursor cursor;
+                    try {
+                        cursor = getContentResolver().query(uri, projection,null, null, null);
+                        int column_index = cursor.getColumnIndexOrThrow("_data");
+                        if (cursor.moveToFirst()) {
+                            path = cursor.getString(column_index);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+                    path = uri.getPath();
+                }
+                if (path != null) {
+                    onResultFile(path);
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    protected void onResultFile(String path) {
+        Log.d(tag, "onResultFile: path=" + path);
     }
 }

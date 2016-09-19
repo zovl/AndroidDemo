@@ -12,6 +12,7 @@ import java.util.Random;
 import butterknife.Bind;
 import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
+import zovl.zhongguanhua.framework.lib.utils.ToastHelper;
 import zovl.zhongguanhua.framework.lib.utils.ViewUtil;
 import zovl.zhongguanhua.thread.demo.R;
 
@@ -57,7 +58,7 @@ public class JoinActivity extends TBaseActivity {
 
             case R.id.join:
                 if (threads.size() > 0) {
-                    toastShort("threads are running...");
+                    ToastHelper.s("threads are running...");
                     return;
                 }
                 ViewUtil.enabled(view, 3000);

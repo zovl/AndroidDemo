@@ -84,7 +84,7 @@ public class Camera2TextureView extends TextureView  {
         handler = new Handler(looper);
     }
 
-    private TextureView.SurfaceTextureListener listener = new TextureView.SurfaceTextureListener() {
+    private SurfaceTextureListener listener = new SurfaceTextureListener() {
 
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture texture, int width, int height) {

@@ -17,7 +17,7 @@ public class Comparators {
      * 对相机参数根据像素进行排序
      */
     public static void sortCameraSize(List<Camera.Size> list) {
-        Comparators.CameraSizeComparator comparator = new Comparators.CameraSizeComparator();
+        CameraSizeComparator comparator = new CameraSizeComparator();
         Collections.sort(list, comparator);
         printCameraSizes(list);
     }

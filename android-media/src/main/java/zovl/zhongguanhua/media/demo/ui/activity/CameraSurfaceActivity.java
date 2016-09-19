@@ -13,6 +13,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
+import zovl.zhongguanhua.framework.lib.utils.ToastHelper;
 import zovl.zhongguanhua.media.demo.R;
 import zovl.zhongguanhua.media.demo.logic.CameraRecorder;
 import zovl.zhongguanhua.media.demo.logic.CameraSurfaceView;
@@ -83,12 +84,12 @@ public class CameraSurfaceActivity extends TBaseActivity {
             case R.id.start:
                 file = StorageUtil.getRootFile("_camera.mp4");
                 cameraRecorder.startRecord(file.getPath(), surfaceView.camera());
-                toastShort(file.getAbsolutePath());
+                ToastHelper.s(file.getAbsolutePath());
                 break;
 
             case R.id.stop:
                 cameraRecorder.stopRecord();
-                toastShort(file.getPath());
+                ToastHelper.s(file.getPath());
                 break;
 
             case R.id.swt:

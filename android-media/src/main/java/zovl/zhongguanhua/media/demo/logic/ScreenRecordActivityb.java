@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import zovl.zhongguanhua.framework.lib.utils.TaskUtil;
+
 /**
  * 活动：5.0录屏（再简化版）
  */
@@ -346,8 +348,9 @@ public class ScreenRecordActivityb extends Activity {
 							// 取出录音器的数据，写入音频编码器
 							if (isAudio && isAudioStarted.get() && isMuxerStarted.get()) {
 								/*
-								// 方法一：录制出来的视频有类似快进的效果，* 2就不会
-								byte[] audioBytes = new byte[SIZE_PER_FRAME * 2];
+								// 方法一：录制出来的视频有类似快进的效果
+								int capacity = SIZE_PER_FRAME * 2;
+								byte[] audioBytes = new byte[SIZE_PER_FRAME];
 								int result = audioRecord.read(audioBytes, 0, audioBytes.length);
 								if (DEBUG) Log.d(TAG, "record: result=" + result);
 								if (result != AudioRecord.ERROR_BAD_VALUE &&
@@ -363,10 +366,12 @@ public class ScreenRecordActivityb extends Activity {
 									}
 								}*/
 
-								// 方法二：
-								ByteBuffer byteBuffer = ByteBuffer.allocateDirect(SIZE_PER_FRAME);
+								// 方法二：录制出来的视频有类似快进的效果
+								int capacity = SIZE_PER_FRAME * 3 / 2;
+								if (DEBUG) Log.d(TAG, "record: capacity=" + capacity);
+								ByteBuffer byteBuffer = ByteBuffer.allocateDirect(capacity);
 								byteBuffer.clear();
-								int readBytes = audioRecord.read(byteBuffer, SIZE_PER_FRAME);
+								int readBytes = audioRecord.read(byteBuffer, capacity);
 								if (DEBUG) Log.d(TAG, "record: readBytes=" + readBytes);
 								if (readBytes > 0) {
 									int inputIndex = audioCodec.dequeueInputBuffer(TIMEOUT_MSEC);

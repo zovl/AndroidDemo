@@ -6,12 +6,10 @@ import android.view.View;
 
 import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
-import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
+import zovl.zhongguanhua.framework.lib.utils.TaskUtil;
 import zovl.zhongguanhua.framework.lib.utils.ToastHelper;
 import zovl.zhongguanhua.media.demo.R;
 import zovl.zhongguanhua.media.demo.compenent.service.ScreenService;
-import zovl.zhongguanhua.media.demo.logic.ScreenCaptureActivity;
-import zovl.zhongguanhua.media.demo.logic.TaskUtil;
 
 public class MainActivity extends TBaseActivity {
 
@@ -23,22 +21,34 @@ public class MainActivity extends TBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setTitle(R.string.app_name);
     }
 
     @OnClick({R.id.extractor,
             R.id.retriever,
             R.id.codec,
             R.id.mp4prser,
-            R.id.screen,
+            R.id.screen19,
+            R.id.screen21,
             R.id.screenServer,
             R.id.audioRecord,
             R.id.cameraSurface,
             R.id.cameraTexture,
             R.id.camera2Texture,
-            R.id.previewSurface})
+            R.id.previewSurface,
+            R.id.videoView,
+            R.id.mediaPlayer})
     public void onClick(View view) {
 
         switch (view.getId()) {
+
+            case R.id.videoView:
+                startActivity(VideoViewActivity.class);
+                break;
+
+            case R.id.mediaPlayer:
+                break;
 
             case R.id.audioRecord:
                 startActivity(AudioRecordActivity.class);
@@ -80,8 +90,12 @@ public class MainActivity extends TBaseActivity {
                 startActivity(MP4parserActivity.class);
                 break;
 
-            case R.id.screen:
-                startActivity(ScreenActivity.class);
+            case R.id.screen19:
+                startActivity(Screen19Activity.class);
+                break;
+
+            case R.id.screen21:
+                startActivity(Screen21Activity.class);
                 break;
 
             case R.id.screenServer:

@@ -1,5 +1,6 @@
 package zovl.zhongguanhua.component.demo.ui.activity;
 
+import android.os.Bundle;
 import android.view.View;
 
 import butterknife.Bind;
@@ -15,6 +16,13 @@ public class MainActivity extends TBaseActivity {
     @Override
     public int getContentView() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setTitle(R.string.app_name);
     }
 
     @OnClick({R.id.startActivity,

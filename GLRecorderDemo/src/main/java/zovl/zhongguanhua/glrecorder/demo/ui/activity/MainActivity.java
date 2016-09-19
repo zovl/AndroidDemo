@@ -32,6 +32,8 @@ MainActivity extends TBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTitle(R.string.app_name);
+
         glSurfaceView.setEGLConfigChooser(GLRecorder.getEGLConfigChooser());
         glSurfaceView.setRenderer(renderer);
     }

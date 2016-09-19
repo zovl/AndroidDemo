@@ -40,7 +40,7 @@ public class CameraTextureView extends TextureView {
         setSurfaceTextureListener(listener);
     }
 
-    private TextureView.SurfaceTextureListener listener = new TextureView.SurfaceTextureListener() {
+    private SurfaceTextureListener listener = new SurfaceTextureListener() {
 
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture texture, int width, int height) {

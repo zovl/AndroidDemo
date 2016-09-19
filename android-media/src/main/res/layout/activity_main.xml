@@ -148,8 +148,14 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Screen"
-            android:id="@+id/screen" />
+            android:text="Screen19"
+            android:id="@+id/screen19" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Screen21"
+            android:id="@+id/screen21" />
 
         <Button
             android:layout_width="match_parent"

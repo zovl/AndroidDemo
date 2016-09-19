@@ -51,7 +51,7 @@ public class CameraSurfaceView extends SurfaceView {
         setOnTouchListener(onTouchListener);
     }
 
-    private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+    private OnTouchListener onTouchListener = new OnTouchListener() {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {

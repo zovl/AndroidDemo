@@ -13,4 +13,5 @@ include ':android-signature',
         ':lib-framework',
 
         ':GLRecorderDemo',
-        ':GLRecorderLib'
+        ':GLRecorderLib',
+        ':JUnitDemo'

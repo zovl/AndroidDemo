@@ -12,6 +12,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
+import zovl.zhongguanhua.framework.lib.utils.ToastHelper;
 import zovl.zhongguanhua.media.demo.R;
 import zovl.zhongguanhua.media.demo.logic.MP4parserHelper;
 
@@ -107,7 +108,7 @@ public class MP4parserActivity extends TBaseActivity {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    toastShort(dst.getAbsolutePath());
+                                    ToastHelper.s(dst.getAbsolutePath());
                                     setText(dst.getAbsolutePath() + "\n");
                                 }
                             });
@@ -126,7 +127,7 @@ public class MP4parserActivity extends TBaseActivity {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    toastShort(dstAudioPath.getAbsolutePath());
+                                    ToastHelper.s(dstAudioPath.getAbsolutePath());
                                     setText(dstAudioPath.getAbsolutePath() + "\n");
                                     muxAudioPath.setText(dstAudioPath.getPath());
                                 }
@@ -146,7 +147,7 @@ public class MP4parserActivity extends TBaseActivity {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    toastShort(dstVideoPath.getAbsolutePath());
+                                    ToastHelper.s(dstVideoPath.getAbsolutePath());
                                     setText(dstVideoPath.getAbsolutePath() + "\n");
                                     muxVideoPath.setText(dstVideoPath.getPath());
                                 }
@@ -167,7 +168,7 @@ public class MP4parserActivity extends TBaseActivity {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    toastShort(dst.getAbsolutePath());
+                                    ToastHelper.s(dst.getAbsolutePath());
                                     setText(dst.getAbsolutePath() + "\n");
                                 }
                             });
@@ -189,7 +190,7 @@ public class MP4parserActivity extends TBaseActivity {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    toastShort(dst.getAbsolutePath());
+                                    ToastHelper.s(dst.getAbsolutePath());
                                     setText(dst.getAbsolutePath() + "\n");
                                 }
                             });

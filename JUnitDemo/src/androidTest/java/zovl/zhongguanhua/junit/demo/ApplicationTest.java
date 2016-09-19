@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.http.demo;
+package zovl.zhongguanhua.junit.demo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

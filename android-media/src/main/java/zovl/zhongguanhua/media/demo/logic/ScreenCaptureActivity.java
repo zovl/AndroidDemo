@@ -28,6 +28,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import zovl.zhongguanhua.framework.lib.utils.TaskUtil;
+
 /**
  * 活动：5.0截屏
  */

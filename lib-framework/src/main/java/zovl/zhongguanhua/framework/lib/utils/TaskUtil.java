@@ -1,8 +1,9 @@
-package zovl.zhongguanhua.media.demo.logic;
+package zovl.zhongguanhua.framework.lib.utils;
 
 import android.app.Activity;
 import android.os.Build;
 import android.util.Log;
+
 /**
  * 工具：任务栈
  */

@@ -14,6 +14,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 import zovl.zhongguanhua.framework.lib.utils.StorageUtil;
+import zovl.zhongguanhua.framework.lib.utils.ToastHelper;
 import zovl.zhongguanhua.media.demo.R;
 import zovl.zhongguanhua.media.demo.logic.Camera2TextureView;
 
@@ -75,11 +76,11 @@ public class Camera2TextureActivity extends TBaseActivity implements
 
             case R.id.start:
                 file = StorageUtil.getRootFile("_camera.mp4");
-                toastShort(file.getAbsolutePath());
+                ToastHelper.s(file.getAbsolutePath());
                 break;
 
             case R.id.stop:
-                toastShort(file.getPath());
+                ToastHelper.s(file.getPath());
                 break;
 
             case R.id.swt:
