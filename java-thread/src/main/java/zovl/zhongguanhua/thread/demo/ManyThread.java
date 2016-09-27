@@ -7,6 +7,7 @@ public class ManyThread {
 
     public static void main(String[] args) {
 
+        // 新建多个线程启动并空循环
         for (int i = 0; i < 50; i++) {
 
             WorkerThread thread = new WorkerThread(i);

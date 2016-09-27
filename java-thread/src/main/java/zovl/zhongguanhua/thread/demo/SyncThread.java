@@ -1,11 +1,13 @@
 package zovl.zhongguanhua.thread.demo;
 
 /**
- *
+ * 同步关键字
  */
 public class SyncThread {
 
     public static void main(String[] args) {
+
+        // 新建100个A线程，100个B线程，线程A读，线程B写，读和写用同一个对象锁
 
         SyncObject obj = new SyncObject();
 

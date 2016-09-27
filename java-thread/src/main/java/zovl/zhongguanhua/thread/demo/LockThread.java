@@ -3,11 +3,13 @@ package zovl.zhongguanhua.thread.demo;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 同步锁
+ * 锁
  */
 public class LockThread {
 
     public static void main(String[] args) {
+
+        // 新建100个A线程，100个B线程，线程A读，线程B写，读和写用同一个锁
 
         LockObject obj = new LockObject();
 

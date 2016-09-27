@@ -87,13 +87,6 @@ public class RuntimeActivity extends TBaseActivity {
 
             // -------------------------------
 
-            case R.id.memory:
-                String s = RuntimeHelper.memory();
-                setText(s);
-                break;
-
-            // -------------------------------
-
             case R.id.addShutdownHook:
                 addShutdownHook();
                 break;

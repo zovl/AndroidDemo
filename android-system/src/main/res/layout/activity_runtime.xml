@@ -56,23 +56,6 @@
             android:text="exit"
             android:id="@+id/exit" />
 
-        <!--###########################<memory>##############################-->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="12dp"
-            android:textColor="#ff0000"
-            android:textSize="16sp"
-            android:text="memory" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="memory"
-            android:id="@+id/memory" />
-
         <!--###########################<hook>##############################-->
 
         <TextView
