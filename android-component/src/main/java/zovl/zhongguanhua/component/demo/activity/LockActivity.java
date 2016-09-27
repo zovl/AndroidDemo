@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.component.demo.ui.activity;
+package zovl.zhongguanhua.component.demo.activity;
 
 import android.os.Build;
 import android.view.View;
@@ -11,7 +11,7 @@ import zovl.zhongguanhua.component.demo.R;
 import zovl.zhongguanhua.framework.lib.framework.AppManager;
 import zovl.zhongguanhua.framework.lib.framework.TBaseActivity;
 
-public class FinishAndRemoveActivity extends TBaseActivity {
+public class LockActivity extends TBaseActivity {
 
     @Override
     public TextView getText() {
@@ -30,16 +30,11 @@ public class FinishAndRemoveActivity extends TBaseActivity {
 
     @Override
     public int getContentView() {
-        return R.layout.activity_finishandremove;
+        return R.layout.activity_lock;
     }
 
-    @OnClick({R.id.isFinishing,
-            R.id.finish,
-            R.id.finishAfterTransition,
-            R.id.finishAndRemoveTask,
-            R.id.finishAffinity,
-
-            R.id.moveTaskToBack})
+    @OnClick({R.id.startLockTask,
+            R.id.stopLockTask})
     public void onClick(View view) {
 
         setTitle(getTitle() + "#");
@@ -49,32 +44,16 @@ public class FinishAndRemoveActivity extends TBaseActivity {
 
         switch (view.getId()) {
 
-            case R.id.isFinishing:
-                this.isFinishing();
-                break;
-
-            case R.id.finish:
-                this.finish();
-                break;
-
-            case R.id.finishAfterTransition:
+            case R.id.startLockTask:
                 if (Build.VERSION.SDK_INT >= 21) {
-                    this.finishAfterTransition();
+                    mainActivity.startLockTask();
                 }
                 break;
 
-            case R.id.finishAndRemoveTask:
+            case R.id.stopLockTask:
                 if (Build.VERSION.SDK_INT >= 21) {
-                    mainActivity.finishAndRemoveTask();
+                    mainActivity.stopLockTask();
                 }
-                break;
-
-            case R.id.finishAffinity:
-                this.finishAffinity();
-                break;
-
-            case R.id.moveTaskToBack:
-                startActivity.moveTaskToBack(false);
                 break;
         }
     }

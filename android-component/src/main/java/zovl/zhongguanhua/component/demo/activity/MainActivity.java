@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.component.demo.ui.activity;
+package zovl.zhongguanhua.component.demo.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +32,9 @@ public class MainActivity extends TBaseActivity {
             R.id.task,
             R.id.lock,
 
-            R.id.otherActivity})
+            R.id.otherActivity,
+
+            R.id.service})
     public void onClick(View view) {
 
         setTitle(getTitle() + "#");
@@ -62,6 +64,10 @@ public class MainActivity extends TBaseActivity {
 
             case R.id.lock:
                 startActivity(LockActivity.class);
+                break;
+
+            case R.id.service:
+                startActivity(ServiceActivity.class);
                 break;
         }
     }

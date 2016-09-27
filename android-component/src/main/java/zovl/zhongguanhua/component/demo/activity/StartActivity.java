@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.component.demo.ui.activity;
+package zovl.zhongguanhua.component.demo.activity;
 
 import android.app.Activity;
 import android.content.Intent;

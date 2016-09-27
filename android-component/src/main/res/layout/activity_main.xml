@@ -10,7 +10,10 @@
         android:layout_height="match_parent"
         android:padding="12dp">
 
-        <!--###########################<start>##############################-->
+        <!--###########################[start]##############################-->
+        <!--###########################[start]##############################-->
+        <!--###########################[start]##############################-->
+        <!--###########################[start]##############################-->
 
         <TextView
             android:layout_width="match_parent"
@@ -27,7 +30,10 @@
             android:text="startActivity"
             android:id="@+id/startActivity" />
 
-        <!--###########################<task/lock>##############################-->
+        <!--###########################[task/lock]##############################-->
+        <!--###########################[task/lock]##############################-->
+        <!--###########################[task/lock]##############################-->
+        <!--###########################[task/lock]##############################-->
 
         <TextView
             android:layout_width="match_parent"
@@ -50,7 +56,10 @@
             android:text="lock"
             android:id="@+id/lock" />
 
-        <!--###########################<first>##############################-->
+        <!--###########################[first]##############################-->
+        <!--###########################[first]##############################-->
+        <!--###########################[first]##############################-->
+        <!--###########################[first]##############################-->
 
         <TextView
             android:layout_width="match_parent"
@@ -67,7 +76,10 @@
             android:text="aActivity"
             android:id="@+id/aActivity" />
 
-        <!--###########################<second>##############################-->
+        <!--###########################[second]##############################-->
+        <!--###########################[second]##############################-->
+        <!--###########################[second]##############################-->
+        <!--###########################[second]##############################-->
 
         <TextView
             android:layout_width="match_parent"
@@ -84,22 +96,45 @@
             android:text="secaActivity"
             android:id="@+id/secaActivity" />
 
-        <!--###########################<other>##############################-->
+        <!--###########################[other]##############################-->
+        <!--###########################[other]##############################-->
+        <!--###########################[other]##############################-->
+        <!--###########################[other]##############################-->
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="12dp"
-            android:textColor="#ff0000"
-            android:textSize="16sp"
-            android:text="other" />
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:textColor="#ff0000"
+                android:textSize="16sp"
+                android:text="other" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="otherActivity"
-            android:id="@+id/otherActivity" />
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="otherActivity"
+                android:id="@+id/otherActivity" />
+
+        <!--###########################[service]##############################-->
+        <!--###########################[service]##############################-->
+        <!--###########################[service]##############################-->
+        <!--###########################[service]##############################-->
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:textColor="#ff0000"
+                android:textSize="16sp"
+                android:text="service" />
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="service"
+                android:id="@+id/service" />
 
     </LinearLayout>
 </ScrollView>

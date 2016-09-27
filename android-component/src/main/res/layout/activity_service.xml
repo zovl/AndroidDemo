@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <!--###########################[startService]##############################-->
+        <!--###########################[startService]##############################-->
+        <!--###########################[startService]##############################-->
+        <!--###########################[startService]##############################-->
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="start Service"
+            android:id="@+id/startService" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="stop Service"
+            android:id="@+id/stopService" />
+
+        <!--###########################[bindService]##############################-->
+        <!--###########################[bindService]##############################-->
+        <!--###########################[bindService]##############################-->
+        <!--###########################[bindService]##############################-->
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="bind Service"
+                android:id="@+id/bindService" />
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="unbind Service"
+                android:id="@+id/unbindService" />
+
+    </LinearLayout>
+</ScrollView>

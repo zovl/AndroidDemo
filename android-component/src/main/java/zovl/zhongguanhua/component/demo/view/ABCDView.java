@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.component.demo.ui.view;
+package zovl.zhongguanhua.component.demo.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,15 +6,15 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import zovl.zhongguanhua.component.demo.ui.activity.AActivity;
-import zovl.zhongguanhua.component.demo.ui.activity.MainActivity;
-import zovl.zhongguanhua.component.demo.ui.activity.BActivity;
-import zovl.zhongguanhua.component.demo.ui.activity.CActivity;
-import zovl.zhongguanhua.component.demo.ui.activity.DActivity;
-import zovl.zhongguanhua.component.demo.ui.activity.SecaActivity;
-import zovl.zhongguanhua.component.demo.ui.activity.SecbActivity;
-import zovl.zhongguanhua.component.demo.ui.activity.SeccActivity;
-import zovl.zhongguanhua.component.demo.ui.activity.SecdActivity;
+import zovl.zhongguanhua.component.demo.activity.AActivity;
+import zovl.zhongguanhua.component.demo.activity.MainActivity;
+import zovl.zhongguanhua.component.demo.activity.BActivity;
+import zovl.zhongguanhua.component.demo.activity.CActivity;
+import zovl.zhongguanhua.component.demo.activity.DActivity;
+import zovl.zhongguanhua.component.demo.activity.SecaActivity;
+import zovl.zhongguanhua.component.demo.activity.SecbActivity;
+import zovl.zhongguanhua.component.demo.activity.SeccActivity;
+import zovl.zhongguanhua.component.demo.activity.SecdActivity;
 import zovl.zhongguanhua.framework.lib.utils.ActivityHelper;
 import zovl.zhongguanhua.component.demo.R;
 

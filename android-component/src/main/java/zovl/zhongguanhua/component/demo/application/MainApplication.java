@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.component.demo.ui.application;
+package zovl.zhongguanhua.component.demo.application;
 
 import zovl.zhongguanhua.framework.lib.framework.BaseApplication;
 
