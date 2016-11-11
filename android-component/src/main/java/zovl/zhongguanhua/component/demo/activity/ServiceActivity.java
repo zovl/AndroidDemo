@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.Process;
 import android.util.Log;
 import android.view.View;
 import butterknife.OnClick;
@@ -23,10 +24,11 @@ public class ServiceActivity extends TBaseActivity {
 
     @OnClick({R.id.startService,
             R.id.stopService,
+            R.id.stopSelf,
             R.id.bindService,
             R.id.unbindService})
     public void onClick(View view) {
-
+        printProcess(tag, this);
         switch (view.getId()) {
 
             case R.id.startService:
@@ -35,6 +37,10 @@ public class ServiceActivity extends TBaseActivity {
 
             case R.id.stopService:
                 stopService(this);
+                break;
+
+            case R.id.stopSelf:
+                stopSelf(this);
                 break;
 
             case R.id.bindService:
@@ -106,6 +112,13 @@ public class ServiceActivity extends TBaseActivity {
         context.stopService(intent);
     }
 
+    private void stopSelf(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context, ActivityService.class);
+        intent.putExtra("action", "stopSelf");
+        context.startActivity(intent);
+    }
+
     private void bindService(Context context) {
         Intent intent = new Intent();
         intent.setClass(context, ActivityService.class);
@@ -114,9 +127,6 @@ public class ServiceActivity extends TBaseActivity {
     }
 
     private void unbindService(Context context) {
-        Intent intent = new Intent();
-        intent.setClass(context, ActivityService.class);
-        intent.putExtra("action", "unbind Service");
         if (connection != null) {
             context.unbindService(connection);
         }
@@ -148,4 +158,13 @@ public class ServiceActivity extends TBaseActivity {
             service = null;
         }
     };
+
+    // ---------------------------------------------------------------------------------
+
+    public static void printProcess(String tag, Context context) {
+        Log.d(tag, "printProcess: pid=" + Process.myPid()+
+                "--" + "uid=" + Process.myUid() +
+                "--" + "tid=" + Process.myTid() +
+                "--" + "elapsedCpuTime=" + Process.getElapsedCpuTime());
+    }
 }

@@ -26,6 +26,12 @@
             android:text="stop Service"
             android:id="@+id/stopService" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="stop Self"
+            android:id="@+id/stopSelf" />
+
         <!--###########################[bindService]##############################-->
         <!--###########################[bindService]##############################-->
         <!--###########################[bindService]##############################-->

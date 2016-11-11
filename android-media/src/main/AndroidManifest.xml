@@ -106,7 +106,6 @@
             android:taskAffinity=":recording"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden" />
-
         <activity
             android:name=".logic.ScreenRecordActivityb"
             android:configChanges="orientation|keyboardHidden|screenLayout|screenSize|smallestScreenSize"
@@ -117,6 +116,14 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".logic.ScreenCaptureActivity"
+            android:configChanges="orientation|keyboardHidden|screenLayout|screenSize|smallestScreenSize"
+            android:launchMode="standard"
+            android:screenOrientation="unspecified"
+            android:taskAffinity=":recording"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".logic.ScreenCaptureActivityb"
             android:configChanges="orientation|keyboardHidden|screenLayout|screenSize|smallestScreenSize"
             android:launchMode="standard"
             android:screenOrientation="unspecified"

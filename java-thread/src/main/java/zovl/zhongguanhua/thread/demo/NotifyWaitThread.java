@@ -21,7 +21,7 @@ public class NotifyWaitThread {
         Object syncObj = new Object();
 
         // 线程【开始】
-        Thread thread = new WorkerThread(isWait, syncObj);
+        Thread thread = new WorkerThread(isWait, syncObj, 0);
         thread.start();
 
         // 5秒后工作线程【等待】
@@ -53,8 +53,8 @@ public class NotifyWaitThread {
         // 同步对象
         private Object syncObj;
 
-        public WorkerThread(AtomicBoolean isWait, Object syncObj) {
-            super("newThread-WorkerThread");
+        public WorkerThread(AtomicBoolean isWait, Object syncObj, int index) {
+            super("newThread-WorkerThread-" + index);
             this.isWait = isWait;
             this.syncObj = syncObj;
         }
@@ -86,6 +86,7 @@ public class NotifyWaitThread {
                     }
                 }
             }
+
         }
     }
 }

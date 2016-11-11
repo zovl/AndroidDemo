@@ -1,7 +1,5 @@
-package zovl.zhongguanhua.thread.demo.ui.activity;
+package zovl.zhongguanhua.thread.demo.activity;
 
-import android.os.Looper;
-import android.util.AtomicFile;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;

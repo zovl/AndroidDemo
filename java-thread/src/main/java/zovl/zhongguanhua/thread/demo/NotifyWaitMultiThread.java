@@ -13,7 +13,7 @@ public class NotifyWaitMultiThread {
     public static void main(String[] args) {
 
         /**
-         * 新建5个工作线程并执行，5秒后所有工作线程等待，5秒后唤醒所有工作线程
+         * 新建5个工作线程并执行，5秒后所有工作线程等待，5秒后唤醒1个工作线程，5秒后唤醒所有工作线程
          */
 
         // 线程是否【等待】
@@ -26,7 +26,7 @@ public class NotifyWaitMultiThread {
 
         // 线程【开始】
         for (int i = 0; i < 5; i++) {
-            Thread thread = new NotifyWaitThread.WorkerThread(isWait, syncObj);
+            Thread thread = new NotifyWaitThread.WorkerThread(isWait, syncObj, i);
             threads.add(thread);
             thread.start();
         }

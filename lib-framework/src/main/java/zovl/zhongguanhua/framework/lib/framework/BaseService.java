@@ -21,10 +21,10 @@ public abstract class BaseService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(tag, "onCreate: // ------------------------------------------------------------");
-        Log.d(tag, "onCreate: intent=" + intent);
-        Log.d(tag, "onCreate: flags=" + flags);
-        Log.d(tag, "onCreate: startId=" + startId);
+        Log.d(tag, "onStartCommand: // ------------------------------------------------------------");
+        Log.d(tag, "onStartCommand: intent=" + intent);
+        Log.d(tag, "onStartCommand: flags=" + flags);
+        Log.d(tag, "onStartCommand: startId=" + startId);
         return super.onStartCommand(intent, flags, startId);
     }
 

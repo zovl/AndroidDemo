@@ -141,12 +141,50 @@
                 android:windowSoftInputMode="stateHidden"
                 android:screenOrientation="portrait"/>
 
-        <service android:name=".service.ActivityService" >
-
+        <service
+            android:name=".service.ActivityService"
+            android:process=":remote">
             <intent-filter >
                 <action android:name="zovl.zhongguanhua.component.demo.service.ActivityService"/>
             </intent-filter>
         </service>
+
+        <!--###########################################################################-->
+        <!--###########################################################################-->
+        <!--###########################################################################-->
+        <!--###########################################################################-->
+
+        <activity
+            android:name=".activity.ReceiverActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+
+        <service
+            android:name=".service.ReceiverService"
+            android:process=":receiver"/>
+
+        <receiver android:name=".receiver.Receiver">
+            <intent-filter>
+                <action android:name="android.intent.action.Receiver"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <!--###########################################################################-->
+        <!--###########################################################################-->
+        <!--###########################################################################-->
+        <!--###########################################################################-->
+
+        <activity
+            android:name=".activity.MessengerActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+
+        <service
+            android:name=".service.MessengerService"
+            android:process=":messenger"/>
     </application>
 
 </manifest>

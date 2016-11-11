@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.thread.demo.ui.activity;
+package zovl.zhongguanhua.thread.demo.activity;
 
 import android.os.Bundle;
 import android.view.View;

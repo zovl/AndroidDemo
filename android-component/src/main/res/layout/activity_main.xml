@@ -122,19 +122,59 @@
         <!--###########################[service]##############################-->
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="12dp"
-                android:textColor="#ff0000"
-                android:textSize="16sp"
-                android:text="service" />
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="service" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:text="service"
-                android:id="@+id/service" />
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="service"
+            android:id="@+id/service" />
+
+        <!--###########################[receiver]##############################-->
+        <!--###########################[receiver]##############################-->
+        <!--###########################[receiver]##############################-->
+        <!--###########################[receiver]##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="receiver" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="receiver"
+            android:id="@+id/receiver" />
+
+        <!--###########################[messenger]##############################-->
+        <!--###########################[messenger]##############################-->
+        <!--###########################[messenger]##############################-->
+        <!--###########################[messenger]##############################-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:textColor="#ff0000"
+            android:textSize="16sp"
+            android:text="messenger" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="messenger"
+            android:id="@+id/messenger" />
 
     </LinearLayout>
 </ScrollView>

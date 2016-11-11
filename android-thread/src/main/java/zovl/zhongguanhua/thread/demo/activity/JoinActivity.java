@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.thread.demo.ui.activity;
+package zovl.zhongguanhua.thread.demo.activity;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -7,7 +7,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.OnClick;

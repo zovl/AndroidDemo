@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import zovl.zhongguanhua.framework.lib.utils.TaskUtil;
 
 /**
- * 活动：5.0录屏（简化版）
+ * 活动：5.0录屏（简化线程）
  */
 @TargetApi(21)
 public class ScreenRecordActivitya extends Activity {

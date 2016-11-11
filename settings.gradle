@@ -2,6 +2,7 @@ include ':android-signature',
         ':android-jni',
 
         ':android-system',
+        ':android-permision',
 
         ':android-media',
 

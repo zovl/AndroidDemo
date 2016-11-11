@@ -1,4 +1,4 @@
-package zovl.zhongguanhua.thread.demo.compenent.application;
+package zovl.zhongguanhua.permision.demo.application;
 
 import zovl.zhongguanhua.framework.lib.framework.BaseApplication;
 

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="zovl.zhongguanhua.thread.demo">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="zovl.zhongguanhua.permision.demo">
+
+    <uses-permission
+        android:name="android.permission.RECORD_AUDIO"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".application.MainApplication"
@@ -20,21 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.InfoActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activity.NewActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activity.JoinActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

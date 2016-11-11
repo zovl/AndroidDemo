@@ -34,7 +34,9 @@ public class MainActivity extends TBaseActivity {
 
             R.id.otherActivity,
 
-            R.id.service})
+            R.id.service,
+            R.id.receiver,
+            R.id.messenger})
     public void onClick(View view) {
 
         setTitle(getTitle() + "#");
@@ -68,6 +70,14 @@ public class MainActivity extends TBaseActivity {
 
             case R.id.service:
                 startActivity(ServiceActivity.class);
+                break;
+
+            case R.id.receiver:
+                startActivity(ReceiverActivity.class);
+                break;
+
+            case R.id.messenger:
+                startActivity(MessengerActivity.class);
                 break;
         }
     }
