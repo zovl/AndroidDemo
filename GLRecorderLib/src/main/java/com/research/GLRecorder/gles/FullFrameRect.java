@@ -23,6 +23,7 @@ import android.opengl.Matrix;
  * a texture, usually from an external source like the camera or video decoder.
  */
 public class FullFrameRect {
+
     private final Drawable2d mRectDrawable = new Drawable2d(Drawable2d.Prefab.FULL_RECTANGLE);
     private Texture2dProgram mProgram;
 

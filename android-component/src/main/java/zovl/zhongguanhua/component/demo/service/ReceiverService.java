@@ -24,13 +24,13 @@ public class ReceiverService extends BaseService {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerReceiver(this);
+        registerReceiver();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(this);
+        unregisterReceiver();
     }
 
     public static void startService(Context context) {
@@ -49,18 +49,17 @@ public class ReceiverService extends BaseService {
 
     private Receiver receiver;
 
-    private void registerReceiver(Context context) {
+    private void registerReceiver() {
         receiver = new Receiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.intent.action.Receiver");
         registerReceiver(receiver, filter);
-        context.registerReceiver(receiver, filter);
         Log.d(tag, "registerReceiver: ");
     }
 
-    private void unregisterReceiver(Context context) {
+    private void unregisterReceiver() {
         if (receiver != null) {
-            context.unregisterReceiver(receiver);
+            unregisterReceiver(receiver);
             Log.d(tag, "registerReceiver: ");
         }
     }

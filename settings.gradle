@@ -1,5 +1,4 @@
 include ':android-signature',
-        ':android-jni',
 
         ':android-system',
         ':android-permision',
@@ -7,7 +6,6 @@ include ':android-signature',
         ':android-media',
 
         ':android-thread',
-        ':java-thread',
 
         ':android-component',
         ':android-event',
@@ -15,4 +13,4 @@ include ':android-signature',
 
         ':GLRecorderDemo',
         ':GLRecorderLib',
-        ':JUnitDemo'
+        ':junit-demo'

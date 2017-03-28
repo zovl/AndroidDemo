@@ -25,6 +25,7 @@ import java.nio.FloatBuffer;
  * GL program and supporting functions for flat-shaded rendering.
  */
 public class FlatShadedProgram {
+
     private static final String TAG = GlUtil.TAG;
 
     private static final String VERTEX_SHADER =

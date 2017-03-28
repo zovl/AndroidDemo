@@ -12,6 +12,7 @@ import javax.microedition.khronos.opengles.GL;
  * Created by kanedong on 14-10-10.
  */
 public class EglCore {
+
     private static final String TAG = "EglCore";
     private EGL10 mEgl;
     private final EGLContext mEGLContext;

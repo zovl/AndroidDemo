@@ -22,6 +22,7 @@ import java.nio.FloatBuffer;
  * Base class for stuff we like to draw.
  */
 public class Drawable2d {
+
     private static final int SIZEOF_FLOAT = 4;
 
     /**

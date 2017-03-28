@@ -64,7 +64,7 @@ public class MessengerActivity extends TBaseActivity {
     // ---------------------------------------------------------------------------------
 
     private Messenger messenger;
-    private Messenger reply;
+    private Messenger replyMessenger;
 
     private ServiceConnection connection = new ServiceConnection() {
 
@@ -82,9 +82,7 @@ public class MessengerActivity extends TBaseActivity {
     };
 
     private void bindService(Context context) {
-
-        reply = new Messenger(handler);
-
+        replyMessenger = new Messenger(replyHanlder);
         Intent intent = new Intent();
         intent.setClass(context, MessengerService.class);
         context.bindService(intent, connection, BIND_AUTO_CREATE);
@@ -103,7 +101,7 @@ public class MessengerActivity extends TBaseActivity {
         Msg m = new Msg();
         m.setMsg(s);
         msg.obj = b;
-        msg.replyTo = reply;
+        msg.replyTo = replyMessenger;
         try {
             messenger.send(msg);
             Log.d(TAG, "sendMessage: 发送消息--" + s);
@@ -113,7 +111,7 @@ public class MessengerActivity extends TBaseActivity {
         }
     }
 
-    private Handler handler = new Handler() {
+    private Handler replyHanlder = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {

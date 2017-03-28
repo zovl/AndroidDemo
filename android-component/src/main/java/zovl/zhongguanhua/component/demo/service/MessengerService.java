@@ -1,6 +1,7 @@
 package zovl.zhongguanhua.component.demo.service;
 
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -14,6 +15,8 @@ import zovl.zhongguanhua.component.demo.activity.ServiceActivity;
 import zovl.zhongguanhua.component.demo.entity.Msg;
 import zovl.zhongguanhua.framework.lib.framework.BaseService;
 
+import static android.os.Build.VERSION_CODES.M;
+
 public class MessengerService extends BaseService {
 
     public static final String TAG = MessengerService.class.getSimpleName();
@@ -21,7 +24,9 @@ public class MessengerService extends BaseService {
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind: intent=" + intent);
-        return new Messenger(handler).getBinder();
+        Messenger messenger = new Messenger(handler);
+        IBinder binder = messenger.getBinder();
+        return binder;
     }
 
     @Override
@@ -35,16 +40,13 @@ public class MessengerService extends BaseService {
         public void handleMessage(Message msg) {
             Log.d(TAG, "handleMessage: 收到信息--" + ((Bundle) msg.obj).getString("msg"));
             ServiceActivity.printProcess(tag, MessengerService.this);
-            final Messenger callback = msg.replyTo;
             try {
+                Message newMsg = new Message();
                 String s = "reply..";
                 Bundle b = new Bundle();
                 b.putString("msg", s);
-                Message newMsg = new Message();
-                Msg m = new Msg();
-                m.setMsg(s);
                 newMsg.obj = b;
-                callback.send(newMsg);
+                msg.replyTo.send(newMsg);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

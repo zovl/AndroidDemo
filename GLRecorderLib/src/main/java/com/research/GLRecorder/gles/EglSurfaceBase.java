@@ -39,6 +39,7 @@ import java.nio.ByteOrder;
  * There can be multiple surfaces associated with a single context.
  */
 public class EglSurfaceBase {
+
     protected static final String TAG = GlUtil.TAG;
 
     // EglCore object we're associated with.  It may be associated with multiple surfaces.

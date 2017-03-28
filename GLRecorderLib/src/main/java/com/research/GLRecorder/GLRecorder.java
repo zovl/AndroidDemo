@@ -15,6 +15,7 @@ import java.io.IOException;
  * Created by kanedong on 14-10-10.
  */
 public class GLRecorder {
+
     private static final String TAG = "GLRecorder";
 
     // TODO: don't use hard code file name.
