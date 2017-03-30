@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="zovl.zhongguanhua.component.demo">
+    package="zovl.zhongguanhua.compenent.demo">
 
     <application
         android:name=".application.MainApplication"
@@ -60,11 +60,11 @@
         <!--###########################################################################-->
         <!--###########################################################################-->
 
-        <!--first-->
+        <!--compenent:1st-->
 
         <activity
             android:name=".activity.AActivity"
-            android:label="first"
+            android:label="compenent:1st"
             android:launchMode="standard"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait">
@@ -76,29 +76,29 @@
         </activity>
         <activity
             android:name=".activity.BActivity"
-            android:label="first"
+            android:label="compenent:1st"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.CActivity"
-            android:label="first"
+            android:label="compenent:1st"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.DActivity"
-            android:label="first"
+            android:label="compenent:1st"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 
-        <!--second-->
+        <!--compenent:2nd-->
 
         <activity
             android:name=".activity.SecaActivity"
             android:taskAffinity=":sec"
-            android:label="second"
+            android:label="compenent:1st"
             android:launchMode="standard"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait">
@@ -111,21 +111,21 @@
         <activity
             android:name=".activity.SecbActivity"
             android:taskAffinity=":sec"
-            android:label="second"
+            android:label="compenent:2nd"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.SeccActivity"
             android:taskAffinity=":sec"
-            android:label="second"
+            android:label="compenent:2nd"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.SecdActivity"
             android:taskAffinity=":sec"
-            android:label="second"
+            android:label="compenent:2nd"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
@@ -190,9 +190,6 @@
         <!--###########################################################################-->
         <!--###########################################################################-->
         <!--###########################################################################-->
-
-        <activity android:name="TestActivity"
-            android:windowSoftInputMode="adjustPan"/>
 
     </application>
 

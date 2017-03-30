@@ -11,6 +11,9 @@ include ':android-signature',
         ':android-event',
         ':lib-framework',
 
+        ':hermes-eventbus',
+        ':hermes-eventbus-demo',
+
         ':GLRecorderDemo',
         ':GLRecorderLib',
         ':junit-demo'
