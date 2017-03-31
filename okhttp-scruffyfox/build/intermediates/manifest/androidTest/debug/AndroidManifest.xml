@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.callumtaylor.asynchttp.test" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="23" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <instrumentation
+        android:name="net.callumtaylor.asynchttp.test.Runner"
+        android:functionalTest="true"
+        android:handleProfiling="true"
+        android:label="Tests for net.callumtaylor.asynchttp.test"
+        android:targetPackage="net.callumtaylor.asynchttp.test" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+</manifest>

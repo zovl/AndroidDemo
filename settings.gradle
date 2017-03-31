@@ -14,6 +14,8 @@ include ':android-signature',
         ':hermes-eventbus',
         ':hermes-eventbus-demo',
 
+        ':okhttp-scruffyfox',
+
         ':GLRecorderDemo',
         ':GLRecorderLib',
         ':junit-demo'
