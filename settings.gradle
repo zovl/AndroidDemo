@@ -15,6 +15,11 @@ include ':android-signature',
         ':hermes-eventbus-demo',
 
         ':okhttp-scruffyfox',
+        ':okhttp-scruffyfox-demo',
+
+        ':android-async-http',
+        ':android-async-http-sample',
+        ':android-async-http-demo',
 
         ':GLRecorderDemo',
         ':GLRecorderLib',

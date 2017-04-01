@@ -20,11 +20,9 @@ task clean(type: Delete) {
 }
 
 ext {
-    // 编译版本
     compileSdkVersion = 25
     buildToolsVersion = '25.0.0'
 
-    // 版本号/版本名
     minSdkVersion = 14
     targetSdkVersion = 25
 

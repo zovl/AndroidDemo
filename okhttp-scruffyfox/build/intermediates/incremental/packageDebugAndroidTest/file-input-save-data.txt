@@ -1,9 +1,0 @@
-#Internal package file, do not edit.
-#Fri Mar 31 18:40:25 CST 2017
-1.file=D\:\\Android\\new\\0\\AndroidDemo\\okhttp-scruffyfox\\build\\intermediates\\transforms\\dex\\androidTest\\debug\\folders\\1000\\1f\\main\\classes.dex
-1.set=DEX
-0.file=D\:\\Android\\new\\0\\AndroidDemo\\okhttp-scruffyfox\\build\\intermediates\\res\\resources-debug-androidTest.ap_\\AndroidManifest.xml
-1.base=D\:\\Android\\new\\0\\AndroidDemo\\okhttp-scruffyfox\\build\\intermediates\\transforms\\dex\\androidTest\\debug\\folders\\1000\\1f\\main
-0.base=D\:\\Android\\new\\0\\AndroidDemo\\okhttp-scruffyfox\\build\\intermediates\\res\\resources-debug-androidTest.ap_
-0.set=ANDROID_RESOURCE
-count=2
